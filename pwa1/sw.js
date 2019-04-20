@@ -1,5 +1,5 @@
 self.addEventListener('install', event => {
-  console.log('V1 installing…');
+  console.log('V1 installing…ddddd');
 
   // cache a cat SVG
   event.waitUntil(
@@ -8,7 +8,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  clients.claim(); //这个是激活后，立即使用缓存
+  //clients.claim(); //这个是激活后，立即使用缓存
   console.log('V1 now ready to handle fetches!');
 });
 
