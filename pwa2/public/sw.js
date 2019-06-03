@@ -5,12 +5,18 @@ var cacheName = 'bs-0-2-0';
 var apiCacheName = 'api-0-1-1';
 var cacheFiles = [
     '/',
+    './vue.min.js',
     './index.html',
-    './base64util.js',
     './index.js',
     './style.css',
     './img/book.png',
-    './img/loading.svg'
+    './img/loading.svg',
+    './manifest.json',
+    './img/4zr70275044',
+    './img/L6F70275551',
+    './img/rPM70275401',
+    './img/xqU70275251',
+    './img/Yla70275125'
 ];
 
 // 监听install事件，安装完成后，进行文件缓存
@@ -38,55 +44,14 @@ self.addEventListener('activate', function (e) {
 });
 
 self.addEventListener('fetch', function (e) {
-    // 需要缓存的xhr请求
-    var cacheRequestUrls = [
-        '/book?'
-    ];
-    console.log('现在正在请求：' + e.request.url);
-
-    // 判断当前请求是否需要缓存
-    var needCache = cacheRequestUrls.some(function (url) {
-        return e.request.url.indexOf(url) > -1;
-    });
-
-    if (needCache) {
-        // 需要缓存
-        // 使用fetch请求数据，并将请求结果clone一份缓存到cache
-        // 此部分缓存后在browser中使用全局变量caches获取
-        caches.open(apiCacheName).then(function (cache) {
-            return fetch(e.request).then(function (response) {
-                cache.put(e.request.url, response.clone());
-                return response;
-            });
-        });
-    }
-    else {
-        // 非api请求，直接查询cache
-        // 如果有cache则直接返回，否则通过fetch请求
-        e.respondWith(
-            caches.match(e.request).then(function (cache) {
-                return cache || fetch(e.request);
-            }).catch(function (err) {
-                console.log(err);
-                return fetch(e.request);
-            })
-        );
-    }
+    e.respondWith(
+        caches.match(e.request).then(function (cache) {
+            console.log('========cache request======')
+            console.log(cache)
+            return cache || fetch(e.request);
+        }).catch(function (err) {
+            console.log(err);
+            return fetch(e.request);
+        })
+    );
 });
-
-/* ============== */
-/* push处理相关部分 */
-/* ============== */
-// 添加service worker对push的监听
-self.addEventListener('push', function (e) {
-    var data = e.data;
-    if (e.data) {
-        data = data.json();
-        console.log('push的数据为：', data);
-        self.registration.showNotification(data.text);        
-    } 
-    else {
-        console.log('push没有任何数据');
-    }
-});
-/* ============== */

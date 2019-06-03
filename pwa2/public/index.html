@@ -21,22 +21,29 @@
     <meta name="msapplication-square70x70logo" content="img/icons/book-72.png" />
     <meta name="msapplication-square150x150logo" content="img/icons/book-144.png" />
     <meta name="msapplication-square310x310logo" content="img/icons/book-256.png" />
-
+    <script src="./vue.min.js"></script>
     <title>PWA: 图书搜索</title>
 </head>
-<body>
-    <header>
-        <span class="logo"></span>
-        <input id="js-search-input" placeholder="关键词查询…">
-        <button id="js-search-btn">搜索</button>
-    </header>
-    <main>
-        <div id="js-loading" class="loading"></div>
-        <div id="js-tip" class="tip"></div>
-        <ul class="list" id="js-list"></ul>
-        <a id="js-thanks" class="thanks" href="https://developers.douban.com/wiki/?title=guide">- 本Demo基于豆瓣API，感谢豆瓣开放平台 -</a>
+<body >
+    <main id="app">
+        <div  class="loading" v-if="showLoading"></div>
+        <ul class="list">
+          <li v-for="(item,index) in list" :key="index">
+           <img :src="item.imageUrl">
+           <p> {{item.centerName}}</p>
+          </li>
+        </ul>
+        <div style="width:100px;height:100px;display:flex;background:grey;">
+          <div style="width:20px;height:20px;background:red;margin:auto"></div>
+        </div>
+
     </main>
-    <script type="text/javascript" src="./base64util.js"></script>
+    <script>
+        navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('SW registered!', reg))
+      .catch(err => console.log('Boo!', err));
+    </script>
+
     <script type="text/javascript" src="./index.js"></script>
 </body>
 </html>

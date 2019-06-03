@@ -3,12 +3,17 @@ self.addEventListener('install', event => {
 
   // cache a cat SVG
   event.waitUntil(
-    caches.open('static-v1').then(cache => cache.add('/pwa1/images/svg/cat.svg'))
+    caches.open('doublenian.github.io-static-v1').then(cache => {
+      cache.add('/pwa1/images/svg/cat.svg')
+      cache.add('/pwa1/index.html')
+    })
   );
-});
+}) 
+
+//只有在第一次Service worker 激活时才会调用，还有就是service worker 更新的时候
 
 self.addEventListener('activate', event => {
-  //clients.claim(); //这个是激活后，立即使用缓存
+  clients.claim(); //这个是激活后，立即使用缓存
   console.log('V1 now ready to handle fetches!');
 });
 
@@ -19,5 +24,8 @@ self.addEventListener('fetch', event => {
   // same-origin and the path is '/dog.svg'
   if (url.origin == location.origin && url.pathname == '/pwa1/images/svg/dog.svg') {
     event.respondWith(caches.match('/pwa1/images/svg/cat.svg'));
+  }
+  if (url.origin == location.origin && url.pathname == '/pwa1/') {
+    event.respondWith(caches.match('/pwa1/index.html'));
   }
 });

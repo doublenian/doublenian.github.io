@@ -1,0 +1,68 @@
+[
+    {
+        "address": "杭州市萧山区博奥路784号华瑞汇金中心3楼",
+        "centerName": "热进入领取而",
+        "city": "杭州",
+        "gmtCreated": null,
+        "gmtModified": null,
+        "id": 1,
+        "imageUrl": "http://kano.guahao.cn/L6F70275551?resize=240x160&webp=80",
+        "province": "浙江",
+        "telephone": "0571-83823399"
+    },
+    {
+        "address": "杭州市萧山区博奥路784号华瑞汇金中心3楼",
+        "centerName": "发到发大发发大发",
+        "city": "杭州",
+        "gmtCreated": null,
+        "gmtModified": null,
+        "id": 1,
+        "imageUrl": "img/L6F70275551",
+        "province": "浙江",
+        "telephone": "0571-83823399"
+    },
+    {
+        "address": "浙江省杭州市下城区体育场路370号502室",
+        "centerName": "杭州武林中心",
+        "city": "杭州",
+        "gmtCreated": null,
+        "gmtModified": null,
+        "id": 2,
+        "imageUrl": "img/xqU70275251",
+        "province": "浙江",
+        "telephone": "0571-85235050"
+    },
+    {
+        "address": "北京市西城区西单北大街111号西单国际大厦8楼",
+        "centerName": "北京西单中心",
+        "city": "西城区",
+        "gmtCreated": null,
+        "gmtModified": null,
+        "id": 3,
+        "imageUrl": "img/rPM70275401",
+        "province": "北京",
+        "telephone": "010-66165868"
+    },
+    {
+        "address": "南京市软件大道119号丰盛商汇7号楼一层",
+        "centerName": "南京雨花中心",
+        "city": "南京",
+        "gmtCreated": null,
+        "gmtModified": null,
+        "id": 4,
+        "imageUrl": "img/Yla70275125",
+        "province": "江苏",
+        "telephone": "025-86719090#025-86719191"
+    },
+    {
+        "address": "四川省成都市高新区吉泰五路750号领地环球金融中心商业广场4楼",
+        "centerName": "成都高新中心",
+        "city": "成都",
+        "gmtCreated": null,
+        "gmtModified": null,
+        "id": 5,
+        "imageUrl": "img/4zr70275044",
+        "province": "四川",
+        "telephone": "028-85291063"
+    }
+]
