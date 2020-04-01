@@ -14,29 +14,18 @@
       <div class="col" style="min-width: 433px; max-width: 443px">
         <div class="card" style="margin-top: 0px; margin-bottom: 0px;">
           <div class="row card-content" style="margin-bottom: 0px;">
-              <div class="input-field">
-                <label for="appID" class="active">App ID</label>
-                <input type="text" placeholder="App ID" name="appID" value="29504c1f10884d9c89a63091e882d115" >
-              </div>
-              <div class="input-field">
-                <label for="channel" class="active">Channel</label>
-                <input type="text" placeholder="channel" name="channel" value="12" >
-              </div>
-              <div class="input-field">
-                <label for="token" class="active">Token</label>
-                <input type="text" placeholder="token" name="token">
-              </div>
-              <div class="row" style="margin: 0">
-                <div class="col s12">
-                <button class="btn btn-raised btn-primary waves-effect waves-light" id="join">JOIN</button>
-                <button class="btn btn-raised btn-primary waves-effect waves-light" id="leave">LEAVE</button>
-                <button class="btn btn-raised btn-primary waves-effect waves-light" id="publish">PUBLISH</button>
-                <button class="btn btn-raised btn-primary waves-effect waves-light" id="unpublish">UNPUBLISH</button>
+              <h6 style="text-align: center;margin-bottom: 20px;">Live fuller Video Call Demo</h6>
+              <input type="text" placeholder="App ID" name="appID" value="29504c1f10884d9c89a63091e882d115" style="display: none;">
+              <input type="text" placeholder="channel" name="channel" value="12" style="display: none;">
+              <div class="row" style="margin: 0;display: flex;justify-content: center;">
+                <div class="col">
+                  <button class="btn btn-raised btn-primary waves-effect waves-light" id="join">JOIN</button>
+                  <button class="btn btn-raised  waves-effect waves-light" id="leave">LEAVE</button>
                 </div>
               </div>
           </div>
         </div>
-        <ul class="collapsible card agora-secondary-border" style="margin-top: .4rem; border: 1px ">
+        <ul class="collapsible card agora-secondary-border" style="margin-top: .4rem; border: 1px ;display: none;" >
           <li>
             <div class="collapsible-header agora-secondary-bg">
               <h8 class="center-align">ADVANCED SETTINGS</h8>
@@ -44,10 +33,10 @@
             <div class="collapsible-body card-content">
               <div class="row">
                 <div class="col s12">
-                  <div class="input-field">
-                    <label for="UID" class="active">UID</label>
-                    <input type="number" placeholder="UID" name="uid">
-                  </div>
+                  <!-- <div class="input-field"> -->
+                    <!-- <label for="UID" class="active">UID</label> -->
+                    <input type="number" placeholder="UID" name="uid" style="display: none;">
+                  <!-- </div> -->
                   <div class="input-field">
                     <label for="cameraId" class="active">CAMERA</label>
                     <select name="cameraId" id="cameraId"></select>
