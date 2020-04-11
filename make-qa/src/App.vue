@@ -6,6 +6,12 @@
       >
         题目生成器
       </div>
+      <div class="demo-block" v-if="model.type">
+        <p>题目类型示例</p>
+        <div>
+          <img :src="demoImageSrc" alt="" />
+        </div>
+      </div>
       <el-form label-width="80px">
         <el-row>
           <el-col :span="12">
@@ -33,6 +39,7 @@
               <el-select
                 v-model="model.type"
                 placeholder="请选择题目类型"
+                @change="choose()"
                 style="width:100%"
               >
                 <el-option
@@ -46,7 +53,7 @@
           </el-col>
         </el-row>
         <el-form-item label="题目名称">
-          <el-table :data="model.titleTable" style="width: 100%" border>
+          <el-table :data="model.titleTable" style="width: 65%" border>
             <el-table-column prop="en" label="英文" header-align="center">
               <template slot-scope="{ row }">
                 <el-input
@@ -82,7 +89,7 @@
               >添加选项</el-button
             >
           </div>
-          <el-table :data="model.optionsTable" style="width: 100%" border>
+          <el-table :data="model.optionsTable" style="width: 65%" border>
             <el-table-column prop="en" label="英文" header-align="center">
               <template slot-scope="{ row }">
                 <el-input
@@ -122,11 +129,17 @@
 
 <script>
 import { Capital } from './config'
+import multiChoice from './assets/multi-choice.png'
+import multiQuestion from './assets/multi-question.png'
+import oneButtonChoice from './assets/one-button-choice.png'
+import oneChoicePill from './assets/one-choice-pill.png'
+
 export default {
   name: 'App',
   data() {
     return {
       qaIdIndex: 0,
+      demoImageSrc: '',
       qaType: [
         {
           label: '单选题',
@@ -164,6 +177,15 @@ export default {
     this.model.id = index ? Capital[+index] : Capital[0]
   },
   methods: {
+    choose() {
+      let map = {
+        'one-choice-pill': oneChoicePill,
+        'multi-choice': multiChoice,
+        'one-button-choice': oneButtonChoice,
+        'multi-question': multiQuestion
+      }
+      this.demoImageSrc = map[this.model.type]
+    },
     submit() {
       console.log(this.model)
       let index = Capital.findIndex((c) => c == this.model.id)
@@ -222,8 +244,25 @@ export default {
 }
 .container {
   margin: auto;
-  width: 80%;
+  width: 90%;
   padding: 20px;
+  position: relative;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  .demo-block {
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    width: 400px;
+    p {
+      font-size: 20px;
+      font-weight: bolder;
+      color: #333;
+    }
+    img {
+      height: 550px;
+      width: 360px;
+      object-fit: contain;
+    }
+  }
 }
 </style>
