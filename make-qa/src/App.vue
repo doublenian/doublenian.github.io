@@ -118,6 +118,21 @@
                 >
               </template>
             </el-table-column>
+            <el-table-column
+              label="反选其他"
+              header-align="center"
+              width="80px"
+              v-if="model.type === 'multi-choice'"
+            >
+              <template slot-scope="{ $index, row }">
+                <el-switch
+                  v-model="row.reverse"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                >
+                </el-switch>
+              </template>
+            </el-table-column>
           </el-table>
         </el-form-item>
         <el-button type="primary" @click="submit">点击下载js文件</el-button>
@@ -200,6 +215,7 @@ export default {
         answer: this.model.optionsTable.map((c) => {
           return {
             id: c.id,
+            reverse: c.reverse ? '1' : '0',
             title: {
               en: c.en,
               zh: c.zh
@@ -208,7 +224,7 @@ export default {
         })
       }
       this.funDownload(
-        JSON.stringify(model),
+        'export default ' + JSON.stringify(model),
         this.model.fileName + '_' + this.model.id + '.js'
       )
     },
