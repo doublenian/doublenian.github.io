@@ -236,9 +236,7 @@ export default {
       // 触发点击
       document.body.appendChild(eleLink)
       eleLink.click()
-      setTimeout(() => {
-        location.reload()
-      }, 1 * 1000)
+
       // 然后移除
       document.body.removeChild(eleLink)
     }
