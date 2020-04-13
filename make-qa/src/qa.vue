@@ -222,7 +222,7 @@ export default {
       }
       this.funDownload(
         'export default ' + JSON.stringify(model),
-        this.model.fileName + '_' + this.model.id + '.js'
+        this.model.id + '_' + this.model.fileName + '.js'
       )
     },
     funDownload(content, filename) {
