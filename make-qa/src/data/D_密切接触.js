@@ -7,7 +7,7 @@ export default {
       'Have you been in close contact with someone confirmed with or suspected of having COVID-19?'
   },
   answer: [
-    { id: 'B1', reverse: '0', title: { en: 'Yes', zh: '是' } },
-    { id: 'B2', reverse: '0', title: { en: 'No', zh: '否' } }
+    { id: 'D1', reverse: '0', title: { en: 'Yes', zh: '是' } },
+    { id: 'D2', reverse: '0', title: { en: 'No', zh: '否' } }
   ]
 }

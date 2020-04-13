@@ -6,7 +6,7 @@ export default {
     en: 'In the past 14 days, have you travelled out of Singapore?'
   },
   answer: [
-    { id: 'B1', reverse: '0', title: { en: 'Yes', zh: '是' } },
-    { id: 'B2', reverse: '0', title: { en: 'No', zh: '否' } }
+    { id: 'C1', reverse: '0', title: { en: 'Yes', zh: '是' } },
+    { id: 'C2', reverse: '0', title: { en: 'No', zh: '否' } }
   ]
 }

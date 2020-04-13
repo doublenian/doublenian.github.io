@@ -6,7 +6,7 @@ export default {
     en: 'Do you have a history of chronic disease?'
   },
   answer: [
-    { id: 'B1', reverse: '0', title: { en: 'Yes', zh: '是' } },
-    { id: 'B2', reverse: '0', title: { en: 'No', zh: '否' } }
+    { id: 'E1', reverse: '0', title: { en: 'Yes', zh: '是' } },
+    { id: 'E2', reverse: '0', title: { en: 'No', zh: '否' } }
   ]
 }

@@ -2,25 +2,34 @@
   <div class="report-container">
     <div class="report">
       <el-form>
-        <el-form-item label="报告中文">
-          <el-input
-            v-model="resultZh"
-            type="textarea"
-            placeholder="请输入报告中文"
-          ></el-input>
+        <el-form-item label="请选择报告:">
+          <el-radio-group v-model="report">
+            <el-radio
+              :label="JSON.stringify(item)"
+              border
+              v-for="(item, index) in RecommandData"
+              :key="'recommand' + index"
+              >{{ item.title }}</el-radio
+            >
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="报告英文">
-          <el-input
-            v-model="resultEn"
-            type="textarea"
-            placeholder="请输入报告英文"
-          ></el-input>
+
+        <el-form-item label="诊所列表类型:">
+          <el-radio-group v-model="clickType">
+            <el-radio :label="0">无</el-radio>
+            <el-radio :label="1">Emergency Department</el-radio>
+            <el-radio :label="2">FHG Clinics</el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-button type="primary" plain @click="generate">生成报告js</el-button>
       </el-form>
     </div>
     <h3>报告生成器</h3>
-    <div style="width:50%;" v-for="(item, index) in list" :key="index">
+    <div
+      style="width:50%;"
+      v-for="(item, index) in list"
+      :key="'generate' + index"
+    >
       <el-card>
         <div slot="header">{{ item.title.zh }}</div>
         <el-checkbox-group v-model="resultList">
@@ -37,15 +46,17 @@
 </template>
 
 <script>
-// let datas = []
-
+import RecommandData from './recommand'
 export default {
   data() {
     return {
       list: [],
+      clickType: '',
       resultList: [],
       resultZh: '',
-      resultEn: ''
+      resultEn: '',
+      RecommandData,
+      report: ''
     }
   },
   mounted() {
@@ -58,12 +69,14 @@ export default {
   },
   methods: {
     generate() {
+      let data = JSON.parse(this.report)
       let json = {
         answer: [...this.resultList],
         report: {
-          zh: this.resultZh,
-          en: this.resultEn
-        }
+          zh: data.zh,
+          en: data.en
+        },
+        type: this.clickType
       }
       let reportIndex = localStorage.getItem('reportIndex') || 0
       localStorage.setItem('reportIndex', parseInt(reportIndex) + 1)
@@ -99,6 +112,14 @@ export default {
   .el-checkbox {
     margin-top: 10px !important;
   }
+  .el-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+  .el-radio {
+    margin: 10px;
+  }
 }
 .report {
   position: fixed;
@@ -107,5 +128,10 @@ export default {
   height: 400px;
   margin-top: 65px;
   padding: 20px;
+}
+.report-item {
+  width: 100%;
+  border: 1px solid #888;
+  margin-bottom: 10px;
 }
 </style>
