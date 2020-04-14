@@ -50,26 +50,28 @@
         下载</el-button
       >
       <span>{{ '总条数' + tableResults.length }}</span>
-      <el-table :data="tableResults" border max-height="700">
-        <el-table-column
-          :prop="item.id"
-          :label="item.title.en"
-          v-for="(item, index) in list"
-          :key="'table' + index"
-        >
-        </el-table-column>
-        <el-table-column label="recommand" prop="recommand" width="160">
-        </el-table-column>
-        <el-table-column label="clinicType" prop="clinicType" width="120">
-        </el-table-column>
-        <el-table-column label="操作" width="100">
-          <template slot-scope="{ row, $index }">
-            <el-button type="danger" @click="deleteItem(row, $index)"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
+      <div style="width:100%;height:80vh;overflow:scroll">
+        <el-table :data="tableResults" border>
+          <el-table-column
+            :prop="item.id"
+            :label="item.title.en"
+            v-for="(item, index) in list"
+            :key="'table' + index"
+          >
+          </el-table-column>
+          <el-table-column label="recommand" prop="recommand" width="160">
+          </el-table-column>
+          <el-table-column label="clinicType" prop="clinicType" width="120">
+          </el-table-column>
+          <el-table-column label="操作" width="100">
+            <template slot-scope="{ row, $index }">
+              <el-button type="danger" @click="deleteItem(row, $index)"
+                >删除</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </el-drawer>
   </div>
 </template>
