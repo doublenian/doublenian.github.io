@@ -15,13 +15,16 @@
         </el-form-item>
 
         <el-form-item label="诊所列表类型:">
-          <el-radio-group v-model="clickType">
-            <el-radio :label="0">无</el-radio>
-            <el-radio :label="1">Emergency Department</el-radio>
-            <el-radio :label="2">FHG Clinics</el-radio>
-          </el-radio-group>
+          <el-tag type="success" v-if="clinicType">{{ clinicType }}</el-tag>
         </el-form-item>
-        <el-button type="primary" plain @click="generate">生成报告js</el-button>
+        <el-button type="primary" plain @click="addRecord">创建一条</el-button>
+        <el-button
+          @click="drawer = true"
+          type="primary"
+          style="margin-left: 16px;"
+        >
+          查看录入列表
+        </el-button>
       </el-form>
     </div>
     <h3>报告生成器</h3>
@@ -31,17 +34,43 @@
       :key="'generate' + index"
     >
       <el-card>
-        <div slot="header">{{ item.title.zh }}</div>
-        <el-checkbox-group v-model="resultList">
-          <el-checkbox
+        <div slot="header">{{ item.title.en }}</div>
+        <el-radio-group v-model="item.result">
+          <el-radio
             :label="answer.id"
             v-for="(answer, index) in item.answer"
             :key="'answer' + index"
-            >{{ answer.title.zh }}</el-checkbox
+            >{{ answer.title.en }}</el-radio
           >
-        </el-checkbox-group>
+        </el-radio-group>
       </el-card>
     </div>
+    <el-drawer title="" size="90%" :visible.sync="drawer" direction="rtl">
+      <el-button type="warning" style="margin-bottom:10px" @click="download">
+        下载</el-button
+      >
+      <span>{{ '总条数' + tableResults.length }}</span>
+      <el-table :data="tableResults" border max-height="700">
+        <el-table-column
+          :prop="item.id"
+          :label="item.title.en"
+          v-for="(item, index) in list"
+          :key="'table' + index"
+        >
+        </el-table-column>
+        <el-table-column label="recommand" prop="recommand" width="160">
+        </el-table-column>
+        <el-table-column label="clinicType" prop="clinicType" width="120">
+        </el-table-column>
+        <el-table-column label="操作" width="100">
+          <template slot-scope="{ row, $index }">
+            <el-button type="danger" @click="deleteItem(row, $index)"
+              >删除</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-drawer>
   </div>
 </template>
 
@@ -51,39 +80,97 @@ export default {
   data() {
     return {
       list: [],
-      clickType: '',
-      resultList: [],
-      resultZh: '',
-      resultEn: '',
       RecommandData,
-      report: ''
+      report: '',
+      drawer: false,
+      tableResults: [],
+      config: {
+        0: '无',
+        1: 'Emergency Department',
+        2: 'FHG Clinics'
+      }
     }
   },
-  mounted() {
+  computed: {
+    clinicType() {
+      if (this.report) {
+        console.log(this.report)
+        let data = JSON.parse(this.report)
+        return this.config[data.type]
+      } else {
+        return ''
+      }
+    }
+  },
+  created() {
     let dataFiles = require.context('./data', false, /\.js$/)
     dataFiles.keys().forEach((c) => {
       console.log(c.replace('./', ''))
       let a = require(`./data/${c.replace('./', '')}`).default
       this.list.push(a)
     })
+    this.clearSelected()
+  },
+  mounted() {
+    this.tableResults = localStorage.getItem('tableResults')
+      ? JSON.parse(localStorage.getItem('tableResults'))
+      : []
   },
   methods: {
-    generate() {
-      let data = JSON.parse(this.report)
-      let json = {
-        answer: [...this.resultList],
-        report: {
-          zh: data.zh,
-          en: data.en
-        },
-        type: this.clickType
-      }
-      let reportIndex = localStorage.getItem('reportIndex') || 0
-      localStorage.setItem('reportIndex', parseInt(reportIndex) + 1)
-      this.funDownload(
-        'export default ' + JSON.stringify(json),
-        'report' + reportIndex + '.js'
+    addRecord() {
+      let json = {}
+      let report = JSON.parse(this.report)
+      json['recommand'] = report.title
+      json['clinicType'] = this.clinicType
+      json['clinicId'] = report.type
+      json['recommandId'] = report.title
+      json['result'] = []
+      let record = [...this.list]
+      record.forEach((item) => {
+        let findedAnswer = item.answer.find(
+          (c) => JSON.stringify(c.id) === JSON.stringify(item.result)
+        )
+        json[item.id] = findedAnswer.title.en
+        json['result'].push({
+          [item.id]: findedAnswer.id
+        })
+      })
+      this.tableResults.push(json)
+      this.$message({
+        type: 'success',
+        message: '创建成功'
+      })
+      localStorage.setItem(
+        'tableResults',
+        JSON.stringify([...this.tableResults])
       )
+      this.$nextTick(() => {
+        this.clearSelected()
+      })
+      this.drawer = true
+    },
+    clearSelected() {
+      this.list.forEach((c, index) => {
+        this.$set(this.list[index], 'result', '')
+      })
+      this.report = ''
+    },
+    deleteItem(row, index) {
+      let result = [...this.tableResults]
+      result.splice(index, 1)
+      localStorage.setItem('tableResults', JSON.stringify(result))
+      this.tableResults = result
+    },
+    download() {
+      let result = this.tableResults.map((c) => {
+        return {
+          id: c.id,
+          result: c.result,
+          recommandId: c.recommandId,
+          clinicId: c.clinicId
+        }
+      })
+      this.funDownload('export default ' + JSON.stringify(result), 'report.js')
     },
     funDownload(content, filename) {
       // 创建隐藏的可下载链接
