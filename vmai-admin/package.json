@@ -21,6 +21,7 @@
     "element-ui": "^2.4.5",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
+    "moment": "^2.25.1",
     "scrollbooster": "^1.1.0",
     "tailwindcss-transitions": "^2.1.0",
     "v-click-outside": "^2.1.4",

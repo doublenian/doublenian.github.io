@@ -1,19 +1,17 @@
 <template>
   <div class=" w-full px-10 mt-12">
-    <avue-crud :option="tableOption" :data="tableData" v-model="obj" :page.sync="page" @on-load="onLoad">
-      <template slot="thumbnail" slot-scope="{ row }">
-        <img :src="row.thumbnail" alt="" />
-      </template>
+    <avue-crud @row-save="rowSave" @row-del="rowDel" :option="tableOption" :data="list" v-model="obj" :page.sync="page" @on-load="onLoad">
     </avue-crud>
   </div>
 </template>
 
 <script>
 import tableData from './tableData'
+import { getUserList, createUser } from '@/api'
 export default {
   data() {
     return {
-      tableData,
+      list: [],
       obj: {},
       page: {
         pageSize: 10
@@ -21,28 +19,60 @@ export default {
       tableOption: {
         border: true,
         addBtn: true,
-        delBtn: false,
+        delBtn: true,
         editBtn: false,
         header: true,
-        menu: false,
+        menu: true,
         align: 'center',
         column: [
           {
             label: '用户名',
-            prop: 'userName'
+            prop: 'name',
+            rules: [
+              {
+                required: true,
+                message: '请输入用户名',
+                trigger: 'blur'
+              }
+            ]
+          },
+          {
+            label: '密码',
+            prop: 'password',
+            type: 'password',
+            rules: [
+              {
+                required: true,
+                message: '请输入密码',
+                trigger: 'blur'
+              }
+            ],
+            hide: true
           },
           {
             label: '账号(手机号)',
-            prop: 'mobile'
+            prop: 'mobile',
+            rules: [
+              {
+                required: true,
+                message: '请输入账号(手机号)',
+                trigger: 'blur'
+              }
+            ]
+          },
+
+          {
+            label: '注册时间',
+            prop: 'createAt',
+            width: '260px',
+            type: 'date',
+            format: 'YYYY-MM-DD HH:mm:ss',
+            display: false
           },
           {
             label: '权限管理',
-            prop: 'auth'
-          },
-          {
-            label: '注册时间',
-            prop: 'registerDate',
-            width: '260px'
+            prop: 'authName',
+            display: false
           }
         ]
       }
@@ -51,8 +81,34 @@ export default {
   methods: {
     onLoad(page) {
       console.log(page)
-      this.page.total = 200
-      console.log(this.page.currentPage)
+      getUserList({
+        page: page.currentPage,
+        size: this.page.pageSize
+      }).then(ret => {
+        this.page.total = ret.total
+        this.list = ret.user_list.map(c => {
+          return {
+            ...c,
+            authName: c.role === 65535 ? '系统管理员' : '普通管理员',
+            createAt: c.Meta.create_at * 1000
+          }
+        })
+      })
+    },
+    rowSave(form, done, loading) {
+      createUser({
+        name: form.name,
+        password: form.password,
+        mobile: form.mobile
+      }).then(ret => {
+        this.page.currentPage = 1
+        this.onLoad(this.page)
+        this.$message.success('添加普通用户成功')
+        done()
+      })
+    },
+    rowDel() {
+      this.$message.error('删除用户有待实现')
     }
   }
 }
