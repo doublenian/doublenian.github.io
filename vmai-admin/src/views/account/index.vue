@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import tableData from './tableData'
 import { getUserList, createUser } from '@/api'
 export default {
   data() {

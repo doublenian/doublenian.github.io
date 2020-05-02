@@ -41,3 +41,11 @@ export function getUserList(data) {
     data
   })
 }
+//获取咨询列表
+export function getConsultList(data) {
+  return request({
+    url: '/admin/consult/list',
+    method: 'post',
+    data
+  })
+}

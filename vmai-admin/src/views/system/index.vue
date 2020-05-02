@@ -1,15 +1,15 @@
 <template>
   <div class=" w-full px-10 mt-12">
-    <avue-crud :option="tableOption" :data="tableData" v-model="obj" :page.sync="page" @on-load="onLoad"> </avue-crud>
+    <avue-crud :option="tableOption" :data="list" v-model="obj" :page.sync="page" @on-load="onLoad"> </avue-crud>
   </div>
 </template>
 
 <script>
-import tableData from './tableData'
+import { getConsultList } from '@/api'
 export default {
   data() {
     return {
-      tableData,
+      list: [],
       obj: {},
       page: {
         pageSize: 10
@@ -37,7 +37,9 @@ export default {
           },
           {
             label: '提交时间',
-            prop: 'submitDate'
+            prop: 'submitDate',
+            type: 'date',
+            format: 'YYYY-MM-DD HH:mm:ss'
           }
         ]
       }
@@ -45,9 +47,18 @@ export default {
   },
   methods: {
     onLoad(page) {
-      console.log(page)
-      this.page.total = 200
-      console.log(this.page.currentPage)
+      getConsultList({
+        page: page.currentPage,
+        size: this.page.pageSize
+      }).then(ret => {
+        this.page.total = ret.total
+        this.list = ret.consults.map(c => {
+          return {
+            ...c,
+            submitDate: c.Meta.create_at * 1000
+          }
+        })
+      })
     }
   }
 }
