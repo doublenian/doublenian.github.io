@@ -136,6 +136,8 @@
       </el-form-item>
       <el-button type="primary" @click="submit">点击下载js文件</el-button>
     </el-form>
+    <el-button @click="ceshi">测试</el-button>
+    <dialog-confirm ref="DialogConfirm"></dialog-confirm>
   </div>
 </template>
 
@@ -145,9 +147,12 @@ import multiChoice from './assets/multi-choice.png'
 import multiQuestion from './assets/multi-question.png'
 import oneButtonChoice from './assets/one-button-choice.png'
 import oneChoicePill from './assets/one-choice-pill.png'
-
+import DialogConfirm from './components/dialog-confirm'
 export default {
   name: 'App',
+  components: {
+    DialogConfirm
+  },
   data() {
     return {
       qaIdIndex: 0,
@@ -189,6 +194,16 @@ export default {
     this.model.id = index ? Capital[+index] : Capital[0]
   },
   methods: {
+    ceshi() {
+      const Confirm = this.$refs['DialogConfirm']
+      Confirm.confirm()
+        .then((e) => {
+          console.log(e)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
     choose() {
       let map = {
         'one-choice-pill': oneChoicePill,
