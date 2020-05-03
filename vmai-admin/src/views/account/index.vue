@@ -39,6 +39,7 @@ export default {
             label: '密码',
             prop: 'password',
             type: 'password',
+            autocomplete: 'off',
             rules: [
               {
                 required: true,
@@ -51,6 +52,7 @@ export default {
           {
             label: '账号(手机号)',
             prop: 'mobile',
+            autocomplete: 'off',
             rules: [
               {
                 required: true,

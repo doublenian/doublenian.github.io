@@ -1,32 +1,41 @@
 <template>
   <div class=" w-full px-10 mt-12">
-    <avue-crud :option="tableOption" :data="tableData" v-model="obj" :page.sync="page" @on-load="onLoad">
+    <avue-crud :option="tableOption" :data="list" v-model="obj" :page.sync="page" @on-load="onLoad">
       <template slot="thumbnail" slot-scope="{ row }">
         <img :src="row.thumbnail" alt="" />
       </template>
       <template slot-scope="{ type, size }" slot="menu">
         <el-button :size="size" :type="type">下架</el-button>
       </template>
+      <template slot="menuLeft">
+        <el-button type="primary" @click="addBanner">新增轮播</el-button>
+      </template>
     </avue-crud>
+    <confirm-dialog ref="confirmDialog"></confirm-dialog>
   </div>
 </template>
 
 <script>
-import tableData from './tableData'
+import ConfirmDialog from './confirm-dialog'
 export default {
+  components: {
+    ConfirmDialog
+  },
   data() {
     return {
-      tableData,
+      list: [],
       obj: {},
       page: {
         pageSize: 10
       },
       tableOption: {
         border: true,
-        addBtn: true,
+        addBtn: false,
         delBtn: false,
         editBtn: false,
         header: true,
+        addBtnText: '新增轮播',
+        dialogFullscreen: false,
         menuWidth: 100,
         align: 'center',
         column: [
@@ -61,6 +70,16 @@ export default {
     }
   },
   methods: {
+    addBanner() {
+      this.$refs.confirmDialog
+        .show('这是一段文字', 'add')
+        .then(ret => {
+          console.log(ret)
+        })
+        .catch(ret => {
+          console.log(ret)
+        })
+    },
     onLoad(page) {
       console.log(page)
       this.page.total = 200

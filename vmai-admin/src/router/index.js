@@ -65,6 +65,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/spa',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'spa',
+        component: () => import('@/views/spa/index'),
+        meta: { title: '单页管理', icon: 'assets' }
+      }
+    ]
+  },
+  {
     path: '/account',
     component: Layout,
     children: [
@@ -84,7 +96,7 @@ export const constantRoutes = [
         path: '',
         name: 'system',
         component: () => import('@/views/system/index'),
-        meta: { title: '系统管理', icon: 'system' }
+        meta: { title: '咨询管理', icon: 'system' }
       }
     ]
   },
