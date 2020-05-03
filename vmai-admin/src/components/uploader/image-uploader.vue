@@ -2,6 +2,8 @@
   <el-upload
     class="avatar-uploader"
     :action="BaseUrl + '/admin/system/upload'"
+    :headers="headers"
+    name="image"
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
@@ -11,28 +13,48 @@
   </el-upload>
 </template>
 <script>
+import { getToken } from '@/utils/auth'
+
 export default {
+  props: {
+    url: {
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    imageUrl: {
+      get() {
+        return this.url
+      },
+      set(val) {
+        this.$emit('update:url', val)
+      }
+    }
+  },
   data() {
     return {
-      imageUrl: '',
-      BaseUrl: process.env.VUE_APP_BASE_API
+      // imageUrl: '',
+      BaseUrl: process.env.VUE_APP_BASE_API,
+      headers: {
+        Authorization: getToken()
+      }
     }
   },
   methods: {
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      this.imageUrl = 'https://' + res.url
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
-
+      const isLt50M = file.size / 1024 / 1024 < 50
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!')
       }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
+      if (!isLt50M) {
+        this.$message.error('上传头像图片大小不能超过 50MB!')
       }
-      return isJPG && isLt2M
+      return isJPG && isLt50M
     }
   }
 }

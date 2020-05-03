@@ -49,4 +49,78 @@ export function getConsultList(data) {
     data
   })
 }
-//
+//新建菜单
+
+/**
+ * {
+  "bg": {
+    "md": "string",
+    "sm": "string"
+  },
+  "content": {
+    "en": "string",
+    "zh": "string"
+  },
+  "icon": "string",
+  "id": "string",
+  "layer": 0,
+  "layout": 0,
+  "link": {
+    "herf": "string",
+    "target": 0
+  },
+  "meta": {
+    "create_at": 0,
+    "create_by": "string",
+    "state": 0,
+    "update_at": 0
+  },
+  "name": "string",
+  "parent_id": "string",
+  "title": {
+    "en": "string",
+    "zh": "string"
+  },
+  "type": 0,
+  "weight": 0
+}
+ * @param {*} data 
+ */
+
+export function categoryAdd(data) {
+  return request({
+    url: '/admin/category/add',
+    method: 'post',
+    data
+  })
+}
+
+//菜单列表
+
+export function categoryList(data) {
+  return request({
+    url: '/admin/category/list',
+    method: 'post',
+    data
+  })
+}
+
+//菜单上下架
+
+export function setState(id, state) {
+  return request({
+    url: `/admin/category/${id}/${state}`,
+    method: 'post'
+  })
+}
+
+//修改接口
+
+export function modifyCategory(id, data) {
+  ///admin/category/{id}/update
+  return request({
+    url: `/admin/category/${id}/update`,
+    method: 'post',
+    data
+  })
+}
