@@ -1,10 +1,10 @@
 <template>
   <el-dialog title="添加三级菜单" :visible.sync="dialogVisible" width="50%">
-    <el-form :model="form" label-position="right" label-width="80px" ref="ruleForm">
+    <el-form :model="form" label-position="right" :rules="rules" label-width="80px" ref="ruleForm">
       <el-row :gutter="10">
         <el-col :span="12">
           <el-form-item label="一级菜单" prop="oneLevel">
-            <el-select v-model="form.oneLevel" placeholder="请选择一级菜单">
+            <el-select v-model="form.oneLevel" placeholder="请选择一级菜单" @change="selectLevel(form.oneLevel)">
               <el-option v-for="item in oneLevelOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
             </el-select>
           </el-form-item>
@@ -17,8 +17,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="模块名" prop="blockName">
-            <el-input v-model="form.blockName" class=" w-full"></el-input>
+          <el-form-item label="模块名" prop="name">
+            <el-input v-model="form.name" class=" w-full"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -37,15 +37,15 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="12">
+        <!-- <el-col :span="12">
           <el-form-item label="显示时间" prop="date">
             <el-date-picker v-model="form.date" type="datetime" placeholder="选择显示时间"> </el-date-picker>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col :span="12">
-          <el-form-item label="呈现模式" prop="mode">
-            <el-select v-model="form.displayModes" placeholder="选择呈现模式">
-              <el-option v-for="item in twoLevelOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+          <el-form-item label="呈现模式" prop="layout">
+            <el-select v-model="form.layout" placeholder="选择呈现模式">
+              <el-option v-for="item in displayModes" :key="item.value" :label="item.label" :value="item.value"> </el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -59,45 +59,50 @@
 </template>
 
 <script>
+import { categoryList, categoryAdd } from '@/api'
+import Enum from '../enum'
+import SelectMixin from './select-mixin'
 export default {
+  mixins: [SelectMixin],
   data() {
     return {
       dialogVisible: false,
       modalData: '',
-      oneLevelOptions: [],
-      twoLevelOptions: [],
-      displayModes: [
-        {
-          label: '横版海报',
-          value: 1
-        },
-        {
-          label: '竖版富文本',
-          value: 2
-        }
-      ],
+
+      displayModes: Object.keys(Enum.displayModes).map((item, index) => ({ key: item, value: Enum.displayModes[item] })),
       resolve: null,
       reject: null,
       form: {
         oneLevel: '',
         twoLevel: '',
-        blockName: '',
+        name: '',
         chTitle: '',
         enTitle: '',
         weight: '',
-        date: '',
-        displayModes: ''
-      }
+        // date: '',
+        layout: ''
+      },
+      rules: {
+        oneLevel: [{ required: true, message: '请输入一级菜单', trigger: 'change' }],
+        twoLevel: [{ required: true, message: '请输入二级菜单', trigger: 'change' }],
+        name: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
+        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
+        chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }],
+        enTitle: [{ required: true, message: '请输入英文标题', trigger: 'blur' }],
+        layout: [{ required: true, message: '请输入呈现模式', trigger: 'blur' }]
+      },
+      cloneData: {}
     }
+  },
+  async mounted() {
+    this.cloneData = { ...this.form }
+    this.oneLevelOptions = await this.getOneLevels()
   },
   methods: {
     show(data, type = 'add') {
       this.dialogVisible = true
-      console.log(type)
       if (type == 'add') {
-        this.$nextTick(() => {
-          this.$refs.ruleForm.resetFields()
-        })
+        this.form = { ...this.cloneData }
       } else {
         this.modalData = data
       }
@@ -111,8 +116,26 @@ export default {
       this.reject('取消')
     },
     okHandler() {
-      this.dialogVisible = false
-      this.resolve('确定')
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          categoryAdd({
+            name: 'banner',
+            bg: {
+              md: this.form.mdImage,
+              sm: this.form.smImage
+            },
+            link: {
+              herf: this.form.link,
+              target: this.form.target
+            },
+            type: this.form.type,
+            weight: this.form.weight
+          }).then(ret => {
+            this.dialogVisible = false
+            this.resolve('确定')
+          })
+        }
+      })
     }
   }
 }

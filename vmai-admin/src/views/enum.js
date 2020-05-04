@@ -7,5 +7,9 @@ export default {
   position: {
     1: '顶部导航栏',
     2: '底部导航栏'
+  },
+  displayModes: {
+    1: '横版海报',
+    2: '竖版富文本'
   }
 }

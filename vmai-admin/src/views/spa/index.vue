@@ -2,7 +2,7 @@
   <div class="w-full px-10 pt-10">
     <el-form :inline="true" :model="formInline">
       <el-form-item label="活动区域">
-        <el-select v-model="formInline.oneLevel" placeholder="一级菜单">
+        <el-select v-model="formInline.oneLevel" placeholder="一级菜单" @change="selectLevel(formInline.oneLevel)">
           <el-option :label="item.label" :value="item.value" v-for="item in oneLevelOptions" :key="item.label"></el-option>
         </el-select>
       </el-form-item>
@@ -11,9 +11,9 @@
           <el-option :label="item.label" :value="item.value" v-for="item in twoLevelOptions" :key="item.label"></el-option>
         </el-select>
       </el-form-item>
-      <el-button type="primary" @click="addMenu"> 添加三级菜单</el-button>
+      <el-button type="primary" @click="addMenu" class=" float-right"> 添加三级菜单</el-button>
     </el-form>
-    <el-table :data="tableData" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+    <el-table :data="list" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
       <el-table-column prop="twoLevel" label="所属二级菜单"> </el-table-column>
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>
       <el-table-column prop="enTitle" label="英文标题"> </el-table-column>
@@ -28,15 +28,21 @@
         </template>
       </el-table-column>
     </el-table>
-    <spa-dialog ref="spaDialog"></spa-dialog>
+    <three-level-dialog ref="threeLevelDialog"></three-level-dialog>
+    <four-level-dialog ref="fourLevelDialog"></four-level-dialog>
   </div>
 </template>
 
 <script>
-import SpaDialog from './spa-dialog'
+import { categoryList } from '@/api'
+import ThreeLevelDialog from './three-level-dialog'
+import FourLevelDialog from './four-level-dialog'
+import selectMixin from './select-mixin'
 export default {
+  mixins: [selectMixin],
   components: {
-    SpaDialog
+    ThreeLevelDialog,
+    FourLevelDialog
   },
   data() {
     return {
@@ -44,24 +50,15 @@ export default {
         oneLevel: '',
         twoLevel: ''
       },
-
-      oneLevelOptions: [
-        {
-          label: '创始团队',
-          value: 1
-        }
-      ],
-      twoLevelOptions: [
-        {
-          label: '锦江乐园',
-          value: 11
-        }
-      ]
+      list: []
     }
+  },
+  async mounted() {
+    this.oneLevelOptions = await this.getOneLevels()
   },
   methods: {
     addMenu() {
-      this.$refs.spaDialog
+      this.$refs.threeLevelDialog
         .show('这是一段文字', 'add')
         .then(ret => {
           console.log(ret)
