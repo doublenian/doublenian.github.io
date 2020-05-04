@@ -14,7 +14,12 @@
       <el-button type="primary" @click="addMenu" class=" float-right"> 添加三级菜单</el-button>
     </el-form>
     <el-table :data="list" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
-      <!-- <el-table-column prop="twoLevel" label="所属二级菜单"> </el-table-column> -->
+      <el-table-column prop="name" label="模块名称"> </el-table-column>
+      <el-table-column label="图片">
+        <template slot-scope="{ row }" v-if="row.bg.md">
+          <img :src="row.bg.md" alt="" class="  w-20 h-20 object-contain" />
+        </template>
+      </el-table-column>
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>
       <el-table-column prop="enTitle" label="英文标题"> </el-table-column>
       <el-table-column prop="subChTitle" label="副标题中文"></el-table-column>
@@ -29,6 +34,9 @@
         <template slot-scope="{ row }">
           <el-button size="mini" type="text" @click="addChild(row)" v-if="!row.child">添加子菜单</el-button>
           <!-- <el-button size="mini" type="text">编辑</el-button> -->
+          <template v-if="row.child">
+            <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
+          </template>
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
         </template>
       </el-table-column>
