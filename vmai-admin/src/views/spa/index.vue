@@ -17,7 +17,7 @@
       <el-table-column prop="name" label="模块名称"> </el-table-column>
       <el-table-column label="图片">
         <template slot-scope="{ row }" v-if="row.bg.md">
-          <img :src="row.bg.md" alt="" class="  w-20 h-20 object-contain" />
+          <el-image class=" w-20 h-20 object-contain" :src="row.bg.md" :preview-src-list="[row.bg.md]"> </el-image>
         </template>
       </el-table-column>
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>

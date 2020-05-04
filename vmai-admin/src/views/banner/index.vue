@@ -4,7 +4,8 @@
     <el-table :data="list" border>
       <el-table-column label="图片" width="120px">
         <template slot-scope="{ row }">
-          <img :src="row.bg.md" alt="" class=" w-20 h-20 object-contain" />
+          <el-image class=" w-20 h-20 object-contain" :src="row.bg.md" :preview-src-list="[row.bg.md]"> </el-image>
+          <!-- <img :src="row.bg.md" alt="" class=" w-20 h-20 object-contain" /> -->
         </template>
       </el-table-column>
       <el-table-column prop="weight" label="权重"> </el-table-column>
