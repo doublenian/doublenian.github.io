@@ -7,7 +7,9 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="user-avatar" />
+          <span class=" text-font-14 text-black-333 mr-2 font-bold">{{ userName }}</span>
+          <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="user-avatar" /> -->
+
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -27,6 +29,11 @@ import Hamburger from '@/components/Hamburger'
 import { removeToken } from '@/utils/auth'
 
 export default {
+  data() {
+    return {
+      userName: localStorage.getItem('userName')
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger
@@ -104,7 +111,8 @@ export default {
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
-
+        display: flex;
+        align-items: center;
         .user-avatar {
           cursor: pointer;
           width: 40px;
@@ -114,9 +122,9 @@ export default {
 
         .el-icon-caret-bottom {
           cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
+          // position: absolute;
+          // right: -20px;
+          // top: 25px;
           font-size: 12px;
         }
       }

@@ -14,12 +14,14 @@ export default {
         parent_id: '',
         states: [1, 5]
       })
-      return result.map(c => {
-        return {
-          label: c.name,
-          value: c.id
-        }
-      })
+      return result
+        .map(c => {
+          return {
+            label: c.name,
+            value: c.id
+          }
+        })
+        .filter(c => c.label !== 'banner')
     },
     selectLevel(parent_id) {
       if (!parent_id) return
