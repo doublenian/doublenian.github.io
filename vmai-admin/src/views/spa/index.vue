@@ -14,17 +14,22 @@
       <el-button type="primary" @click="addMenu" class=" float-right"> 添加三级菜单</el-button>
     </el-form>
     <el-table :data="list" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
-      <el-table-column prop="twoLevel" label="所属二级菜单"> </el-table-column>
+      <!-- <el-table-column prop="twoLevel" label="所属二级菜单"> </el-table-column> -->
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>
       <el-table-column prop="enTitle" label="英文标题"> </el-table-column>
       <el-table-column prop="subChTitle" label="副标题中文"></el-table-column>
       <el-table-column prop="subEnTitle" label="副标题英文"></el-table-column>
-      <el-table-column prop="sort" label="排序"></el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="{ row }">
+          <el-tag :type="row.Meta.state === 1 ? 'success' : 'danger'">{{ row.statusText }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="weight" label="排序"></el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="{ row }">
           <el-button size="mini" type="text" v-if="!row.child">添加子菜单</el-button>
           <el-button size="mini" type="text">编辑</el-button>
-          <el-button size="mini" type="text">下架</el-button>
+          <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -34,10 +39,12 @@
 </template>
 
 <script>
-import { categoryList } from '@/api'
+import { categoryList, setState } from '@/api'
 import ThreeLevelDialog from './three-level-dialog'
 import FourLevelDialog from './four-level-dialog'
 import selectMixin from './select-mixin'
+import Enum from '../enum'
+
 export default {
   mixins: [selectMixin],
   components: {
@@ -50,13 +57,66 @@ export default {
         oneLevel: '',
         twoLevel: ''
       },
+      twoLevelIdsMap: {},
       list: []
     }
   },
   async mounted() {
     this.oneLevelOptions = await this.getOneLevels()
+    await this.getList()
   },
   methods: {
+    async getList() {
+      let { result } = await categoryList({
+        parent_id: '',
+        states: [1, 5]
+      })
+      //获得一级菜单 ids
+      let oneLevelIds = result.map(c => c.id)
+      let promiseArr = oneLevelIds.map(c =>
+        categoryList({
+          parent_id: c,
+          states: [1, 5]
+        })
+      )
+      let twoLevels = await Promise.all(promiseArr)
+      let twoLevelIds = {}
+      twoLevels.forEach(c => {
+        if (c.result) {
+          c.result.forEach(m => {
+            twoLevelIds[m.id] = m.name
+          })
+        }
+      })
+      //获取二级菜单ids
+      this.twoLevelIdsMap = twoLevelIds
+      let ids = Object.keys(twoLevelIds)
+      console.log(ids)
+      let threeLevels = ids.map(c =>
+        categoryList({
+          parent_id: c,
+          states: [1, 5]
+        }).then(ret => ret.result)
+      )
+      let data = await Promise.all(threeLevels)
+      let threeLevelData = []
+      data.forEach(items => {
+        if (items) {
+          items.forEach(m => {
+            threeLevelData.push({
+              ...m,
+              chTitle: m.title.zh,
+              enTitle: m.title.en,
+              subChTitle: m.content.zh,
+              subEnTitle: m.content.en,
+              statusText: Enum.status[m.Meta.state],
+              children: []
+            })
+          })
+        }
+      })
+      this.list = threeLevelData
+    },
     addMenu() {
       this.$refs.threeLevelDialog
         .show('这是一段文字', 'add')
@@ -66,6 +126,20 @@ export default {
         .catch(ret => {
           console.log(ret)
         })
+    },
+    setUpOrDown(row) {
+      let state = row.Meta.state === 1 ? 5 : 1
+
+      setState(row.id, state).then(ret => {
+        this.$message.success(state == 1 ? '上架成功' : '下架成功')
+        this.getList()
+      })
+    },
+    deleteMenu(row) {
+      setState(row.id, 2).then(ret => {
+        this.$message.success('删除成功')
+        this.getList()
+      })
     }
   }
 }

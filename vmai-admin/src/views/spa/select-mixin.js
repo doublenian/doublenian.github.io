@@ -12,7 +12,7 @@ export default {
     async getOneLevels() {
       let { result } = await categoryList({
         parent_id: '',
-        states: [1]
+        states: [1, 5]
       })
       return result.map(c => {
         return {
@@ -25,7 +25,7 @@ export default {
       if (!parent_id) return
       categoryList({
         parent_id: parent_id,
-        states: [1]
+        states: [1, 5]
       }).then(ret => {
         let { result } = ret
         if (result) {

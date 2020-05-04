@@ -69,7 +69,7 @@ export default {
       dialogVisible: false,
       modalData: '',
 
-      displayModes: Object.keys(Enum.displayModes).map((item, index) => ({ key: item, value: Enum.displayModes[item] })),
+      displayModes: Object.keys(Enum.displayModes).map((item, index) => ({ value: item, label: Enum.displayModes[item] })),
       resolve: null,
       reject: null,
       form: {
@@ -119,17 +119,14 @@ export default {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           categoryAdd({
-            name: 'banner',
-            bg: {
-              md: this.form.mdImage,
-              sm: this.form.smImage
+            layout: +this.form.layout,
+            title: {
+              en: this.form.enTitle,
+              zh: this.form.chTitle
             },
-            link: {
-              herf: this.form.link,
-              target: this.form.target
-            },
-            type: this.form.type,
-            weight: this.form.weight
+            weight: this.form.weight,
+            name: this.form.name,
+            parent_id: this.form.twoLevel
           }).then(ret => {
             this.dialogVisible = false
             this.resolve('确定')

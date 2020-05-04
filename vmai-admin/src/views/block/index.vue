@@ -57,6 +57,7 @@ export default {
       })
       let tableData = []
       result.forEach(async c => {
+        if (c.name == 'banner') return
         let children = await categoryList({
           parent_id: c.id,
           states: [1, 5]
@@ -89,8 +90,6 @@ export default {
 
         tableData.push(obj)
       })
-      // console.log('====tableData=====')
-      // console.log(tableData)
       this.tableData = tableData.sort((a, b) => a.weight - b.weight < 0)
     },
     setUpOrDown(row) {
