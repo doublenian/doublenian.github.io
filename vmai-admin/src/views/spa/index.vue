@@ -27,8 +27,8 @@
       <el-table-column prop="weight" label="排序"></el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="{ row }">
-          <el-button size="mini" type="text" v-if="!row.child">添加子菜单</el-button>
-          <el-button size="mini" type="text">编辑</el-button>
+          <el-button size="mini" type="text" @click="addChild(row)" v-if="!row.child">添加子菜单</el-button>
+          <!-- <el-button size="mini" type="text">编辑</el-button> -->
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
         </template>
       </el-table-column>
@@ -103,19 +103,57 @@ export default {
       data.forEach(items => {
         if (items) {
           items.forEach(m => {
-            threeLevelData.push({
-              ...m,
-              chTitle: m.title.zh,
-              enTitle: m.title.en,
-              subChTitle: m.content.zh,
-              subEnTitle: m.content.en,
-              statusText: Enum.status[m.Meta.state],
-              children: []
-            })
+            threeLevelData.push(m)
+            // threeLevelData.push({
+            //   ...m,
+            //   chTitle: m.title.zh,
+            //   enTitle: m.title.en,
+            //   subChTitle: m.content.zh,
+            //   subEnTitle: m.content.en,
+            //   statusText: Enum.status[m.Meta.state],
+            //   children: []
+            // })
           })
         }
       })
-      this.list = threeLevelData
+      //获取第四级
+      let tableData = []
+      threeLevelData.forEach(async c => {
+        let children = await categoryList({
+          parent_id: c.id,
+          states: [1, 5]
+        }).then(ret => ret.result)
+        let obj = {
+          ...c,
+          chTitle: c.title.zh,
+          enTitle: c.title.en,
+          subChTitle: c.content.zh,
+          subEnTitle: c.content.en,
+          statusText: Enum.status[c.Meta.state]
+        }
+        if (!children) {
+          obj.children = []
+        } else {
+          obj.children = []
+          obj.children = children
+            .map(d => {
+              return {
+                ...d,
+                chTitle: d.title.zh,
+                enTitle: d.title.en,
+                subChTitle: d.content.zh,
+                subEnTitle: d.content.en,
+                statusText: Enum.status[d.Meta.state],
+                child: true
+              }
+            })
+            .sort((a, b) => a.weight - b.weight < 0)
+        }
+
+        tableData.push(obj)
+      })
+
+      this.list = tableData
     },
     addMenu() {
       this.$refs.threeLevelDialog
@@ -140,6 +178,21 @@ export default {
         this.$message.success('删除成功')
         this.getList()
       })
+    },
+    addChild(row) {
+      this.$refs.fourLevelDialog
+        .show(
+          {
+            parent_id: row.id
+          },
+          'add'
+        )
+        .then(ret => {
+          console.log(ret)
+        })
+        .catch(ret => {
+          console.log(ret)
+        })
     }
   }
 }

@@ -1,10 +1,151 @@
 <template>
-  <div></div>
+  <el-dialog title="添加四级模块" :visible.sync="dialogVisible" width="50%">
+    <el-form :model="form" label-position="right" :rules="rules" label-width="120px" ref="ruleForm">
+      <el-row :gutter="10">
+        <el-col :span="12">
+          <el-form-item label="模块名" prop="name">
+            <el-input v-model="form.name" class=" w-full"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="权重" prop="weight">
+            <el-input v-model.number="form.weight" type="number" class=" w-8/12" placeholder="填写权重"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="中文标题" prop="chTitle">
+            <el-input v-model="form.chTitle" class=" w-full"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="英文标题" prop="enTitle">
+            <el-input v-model="form.enTitle" class=" w-full"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="中文副标题" prop="chContent">
+            <el-input v-model="form.chContent" class=" w-full"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="英文副标题" prop="enContent">
+            <el-input v-model="form.enContent" class=" w-full"></el-input>
+          </el-form-item>
+        </el-col>
+        <!-- <el-col :span="12">
+          <el-form-item label="显示时间" prop="date">
+            <el-date-picker v-model="form.date" type="datetime" placeholder="选择显示时间"> </el-date-picker>
+          </el-form-item>
+        </el-col> -->
+        <el-col :span="12">
+          <el-form-item label="PC图片(必传)" prop="mdImage">
+            <image-uploader :url.sync="form.mdImage"></image-uploader>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="手机图片(可选)" prop="smImage">
+            <image-uploader :url.sync="form.smImage"></image-uploader>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="close">取 消</el-button>
+      <el-button type="primary" @click="okHandler">确 定</el-button>
+    </span>
+  </el-dialog>
 </template>
 
 <script>
-export default {}
-</script>
+import { categoryList, categoryAdd } from '@/api'
+import Enum from '../enum'
+import SelectMixin from './select-mixin'
+import ImageUploader from '@/components/uploader/image-uploader'
 
-<style>
-</style>
+export default {
+  mixins: [SelectMixin],
+  components: {
+    ImageUploader
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      modalData: '',
+
+      resolve: null,
+      reject: null,
+      form: {
+        name: '',
+        weight: '',
+        chTitle: '',
+        enTitle: '',
+        chContent: '',
+        enContent: '',
+        mdImage: '',
+        smImage: '',
+        parent_id: ''
+      },
+      rules: {
+        mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
+        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
+        chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }],
+        enTitle: [{ required: true, message: '请输入英文标题', trigger: 'blur' }],
+        chContent: [{ required: true, message: '请输入中文副标题', trigger: 'blur' }],
+        enContent: [{ required: true, message: '请输入英文副标题', trigger: 'blur' }]
+      },
+      cloneData: {}
+    }
+  },
+  async mounted() {
+    this.cloneData = { ...this.form }
+    this.oneLevelOptions = await this.getOneLevels()
+  },
+  methods: {
+    show(data, type = 'add') {
+      this.dialogVisible = true
+      if (type == 'add') {
+        this.form = { ...this.cloneData }
+      } else {
+        this.modalData = data
+      }
+      this.form.parent_id = data.parent_id
+      return new Promise((resolve, reject) => {
+        this.resolve = resolve
+        this.reject = reject
+      })
+    },
+    close() {
+      this.dialogVisible = false
+      this.reject('取消')
+    },
+    okHandler() {
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          categoryAdd({
+            title: {
+              en: this.form.enTitle,
+              zh: this.form.chTitle
+            },
+            content: {
+              en: this.form.enContent,
+              zh: this.form.chContent
+            },
+            bg: {
+              md: this.form.mdImage,
+              sm: this.form.smImage
+            },
+            weight: this.form.weight,
+            name: this.form.name,
+            parent_id: this.form.parent_id
+          }).then(ret => {
+            this.dialogVisible = false
+            this.$message.success('四级模块新增成功')
+            this.resolve('确定')
+          })
+        }
+      })
+    }
+  }
+}
+</script>

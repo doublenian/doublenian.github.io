@@ -15,7 +15,7 @@
       <el-table-column label="操作" width="260px">
         <template slot-scope="{ row }">
           <el-button size="mini" type="text" @click="addChild(row)" v-if="!row.child">添加子菜单</el-button>
-          <el-button size="mini" type="text" @click="edit(row)">编辑</el-button>
+          <!-- <el-button size="mini" type="text" @click="edit(row)">编辑</el-button> -->
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
           <template v-if="row.child">
             <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
