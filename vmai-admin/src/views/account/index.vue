@@ -114,3 +114,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.avue-empty__image {
+  display: flex;
+  justify-content: center;
+}
+</style>
