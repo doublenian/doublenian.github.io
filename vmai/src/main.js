@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routes'
-import './plugins/element.js'
+// import './plugins/element.js'
 import VueProgressBar from 'vue-progressbar'
 import store from './store'
 
