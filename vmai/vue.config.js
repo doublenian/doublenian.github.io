@@ -4,8 +4,7 @@ function resolve(dir) {
   return path.join(__dirname, './', dir)
 }
 module.exports = {
-  publicPath:
-    process.env.VUE_APP_SERVER_ENV === 'test' ? '/portal/adverse-event' : '/',
+  publicPath: '/vmai/dist/',
   configureWebpack: {
     module: {
       rules: [

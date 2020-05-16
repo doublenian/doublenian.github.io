@@ -9,22 +9,22 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper-slide>
     </swiper>
-    <div class="thumb-pagination flex bg-brighter z-10">
-      <div
-        class="image-wrapper"
-        @click="$emit('clickItem', itemIndex + 1)"
-        v-if="nextThreeLevelInfo"
-      >
-        <img :src="nextThreeLevelInfo.children[0].bg.md" alt="" />
+    <div class="thumb-pagination flex  z-10">
+      <div class="image-wrapper" v-if="nextInfo">
+        <img :src="nextInfo.bg.md" alt="" />
         <div class="mask flex items-center text-font-16 p-8 text-brighter">
-          {{ nextThreeLevelInfo.title.zh }}
+          {{ nextInfo.parent_name }}
         </div>
       </div>
+      <div class="image-wrapper" v-else></div>
 
-      <div class="flex items-center relative  control-wrapper ">
-        <span class=" text-white  text-font-26 ml-4">01</span>
+      <div class="flex items-center relative bg-brighter control-wrapper ">
+        <span class=" text-white  text-font-26 ml-4">{{
+          currentIndex >= 10 ? currentIndex : '0' + currentIndex
+        }}</span>
         <div class="direction flex">
           <div
+            v-show="currentIndex > 0"
             class=" bg-white w-10 h-10 flex justify-center items-center cursor-pointer"
             @click="goPre"
           >
@@ -32,6 +32,7 @@
           </div>
           <div
             @click="goNext"
+            v-show="currentIndex < swiperList.length - 1"
             class=" bg-black w-10 h-10 flex justify-center items-center cursor-pointer"
           >
             <i class="el-icon-arrow-right text-white text-font-24"></i>
@@ -52,25 +53,72 @@ export default {
     swiper,
     swiperSlide
   },
-  props: ['nextThreeLevelInfo', 'swiperList', 'itemIndex'],
+  props: ['parentArr', 'swiperList'],
   computed: {
     swiper() {
       return this.$refs.mySwiper.swiper
+    },
+    nextIndex() {
+      return this.parentIndex + 1
+    },
+    nextInfo() {
+      if (this.childParentMap[this.nextIndex]) {
+        let getFirst = this.childParentMap[this.nextIndex][0]
+        return this.swiperList[getFirst]
+      } else {
+        return null
+      }
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      console.log(this.swiper)
+    let childParentMap = {}
+    this.parentArr.forEach((parent, pindex) => {
+      childParentMap[pindex] = []
+      this.swiperList.forEach((item, index) => {
+        if (item.parent_id === parent.id) {
+          childParentMap[pindex].push(index)
+        }
+      })
     })
+    this.childParentMap = childParentMap
+    console.log('=====childParentMap=======')
+    console.log(childParentMap)
+    this.$nextTick(() => {
+      this.watcher = this.$watch('swiper.realIndex', function(val) {
+        console.log('======relal index===')
+        console.log(val)
+        this.currentIndex = val
+        console.log(childParentMap)
+        let length = childParentMap[this.parentIndex].length
+        if (val > childParentMap[this.parentIndex][length - 1]) {
+          this.parentIndex++
+        }
+        if (val < childParentMap[this.parentIndex][0]) {
+          this.parentIndex--
+        }
+      })
+    })
+  },
+  beforeDestroy() {
+    this.watcher && this.watcher()
   },
   data() {
     return {
-      imageSrc: image2,
+      // imageSrc: image1,
+      // nextInfo:{
+      //   imageUrl:'',
+      //   title:''
+      // },
+
+      currentIndex: 0,
+      parentIndex: 0,
+      childParentMap: {},
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
         }
-      }
+      },
+      watcher: null
     }
   },
   methods: {
@@ -79,6 +127,9 @@ export default {
     },
     goNext() {
       this.swiper.slideNext()
+    },
+    gotoIndex(index) {
+      this.swiper.slideTo(index)
     }
   }
 }

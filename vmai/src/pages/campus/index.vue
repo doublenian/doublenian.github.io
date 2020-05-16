@@ -1,15 +1,9 @@
 <template>
   <div>
     <thumb-swiper
-      v-if="index === dataIndex"
-      @clickItem="handleClick"
-      :swiperList="item.children"
-      :itemIndex="index"
-      :nextThreeLevelInfo="
-        index === displayArr.length - 1 ? false : displayArr[index + 1]
-      "
-      :key="'displayArr' + index"
-      v-for="(item, index) in displayArr"
+      v-if="parentArr.length > 0"
+      :swiperList="displayArr"
+      :parentArr="parentArr"
     ></thumb-swiper>
   </div>
 </template>
@@ -29,7 +23,7 @@ export default {
     return {
       threeLevelId: this.$route.query.id,
       displayArr: [],
-      dataIndex: 0
+      parentArr: []
     }
   },
   async created() {
@@ -55,6 +49,30 @@ export default {
     this.displayArr = fourLevels
     console.log('====fourLevels=====')
     console.log(fourLevels)
+    let arr = []
+    fourLevels.forEach(c => {
+      c.children = c.children.map(child => {
+        return {
+          ...child,
+          parent_name: c.title.zh
+        }
+      })
+      arr = [...arr, ...c.children]
+    })
+    let parentArr = []
+    for (let i = 0; i < arr.length; i++) {
+      if (parentArr.find(c => c.id === arr[i].parent_id)) {
+        continue
+      } else {
+        parentArr.push({
+          id: arr[i].parent_id,
+          name: arr[i].parent_name
+        })
+      }
+    }
+    console.log(parentArr)
+    this.parentArr = parentArr
+    this.displayArr = arr
   },
   mounted() {},
   methods: {
