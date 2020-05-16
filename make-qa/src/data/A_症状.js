@@ -14,6 +14,12 @@ export default {
       }
     },
     {
+      id: new Set(['A3', 'A4']),
+      title: {
+        en: 'Difficulty breathing & any other symptoms'
+      }
+    },
+    {
       id: ['A1', 'A2', 'A4', 'A5', 'A6', 'A7', 'A8'],
       title: {
         en:

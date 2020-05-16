@@ -13,6 +13,16 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
+          <el-form-item label="主标题">
+            <el-input v-model="form.title.zh" class=" w-11/12"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="副标题">
+            <el-input v-model="form.content.zh" class=" w-11/12" type="textarea"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
           <el-form-item label="交互方式" prop="type">
             <el-radio-group v-model="form.type">
               <el-radio :label="1">无交互</el-radio>
@@ -77,7 +87,15 @@ export default {
         type: '',
         weight: '',
         link: '',
-        target: ''
+        target: '',
+        title: {
+          en: '',
+          zh: ''
+        },
+        content: {
+          en: '',
+          zh: ''
+        }
       },
       rules: {
         mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }],
@@ -135,7 +153,15 @@ export default {
               target: this.form.target
             },
             type: this.form.type,
-            weight: this.form.weight
+            weight: this.form.weight,
+            title: {
+              en: this.form.title.en,
+              zh: this.form.title.zh
+            },
+            content: {
+              en: this.form.content.en,
+              zh: this.form.content.zh
+            }
           }).then(ret => {
             this.dialogVisible = false
             this.resolve('确定')

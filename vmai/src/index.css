@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/noto-sans-sc-v9-chinese-simplified-regular.eot');
+  /* IE9 Compat Modes */
+  src: local('Noto Sans SC Regular'), local('NotoSansSC-Regular'),
+    url('./assets/fonts/noto-sans-sc-v9-chinese-simplified-regular.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */
+      url('./assets/fonts/noto-sans-sc-v9-chinese-simplified-regular.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('./assets/fonts/noto-sans-sc-v9-chinese-simplified-regular.woff')
+      format('woff'),
+    /* Modern Browsers */
+      url('./assets/fonts/noto-sans-sc-v9-chinese-simplified-regular.svg#NotoSansSC')
+      format('svg');
+  /* Legacy iOS */
+}
+
+html,
+body {
+  /* min-width: 1200px; */
+  /* height: 100%; */
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC',
+    'SF Pro Display', Roboto, Noto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: rgb(48, 49, 50);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.body {
+  -ms-overflow-style: none;
+}
+.el-loading-mask {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.el-loading-spinner {
+  left: 50%;
+}
+
+button:focus {
+  outline: none !important;
+}
