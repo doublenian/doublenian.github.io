@@ -10,13 +10,22 @@
       </swiper-slide>
     </swiper>
     <div class="thumb-pagination flex  z-10">
-      <div class="image-wrapper" v-if="nextInfo">
+      <div
+        class="image-wrapper cursor-pointer"
+        v-if="nextInfo"
+        @click="goNextThree"
+      >
         <img :src="nextInfo.bg.md" alt="" />
         <div class="mask flex items-center text-font-16 p-8 text-brighter">
           {{ nextInfo.parent_name }}
         </div>
       </div>
-      <div class="image-wrapper" v-else></div>
+      <div class="image-wrapper cursor-pointer" v-else @click="goFirst">
+        <img :src="this.swiperList[0].bg.md" alt="" />
+        <div class="mask flex items-center text-font-16 p-8 text-brighter">
+          {{ this.swiperList[0].parent_name }}
+        </div>
+      </div>
 
       <div class="flex items-center relative bg-brighter control-wrapper ">
         <span class=" text-white  text-font-26 ml-4">{{
@@ -125,11 +134,18 @@ export default {
     goPre() {
       this.swiper.slidePrev()
     },
+    goFirst() {
+      this.swiper.slideTo(0)
+    },
     goNext() {
       this.swiper.slideNext()
     },
     gotoIndex(index) {
       this.swiper.slideTo(index)
+    },
+    goNextThree() {
+      let nextIndex = this.childParentMap[this.nextIndex][0]
+      this.swiper.slideTo(nextIndex)
     }
   }
 }
