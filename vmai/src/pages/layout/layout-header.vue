@@ -1,5 +1,5 @@
 <template>
-  <header class=" fixed z-10 w-full pt-2">
+  <header class=" absolute z-10 w-full pt-2">
     <div class=" w-full flex justify-end mb-4 header-tool px-6">
       <div class=" w-16 h-6 flex justify-center items-center">中文</div>
       <div
@@ -48,7 +48,7 @@
           >
             <a
               class="submenu"
-              :href="sub.linker"
+              @click="clickSubMenu(item, sub)"
               v-for="(sub, subIndex) in item.children"
               :key="'menu' + index + 'sub' + subIndex"
               >{{ sub.titleZh }}</a
@@ -78,6 +78,16 @@ export default {
   },
   mounted() {},
   methods: {
+    clickSubMenu(item, sub) {
+      if (item.title.zh === '作品案例') {
+        this.$router.push({
+          path: `/campus/${sub.id}`
+          // query: {
+          //   id: sub.id
+          // }
+        })
+      }
+    },
     display_menu: function() {
       var body = document.getElementsByTagName('body')[0]
       !body.classList.contains('display_menu')

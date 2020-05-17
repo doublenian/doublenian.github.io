@@ -20,7 +20,7 @@
 
       <div class="flex items-center relative bg-brighter control-wrapper ">
         <span class=" text-white  text-font-26 ml-4">{{
-          currentIndex >= 10 ? currentIndex : '0' + currentIndex
+          currentIndex + 1 >= 10 ? currentIndex + 1 : '0' + (currentIndex + 1)
         }}</span>
         <div class="direction flex">
           <div

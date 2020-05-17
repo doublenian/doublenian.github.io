@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      threeLevelId: this.$route.query.id,
+      threeLevelId: this.$route.params.id,
       displayArr: [],
       parentArr: []
     }

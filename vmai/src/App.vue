@@ -2,7 +2,7 @@
   <div id="app">
     <vue-progress-bar></vue-progress-bar>
     <layout-header> </layout-header>
-    <router-view></router-view>
+    <router-view :key="keyPath"></router-view>
     <layout-footer v-if="showFoot"></layout-footer>
   </div>
 </template>
@@ -18,11 +18,13 @@ export default {
   },
   data() {
     return {
-      showFoot: true
+      showFoot: true,
+      keyPath: ''
     }
   },
   watch: {
     $route(val) {
+      this.keyPath = val.path
       if (val.path === '/campus') {
         this.showFoot = false
       } else {
