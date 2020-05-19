@@ -77,11 +77,19 @@ export default {
 
 <style lang="less">
 .promotion-content {
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   background-color: white;
   .video-js .vjs-big-play-button {
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%);
+  }
+  .vjs-poster {
+    background-size: cover;
   }
   .header {
     width: 100%;
