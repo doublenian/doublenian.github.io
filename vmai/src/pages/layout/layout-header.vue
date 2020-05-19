@@ -98,6 +98,11 @@ export default {
             path: '/company-promotion'
           })
         }
+        if (sub.title.zh === '荣誉资质') {
+          this.$router.push({
+            path: '/certfication'
+          })
+        }
       }
     },
     display_menu: function() {

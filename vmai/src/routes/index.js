@@ -26,6 +26,12 @@ const routes = [
     path: '/company-promotion',
     component: () => import('@/pages/company-promotion/index.vue')
   },
+  //企业宣传片
+  {
+    name: 'certfication',
+    path: '/certfication',
+    component: () => import('@/pages/certfication/index.vue')
+  },
   {
     path: '*',
     redirect: '/home'
