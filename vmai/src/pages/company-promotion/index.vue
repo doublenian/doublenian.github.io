@@ -1,7 +1,7 @@
 <template>
   <div class="promotion-content">
     <div class="header flex justify-center items-center mb-8">
-      <p class=" text-white text-font-32 font-weight-bold mt-20">集团简介</p>
+      <p class=" text-white text-font-32 font-weight-bold mt-20">企业宣传片</p>
     </div>
     <div class=" flex justify-center pb-8">
       <video-player
@@ -35,8 +35,7 @@ export default {
         sources: [
           {
             type: 'video/mp4',
-            src:
-              'https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm'
+            src: 'http://vjs.zencdn.net/v/oceans.mp4'
           }
         ],
         poster: poster
