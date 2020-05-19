@@ -4,7 +4,9 @@
       <swiper-slide v-for="(item, index) in swiperList" :key="'swiper' + index"
         ><div
           class="banner-wrapper"
-          :style="{ backgroundImage: 'url(' + item.bg.md + ')' }"
+          :style="{
+            backgroundImage: 'url(' + item.bg.md + ')'
+          }"
         ></div>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper-slide>
@@ -15,13 +17,19 @@
         v-if="nextInfo"
         @click="goNextThree"
       >
-        <img :src="nextInfo.bg.md" alt="" />
+        <img
+          :src="nextInfo.bg.md + '?x-oss-process=image/resize,h_100'"
+          alt=""
+        />
         <div class="mask flex items-center text-font-16 p-8 text-brighter">
           {{ nextInfo.parent_name }}
         </div>
       </div>
       <div class="image-wrapper cursor-pointer" v-else @click="goFirst">
-        <img :src="this.swiperList[0].bg.md" alt="" />
+        <img
+          :src="this.swiperList[0].bg.md + '?x-oss-process=image/resize,h_100'"
+          alt=""
+        />
         <div class="mask flex items-center text-font-16 p-8 text-brighter">
           {{ this.swiperList[0].parent_name }}
         </div>

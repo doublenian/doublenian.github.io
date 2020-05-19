@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="campus-wrapper">
     <thumb-swiper
       v-if="parentArr.length > 0"
       :swiperList="displayArr"
@@ -100,4 +100,7 @@ export default {
 </script>
 
 <style>
+.campus-wrapper {
+  height: 100vh;
+}
 </style>
