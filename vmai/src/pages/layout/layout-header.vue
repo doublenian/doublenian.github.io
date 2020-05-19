@@ -87,6 +87,18 @@ export default {
           // }
         })
       }
+      if (item.title.zh === '关于维迈') {
+        if (sub.title.zh === '集团简介') {
+          this.$router.push({
+            path: '/company-profile'
+          })
+        }
+        if (sub.title.zh === '企业宣传片') {
+          this.$router.push({
+            path: '/company-promotion'
+          })
+        }
+      }
     },
     display_menu: function() {
       var body = document.getElementsByTagName('body')[0]
