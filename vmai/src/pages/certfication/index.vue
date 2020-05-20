@@ -86,6 +86,71 @@
           />
         </div>
       </div>
+      <div class="title-header flex justify-center mt-4">
+        <div class="title">奖.项.荣.誉</div>
+      </div>
+      <div class="cert  py-6">
+        <div class="flex justify-between">
+          <img
+            v-for="i in 3"
+            :key="'zizhi' + i"
+            style="width:32%"
+            :src="
+              require('../../assets/images/certfication/奖项荣誉/' + i + '.png')
+            "
+            alt=""
+          />
+        </div>
+        <div class="flex justify-between mt-4">
+          <img
+            v-for="i in [4, 5, 6]"
+            :key="'zizhi' + i"
+            style="width:32%"
+            :src="
+              require('../../assets/images/certfication/奖项荣誉/' + i + '.png')
+            "
+            alt=""
+          />
+        </div>
+        <div class="flex justify-between mt-4">
+          <img
+            v-for="i in [7, 8, 9]"
+            :key="'zizhi' + i"
+            style="width:32%"
+            :src="
+              require('../../assets/images/certfication/奖项荣誉/' + i + '.png')
+            "
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="title-header flex justify-center mt-4">
+        <div class="title">标.准.认.证</div>
+      </div>
+      <div class="cert  py-6">
+        <div class="flex justify-between">
+          <img
+            v-for="i in 3"
+            :key="'zizhi' + i"
+            style="width:32%"
+            :src="
+              require('../../assets/images/certfication/标准认证/' + i + '.png')
+            "
+            alt=""
+          />
+        </div>
+        <div class="flex justify-between mt-4">
+          <img
+            v-for="i in [4, 5, 6]"
+            :key="'zizhi' + i"
+            style="width:32%"
+            :src="
+              require('../../assets/images/certfication/标准认证/' + i + '.png')
+            "
+            alt=""
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>

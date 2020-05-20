@@ -11,25 +11,25 @@ const routes = [
   //横版海报页面
   {
     name: 'campus',
-    path: '/campus/:id',
+    path: '/works/campus/:id',
     component: () => import('@/pages/campus/index.vue')
   },
   //企业简介
   {
     name: 'company-profile',
-    path: '/company-profile',
+    path: '/about/company-profile',
     component: () => import('@/pages/company-profile/index.vue')
   },
   //企业宣传片
   {
     name: 'company-promotion',
-    path: '/company-promotion',
+    path: '/about/company-promotion',
     component: () => import('@/pages/company-promotion/index.vue')
   },
   //企业宣传片
   {
     name: 'certfication',
-    path: '/certfication',
+    path: '/about/certfication',
     component: () => import('@/pages/certfication/index.vue')
   },
   {

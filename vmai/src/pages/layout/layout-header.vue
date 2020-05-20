@@ -14,11 +14,6 @@
       </div>
     </div>
     <div class="wrap">
-      <!-- <div id="hamburger" v-on:click="display_menu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div> -->
       <img
         class="logo cursor-pointer"
         src="@/assets/images/v-mai.png"
@@ -32,8 +27,8 @@
           :key="'menu' + index"
         >
           <a
-            @mouseenter="display_drop_menu(item)"
-            @mouseleave="hide_drop_menu(item)"
+            @mouseenter="item.showActive = true"
+            @mouseleave="item.showActive = false"
             :class="[item.showActive ? 'menuActive' : '']"
             :href="item.linker"
             >{{ item.titleZh }}
@@ -42,8 +37,8 @@
           <ul
             v-if="item.children.length > 0"
             class="drop_menu"
-            @mouseenter="display_drop_menu(item)"
-            @mouseleave="hide_drop_menu(item)"
+            @mouseenter="item.showActive = true"
+            @mouseleave="item.showActive = false"
             :class="[item.showActive ? 'display' : '']"
           >
             <a
@@ -79,9 +74,11 @@ export default {
   mounted() {},
   methods: {
     clickSubMenu(item, sub) {
+      item.showActive = true
+
       if (item.title.zh === '作品案例') {
         this.$router.push({
-          path: `/campus/${sub.id}`
+          path: `/works/campus/${sub.id}`
           // query: {
           //   id: sub.id
           // }
@@ -90,17 +87,17 @@ export default {
       if (item.title.zh === '关于维迈') {
         if (sub.title.zh === '集团简介') {
           this.$router.push({
-            path: '/company-profile'
+            path: '/about/company-profile'
           })
         }
         if (sub.title.zh === '企业宣传片') {
           this.$router.push({
-            path: '/company-promotion'
+            path: '/about/company-promotion'
           })
         }
         if (sub.title.zh === '荣誉资质') {
           this.$router.push({
-            path: '/certfication'
+            path: '/about/certfication'
           })
         }
       }
@@ -110,33 +107,6 @@ export default {
       !body.classList.contains('display_menu')
         ? body.classList.add('display_menu')
         : body.classList.remove('display_menu')
-    },
-    hide_drop_menu(item) {
-      item.showActive = false
-    },
-    display_drop_menu: function(item) {
-      item.showActive = true
-      // var drop_menu = event.target.parentElement.getElementsByClassName(
-      //   'drop_menu'
-      // )[0]
-      // var drop_menus = document.getElementsByClassName('drop_menu')
-
-      // Array.from(drop_menus).forEach(function(e) {
-      //   if (e != drop_menu) {
-      //     e.classList.remove('display')
-      //   }
-      // })
-      // var lis = document.getElementById('menu').getElementsByTagName('li')
-      // Array.from(lis).forEach(function(e) {
-      //   e.style.marginTop = 0
-      // })
-      // !drop_menu.classList.contains('display')
-      //   ? drop_menu.classList.add('display')
-      //   : drop_menu.classList.remove('display')
-      // if (window.innerWidth < 660 && drop_menu.classList.contains('display')) {
-      //   event.target.parentElement.nextSibling.nextSibling.style.marginTop =
-      //     drop_menu.clientHeight + 'px'
-      // }
     }
   }
 }

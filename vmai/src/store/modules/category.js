@@ -82,7 +82,14 @@ const actions = {
       mainNavMenu.forEach((item, index) => {
         menuList.push({
           ...item,
-          children: subMenus[index].sort((a, b) => b.weight - a.weight),
+          children: subMenus[index]
+            .sort((a, b) => b.weight - a.weight)
+            .map(c => {
+              return {
+                ...c,
+                showActive: false
+              }
+            }),
           showActive: false
         })
       })
