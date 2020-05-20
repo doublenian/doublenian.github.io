@@ -1,6 +1,6 @@
 <template>
   <div class=" w-full px-10 pt-10">
-    <el-button type="primary" class=" mb-5" @click="addParentMenu">添加一级菜单</el-button>
+    <el-button type="primary" class=" mb-5" @click="addParentMenu">添加菜单</el-button>
     <el-table :data="tableData" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
       <el-table-column prop="name" label="一级菜单"> </el-table-column>
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>
@@ -15,12 +15,13 @@
       <el-table-column label="操作" width="260px">
         <template slot-scope="{ row }">
           <el-button size="mini" type="text" @click="addChild(row)" v-if="!row.child">添加子菜单</el-button>
-          <!-- <el-button size="mini" type="text" @click="edit(row)">编辑</el-button> -->
+          <el-button size="mini" type="text" @click="editParent(row)">编辑</el-button>
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
           <template v-if="row.child">
             <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
           </template>
           <template v-else-if="row.children.length === 0">
+            <el-button size="mini" type="text" @click="editChild(row)">编辑</el-button>
             <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
           </template>
           <template v-else></template>
@@ -106,6 +107,22 @@ export default {
         this.getList()
       })
     },
+    editParent(row) {
+      console.log('====row====')
+      console.log(row)
+      this.$refs.blockDialog
+        .show(1, {
+          type: 'edit',
+          data: row
+        })
+        .then(ret => {
+          console.log(ret)
+          this.getList()
+        })
+        .catch(ret => {
+          console.log(ret)
+        })
+    },
     addParentMenu() {
       this.$refs.blockDialog
         .show(1, {
@@ -128,6 +145,22 @@ export default {
         .then(ret => {
           this.getList()
           console.log(ret)
+        })
+        .catch(ret => {
+          console.log(ret)
+        })
+    },
+    editChild(row) {
+      console.log('====row====')
+      console.log(row)
+      this.$refs.blockDialog
+        .show(2, {
+          type: 'edit',
+          data: row
+        })
+        .then(ret => {
+          console.log(ret)
+          this.getList()
         })
         .catch(ret => {
           console.log(ret)

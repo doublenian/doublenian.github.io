@@ -48,7 +48,7 @@ export const constantRoutes = [
         path: '',
         name: 'block',
         component: () => import('@/views/block/index'),
-        meta: { title: '模块管理', icon: 'block' }
+        meta: { title: '顶部和底部导航栏', icon: 'block' }
       }
     ]
   },
@@ -60,7 +60,7 @@ export const constantRoutes = [
         path: '',
         name: 'banner',
         component: () => import('@/views/banner/index'),
-        meta: { title: '轮播管理', icon: 'banner' }
+        meta: { title: '首页轮播图', icon: 'banner' }
       }
     ]
   },
@@ -72,7 +72,7 @@ export const constantRoutes = [
         path: '',
         name: 'spa',
         component: () => import('@/views/spa/index'),
-        meta: { title: '单页管理', icon: 'assets' }
+        meta: { title: '作品案例', icon: 'assets' }
       }
     ]
   },

@@ -10,9 +10,9 @@ const routes = [
   },
   //横版海报页面
   {
-    name: 'campus',
-    path: '/works/campus/:id',
-    component: () => import('@/pages/campus/index.vue')
+    name: 'works',
+    path: '/works/:id',
+    component: () => import('@/pages/works/index.vue')
   },
   //企业简介
   {
@@ -31,6 +31,12 @@ const routes = [
     name: 'certfication',
     path: '/about/certfication',
     component: () => import('@/pages/certfication/index.vue')
+  },
+  //集团动态
+  {
+    name: 'dynamics',
+    path: '/dynamics',
+    component: () => import('@/pages/dynamics/index.vue')
   },
   {
     path: '*',

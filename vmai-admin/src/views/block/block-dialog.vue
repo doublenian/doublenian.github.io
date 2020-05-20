@@ -3,6 +3,11 @@
     <el-form :model="form" :rules="rules" label-type="right" label-width="80px" ref="ruleForm">
       <el-row :gutter="10">
         <el-col :span="24">
+          <el-form-item label="模块ID">
+            <p>{{ this.form.id }}</p>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
           <el-form-item label="模块名称" prop="name">
             <el-input v-model="form.name" class=" w-1/2"></el-input>
           </el-form-item>
@@ -24,6 +29,11 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col :span="24">
+          <el-form-item label="链接" prop="link">
+            <el-input v-model="form.link" type="text" class=" w-8/12" placeholder="填写链接"></el-input>
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item label="权重" prop="weight">
             <el-input v-model.number="form.weight" type="number" class=" w-8/12" placeholder="填写权重"></el-input>
@@ -39,12 +49,13 @@
 </template>
 
 <script>
-import { categoryAdd } from '@/api'
+import { categoryAdd, modifyCategory } from '@/api'
 export default {
   data() {
     return {
       dialogVisible: false,
       modalData: '',
+      opType: '',
       typeOptions: [
         {
           label: '顶部导航栏',
@@ -62,16 +73,19 @@ export default {
         chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }],
         enTitle: [{ required: true, message: '请输入英文标题', trigger: 'blur' }],
         weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
-        type: [{ required: true, message: '请输入菜单位置', trigger: 'change' }]
+        type: [{ required: true, message: '请输入菜单位置', trigger: 'change' }],
+        link: [{ required: true, message: '请输入链接', trigger: 'change' }]
       },
       form: {
+        id: '',
         name: '',
         chTitle: '',
         enTitle: '',
         weight: '',
         type: '',
         level: '',
-        parent_id: ''
+        parent_id: '',
+        link: ''
       },
       cloneData: {}
     }
@@ -83,12 +97,22 @@ export default {
     show(level, obj) {
       console.log('====level====')
       console.log(this.form.level)
+      this.opType = obj.type
       if (obj.type === 'add') {
         this.form = { ...this.cloneData }
       }
-      // if(obj.type === 'edit') {
-      //   this.form
-      // }
+      if (obj.type === 'edit') {
+        this.form = {
+          id: obj.data.id,
+          name: obj.data.name,
+          chTitle: obj.data.chTitle,
+          enTitle: obj.data.enTitle,
+          weight: obj.data.weight,
+          type: obj.data.type,
+          parent_id: obj.data.parent_id,
+          link: obj.data.link.herf
+        }
+      }
 
       this.form.level = level
       this.dialogVisible = true
@@ -107,19 +131,30 @@ export default {
     okHandler() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          categoryAdd({
+          let params = {
             title: {
               en: this.form.enTitle,
               zh: this.form.chTitle
+            },
+            link: {
+              herf: this.form.link
             },
             parent_id: this.form.parent_id,
             type: this.form.type || 0,
             name: this.form.name,
             weight: this.form.weight
-          }).then(ret => {
-            this.dialogVisible = false
-            this.resolve(ret)
-          })
+          }
+          if (this.opType === 'add') {
+            categoryAdd(params).then(ret => {
+              this.dialogVisible = false
+              this.resolve(ret)
+            })
+          } else {
+            modifyCategory(this.form.id, params).then(ret => {
+              this.dialogVisible = false
+              this.resolve(ret)
+            })
+          }
         }
       })
     }

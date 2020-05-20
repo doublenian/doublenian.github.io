@@ -23,14 +23,18 @@
       <nav id="menu">
         <li
           class="drop"
-          v-for="(item, index) in twoLevelMenu"
+          v-for="(item, index) in menuList"
           :key="'menu' + index"
         >
           <a
             @mouseenter="item.showActive = true"
             @mouseleave="item.showActive = false"
-            :class="[item.showActive ? 'menuActive' : '']"
-            :href="item.linker"
+            :class="[
+              item.showActive ? 'menuActive' : '',
+              item.link.herf && currentPage.indexOf(item.link.herf) > -1
+                ? 'parent-active'
+                : ''
+            ]"
             >{{ item.titleZh }}
             <i class="el-icon-caret-bottom" v-if="item.children.length > 0"></i
           ></a>
@@ -43,6 +47,7 @@
           >
             <a
               class="submenu"
+              :class="[currentPage === sub.link.herf ? 'menuActive' : '']"
               @click="clickSubMenu(item, sub)"
               v-for="(sub, subIndex) in item.children"
               :key="'menu' + index + 'sub' + subIndex"
@@ -64,43 +69,49 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['twoLevelMenu'])
+    ...mapGetters(['twoLevelMenu']),
+    currentPage() {
+      return this.$route.path
+    }
   },
   async created() {
     await this.$store.dispatch('category/queryTwoLevel')
-    console.log('======threeLevelMenu=====')
+    console.log('======TOP MENU=====')
     console.log(this.twoLevelMenu)
+    this.menuList = this.twoLevelMenu
   },
   mounted() {},
   methods: {
     clickSubMenu(item, sub) {
       item.showActive = true
-
-      if (item.title.zh === '作品案例') {
-        this.$router.push({
-          path: `/works/campus/${sub.id}`
-          // query: {
-          //   id: sub.id
-          // }
-        })
-      }
-      if (item.title.zh === '关于维迈') {
-        if (sub.title.zh === '集团简介') {
-          this.$router.push({
-            path: '/about/company-profile'
-          })
-        }
-        if (sub.title.zh === '企业宣传片') {
-          this.$router.push({
-            path: '/about/company-promotion'
-          })
-        }
-        if (sub.title.zh === '荣誉资质') {
-          this.$router.push({
-            path: '/about/certfication'
-          })
-        }
-      }
+      this.$router.push({
+        path: sub.link.herf
+      })
+      // if (item.title.zh === '作品案例') {
+      //   this.$router.push({
+      //     path: `/works/${sub.id}`
+      //     // query: {
+      //     //   id: sub.id
+      //     // }
+      //   })
+      // }
+      // if (item.title.zh === '关于维迈') {
+      //   if (sub.title.zh === '集团简介') {
+      //     this.$router.push({
+      //       path: '/about/company-profile'
+      //     })
+      //   }
+      //   if (sub.title.zh === '企业宣传片') {
+      //     this.$router.push({
+      //       path: '/about/company-promotion'
+      //     })
+      //   }
+      //   if (sub.title.zh === '荣誉资质') {
+      //     this.$router.push({
+      //       path: '/about/certfication'
+      //     })
+      //   }
+      // }
     },
     display_menu: function() {
       var body = document.getElementsByTagName('body')[0]
@@ -162,6 +173,24 @@ header #menu li {
   position: relative;
   user-select: none;
   margin-left: 20px;
+  .parent-active {
+    border-bottom-color: @cblue;
+    background-color: #000001;
+    color: @cblue;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-color: black;
+      bottom: -30%;
+    }
+    i {
+      display: none;
+    }
+  }
   i {
     width: 12px;
     height: 12px;
@@ -196,6 +225,7 @@ header #menu li {
         color: @cblue;
       }
     }
+
     &:hover {
       border-bottom-color: @cblue;
       background-color: #000001;
