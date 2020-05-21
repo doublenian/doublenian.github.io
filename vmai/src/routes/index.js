@@ -26,11 +26,17 @@ const routes = [
     path: '/about/company-promotion',
     component: () => import('@/pages/company-promotion/index.vue')
   },
-  //企业宣传片
+  //企业资质
   {
     name: 'certfication',
     path: '/about/certfication',
     component: () => import('@/pages/certfication/index.vue')
+  },
+  //经营团队
+  {
+    name: 'team',
+    path: '/about/team',
+    component: () => import('@/pages/team/index.vue')
   },
   //集团动态
   {

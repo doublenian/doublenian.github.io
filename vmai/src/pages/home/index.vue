@@ -10,10 +10,18 @@
         :style="{ backgroundImage: 'url(' + item.imageUrl + ')' }"
       >
         <div class=" text-white pl-20" style="width:350px">
-          <p class="mb-4 text-left" style="font-size:30px">
+          <p
+            class="mb-4 text-left"
+            style="font-size:30px"
+            data-swiper-parallax="-240"
+          >
             {{ item.titleZh }}
           </p>
-          <p class="text-left" style="font-size:14px;line-height:1.5">
+          <p
+            class="text-left"
+            style="font-size:14px;line-height:1.5"
+            data-swiper-parallax="-400"
+          >
             {{ item.contentZh }}
           </p>
         </div>
@@ -44,6 +52,8 @@ export default {
   data() {
     return {
       swiperOption: {
+        speed: 600,
+        parallax: true,
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
