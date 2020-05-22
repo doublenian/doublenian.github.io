@@ -89,6 +89,30 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/team',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'team',
+        component: () => import('@/views/team/index'),
+        meta: { title: '精英人物', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/dynamics',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'dynamics',
+        component: () => import('@/views/dynamics/index'),
+        meta: { title: '集团动态', icon: 'nested' }
+      }
+    ]
+  },
+  {
     path: '/system',
     component: Layout,
     children: [
