@@ -25,7 +25,7 @@ export default {
   watch: {
     $route(val) {
       this.keyPath = val.path
-      if (val.path === '/campus') {
+      if (val.name === 'works') {
         this.showFoot = false
       } else {
         this.showFoot = true

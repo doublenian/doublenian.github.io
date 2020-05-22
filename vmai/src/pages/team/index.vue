@@ -21,7 +21,7 @@
 
               <div class="flex  items-end justify-center" style="height:60px">
                 <p class=" text-font-18 text-white font-bold mr-3">阿拉丁</p>
-                <p class=" text-font-18  text-brighter">CEO,总裁</p>
+                <p class=" text-font-14  text-brighter">CEO,总裁</p>
               </div>
               <div class="py-4 text-white px-6 profile-desc">
                 <p class=" text-center">
