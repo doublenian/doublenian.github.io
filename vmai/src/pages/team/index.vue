@@ -14,9 +14,22 @@
             class=" bg-image w-full bg-no-repeat bg-cover bg-center"
             :style="{ backgroundImage: 'url(' + item.image + ')' }"
           >
-            <div class="profile flex items-center justify-center">
-              <p class=" text-font-18 text-white font-bold mr-3">阿拉丁</p>
-              <p class=" text-font-18  text-brighter">CEO,总裁</p>
+            <div class="profile ">
+              <div class="icon-image flex justify-center items-center">
+                <img src="../../assets/images/team/arrow-up.png" alt="" />
+              </div>
+
+              <div class="flex  items-end justify-center" style="height:60px">
+                <p class=" text-font-18 text-white font-bold mr-3">阿拉丁</p>
+                <p class=" text-font-18  text-brighter">CEO,总裁</p>
+              </div>
+              <div class="py-4 text-white px-6 profile-desc">
+                <p class=" text-center">
+                  中国共产党党员，维迈集团党委书记，同济大学建筑系硕士，徐汇区石龙路党委书记，高级建筑工程师
+                  中国共产党党员，维迈集团党委书记，同济大学建筑系硕士，徐汇区石龙路党委书记，高级建筑工程师
+                  中国共产党党员，维迈集团党委书记，同济大学建筑系硕士，徐汇区石龙路党委书记，高级建筑工程师
+                </p>
+              </div>
             </div>
           </div>
         </swiper-slide>
@@ -77,7 +90,12 @@ export default {
       swiperOption: {
         slidesPerView: 4,
         spaceBetween: 0,
-        loop: true
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          stopOnLastSlide: false,
+          disableOnInteraction: true
+        }
       }
     }
   }
@@ -106,12 +124,43 @@ export default {
           height: 420px;
           transition: all ease 0.3s;
           position: relative;
+          &:hover {
+            .profile > .icon-image {
+              transform: rotate(180deg);
+            }
+            .profile > .profile-desc {
+              transform: scaleY(1);
+              opacity: 1;
+              height: auto;
+            }
+          }
           .profile {
             position: absolute;
-            bottom: 0;
+            bottom: 0px;
             background-color: rgba(0, 0, 0, 0.58);
             width: 100%;
-            height: 60px;
+            // min-height: 60px;
+
+            .icon-image {
+              position: absolute;
+              width: 40px;
+              height: 40px;
+              left: 50%;
+              top: -20px;
+              margin-left: -20px;
+              transition: all ease 0.3s;
+
+              padding: 4px;
+              border: 4px solid rgba(255, 255, 255, 0.58);
+              border-radius: 100%;
+            }
+            .profile-desc {
+              transition: all ease 0.3s;
+              transform-origin: bottom;
+              transform: scaleY(0);
+              opacity: 0;
+              height: 0;
+            }
           }
           &:hover {
             height: 94%;

@@ -37,7 +37,9 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
-
+* {
+  box-sizing: border-box;
+}
 /* Hide scrollbar for IE and Edge */
 .body {
   -ms-overflow-style: none;
