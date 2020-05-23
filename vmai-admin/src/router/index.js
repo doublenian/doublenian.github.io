@@ -100,18 +100,18 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/dynamics',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'dynamics',
-        component: () => import('@/views/dynamics/index'),
-        meta: { title: '集团动态', icon: 'nested' }
-      }
-    ]
-  },
+  // {
+  //   path: '/dynamics',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'dynamics',
+  //       component: () => import('@/views/dynamics/index'),
+  //       meta: { title: '集团动态', icon: 'nested' }
+  //     }
+  //   ]
+  // },
   {
     path: '/system',
     component: Layout,
