@@ -8,19 +8,20 @@
           <!-- <img :src="row.bg.md" alt="" class=" w-20 h-20 object-contain" /> -->
         </template>
       </el-table-column>
-      <el-table-column prop="weight" label="权重"> </el-table-column>
+      <el-table-column prop="titleZh" label="标题"> </el-table-column>
+      <el-table-column prop="contentZh" label="副标题"> </el-table-column>
       <el-table-column label="超链" width="240px">
         <template slot-scope="{ row }">
           <el-link type="primary" :href="row.link.herf" target="_blank">{{ row.link.herf }}</el-link>
         </template>
       </el-table-column>
-
-      <el-table-column prop="weight" label="排序"></el-table-column>
+      <el-table-column prop="weight" label="权重"> </el-table-column>
       <el-table-column label="状态">
         <template slot-scope="{ row }">
           <el-tag :type="row.Meta.state === 1 ? 'success' : 'danger'">{{ row.statusText }}</el-tag>
         </template>
       </el-table-column>
+
       <el-table-column label="操作" width="160px">
         <template slot-scope="{ row }">
           <!-- <el-button size="mini" type="text" @click="edit(row)">编辑</el-button> -->
@@ -62,12 +63,14 @@ export default {
     async getList() {
       let { result } = await categoryList({
         parent_id: '',
+        types: [4],
         states: [1, 5]
       })
-      let bannerList = result.filter(c => c.name === 'banner')
-      this.list = bannerList.map(c => {
+      this.list = result.map(c => {
         return {
           ...c,
+          titleZh: c.title.zh,
+          contentZh: c.content.zh,
           statusText: Enum.status[c.Meta.state]
         }
       })

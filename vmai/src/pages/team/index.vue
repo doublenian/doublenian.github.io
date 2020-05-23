@@ -20,14 +20,14 @@
               </div>
 
               <div class="flex  items-end justify-center" style="height:60px">
-                <p class=" text-font-18 text-white font-bold mr-3">阿拉丁</p>
-                <p class=" text-font-14  text-brighter">CEO,总裁</p>
+                <p class=" text-font-18 text-white font-bold mr-3">
+                  {{ item.name }}
+                </p>
+                <p class=" text-font-14  text-brighter">{{ item.title }}</p>
               </div>
               <div class="py-4 text-white px-6 profile-desc">
                 <p class=" text-center">
-                  中国共产党党员，维迈集团党委书记，同济大学建筑系硕士，徐汇区石龙路党委书记，高级建筑工程师
-                  中国共产党党员，维迈集团党委书记，同济大学建筑系硕士，徐汇区石龙路党委书记，高级建筑工程师
-                  中国共产党党员，维迈集团党委书记，同济大学建筑系硕士，徐汇区石龙路党委书记，高级建筑工程师
+                  {{ item.desc }}
                 </p>
               </div>
             </div>
@@ -42,51 +42,30 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import { getCategory } from '@/api'
+
 export default {
   components: {
     swiper,
     swiperSlide
   },
+  created() {
+    getCategory(null, 3).then(ret => {
+      if (ret.result) {
+        this.list = ret.result.map(c => {
+          return {
+            image: c.bg.md,
+            name: c.name,
+            title: c.title.zh,
+            desc: c.content.zh
+          }
+        })
+      }
+    })
+  },
   data() {
     return {
-      list: [
-        {
-          image: require('../../assets/images/team/1.jpg'),
-          name: '陈章勤',
-          title: 'CEO,总裁',
-          desc: 'F来得及奥拉夫家乐福基督教奥拉夫法律的纠纷发电量近'
-        },
-        {
-          image: require('../../assets/images/team/2.jpg'),
-          name: '陈章勤',
-          title: 'CEO,总裁',
-          desc: 'F来得及奥拉夫家乐福基督教奥拉夫法律的纠纷发电量近'
-        },
-        {
-          image: require('../../assets/images/team/3.jpg'),
-          name: '陈章勤',
-          title: 'CEO,总裁',
-          desc: 'F来得及奥拉夫家乐福基督教奥拉夫法律的纠纷发电量近'
-        },
-        {
-          image: require('../../assets/images/team/4.jpg'),
-          name: '陈章勤',
-          title: 'CEO,总裁',
-          desc: 'F来得及奥拉夫家乐福基督教奥拉夫法律的纠纷发电量近'
-        },
-        {
-          image: require('../../assets/images/team/2.jpg'),
-          name: '陈章勤',
-          title: 'CEO,总裁',
-          desc: 'F来得及奥拉夫家乐福基督教奥拉夫法律的纠纷发电量近'
-        },
-        {
-          image: require('../../assets/images/team/3.jpg'),
-          name: '陈章勤',
-          title: 'CEO,总裁',
-          desc: 'F来得及奥拉夫家乐福基督教奥拉夫法律的纠纷发电量近'
-        }
-      ],
+      list: [],
       swiperOption: {
         slidesPerView: 4,
         spaceBetween: 0,

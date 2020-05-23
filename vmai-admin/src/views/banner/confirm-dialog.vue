@@ -23,16 +23,13 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="交互方式" prop="type">
-            <el-radio-group v-model="form.type">
-              <el-radio :label="1">无交互</el-radio>
-              <el-radio :label="2">跳转外链</el-radio>
-              <el-radio :label="3">跳转内链</el-radio>
-              <el-radio :label="4">播放视频</el-radio>
+          <el-form-item label="交互方式" prop="layout">
+            <el-radio-group v-model="form.layout">
+              <el-radio :label="item.label" v-for="(item, index) in linkerType" :key="'linker' + index">{{ item.name }}</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col :span="24" v-if="form.type !== 1">
+        <el-col :span="24" v-if="form.layout !== 1">
           <el-form-item label="链接地址" prop="link">
             <el-input v-model="form.link" class=" w-11/12"></el-input>
           </el-form-item>
@@ -61,6 +58,7 @@
 <script>
 import ImageUploader from '@/components/uploader/image-uploader'
 import { categoryAdd } from '@/api'
+import Enum from '../enum'
 export default {
   components: {
     ImageUploader
@@ -71,6 +69,7 @@ export default {
       modalData: '',
       resolve: null,
       reject: null,
+      linkerType: Enum.linkerType,
       jumpModeOptions: [
         {
           label: '当前页面',
@@ -84,7 +83,7 @@ export default {
       form: {
         mdImage: '',
         smImage: '',
-        type: '',
+        layout: '',
         weight: '',
         link: '',
         target: '',
@@ -99,7 +98,7 @@ export default {
       },
       rules: {
         mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }],
-        type: [{ required: true, message: '请输入交互方式', trigger: 'blur' }],
+        layout: [{ required: true, message: '请输入交互方式', trigger: 'blur' }],
         link: [{ required: true, message: '请输入链接地址', trigger: 'blur' }],
         weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
         target: [{ required: true, message: '请选择跳转模式', trigger: 'blur' }]
@@ -130,18 +129,6 @@ export default {
     okHandler() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          console.log({
-            bg: {
-              md: this.form.mdImage,
-              sm: this.form.smImage
-            },
-            link: {
-              herf: this.form.link,
-              target: this.form.target
-            },
-            type: this.form.type,
-            weight: this.form.weight
-          })
           categoryAdd({
             name: 'banner',
             bg: {
@@ -152,7 +139,8 @@ export default {
               herf: this.form.link,
               target: this.form.target
             },
-            type: this.form.type,
+            type: 4, //表示是Banner
+            layout: this.form.layout,
             weight: this.form.weight,
             title: {
               en: this.form.title.en,

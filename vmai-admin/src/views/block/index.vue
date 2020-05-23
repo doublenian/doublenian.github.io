@@ -54,6 +54,7 @@ export default {
     async getList() {
       let { result } = await categoryList({
         parent_id: '',
+        types: [1, 2],
         states: [1, 5]
       })
       let tableData = []

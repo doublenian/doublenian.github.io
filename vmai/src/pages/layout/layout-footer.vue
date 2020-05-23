@@ -64,7 +64,26 @@
 </template>
 
 <script>
-export default {}
+import { getCategory } from '@/api'
+
+export default {
+  created() {
+    getCategory(null, 2).then(ret => {
+      if (ret.result) {
+        console.log('====ret.result====')
+        console.log(ret.result)
+        // this.list = ret.result.map(c => {
+        //   return {
+        //     image: c.bg.md,
+        //     name: c.name,
+        //     title: c.title.zh,
+        //     desc: c.content.zh
+        //   }
+        // })
+      }
+    })
+  }
+}
 </script>
 
 <style lang="less">

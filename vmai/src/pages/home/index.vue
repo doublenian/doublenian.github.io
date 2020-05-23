@@ -69,7 +69,7 @@ export default {
     }
   },
   async created() {
-    await this.$store.dispatch('category/queryOneLevel')
+    await this.$store.dispatch('category/getBannerData')
   },
   methods: {}
 }

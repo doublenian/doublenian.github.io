@@ -28,8 +28,8 @@ const mutations = {
     state.layoutHorizFourData = data
   }
 }
-function getList(id) {
-  return getCategory(id).then(ret => {
+function getList(id, type) {
+  return getCategory(id, type).then(ret => {
     let { result } = ret
     let data = []
     if (result) {
@@ -46,17 +46,14 @@ function getList(id) {
 }
 
 const actions = {
-  async queryOneLevel({ commit, state }) {
-    if (state.oneLevelData) {
-      return state.oneLevelData
+  async getBannerData({ commit, state }) {
+    if (state.bannerData) {
+      return state.bannerData
     } else {
-      let data = await getList(null)
-      let allData = [...data]
-      //获取Banner
-      let filterData = allData.filter(c => c.name === 'banner')
+      let data = await getList(null, 4)
       commit(
         'SET_BANNER',
-        filterData.map(c => {
+        data.map(c => {
           return {
             ...c,
             titleZh: c.title.zh,
@@ -65,8 +62,14 @@ const actions = {
           }
         })
       )
-      data = data.filter(c => c.name !== 'banner')
-      data.sort((a, b) => b.weight - a.weight)
+      return data
+    }
+  },
+  async queryOneLevel({ commit, state }) {
+    if (state.oneLevelData) {
+      return state.oneLevelData
+    } else {
+      let data = await getList(null, 1)
       commit('SET_ONELEVEL', data)
       return data
     }
