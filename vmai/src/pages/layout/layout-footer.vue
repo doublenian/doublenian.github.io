@@ -1,36 +1,21 @@
 <template>
   <div class="layout-footer flex flex-col">
     <div class="footer-info flex justify-between flex-1">
-      <div class=" text-white">
-        <p class=" text-font-18 mb-4">超链模块1</p>
+      <div
+        class=" text-white"
+        v-for="(item, index) in list"
+        :key="'botttom' + index"
+      >
+        <p class=" text-font-18 mb-4">{{ item.titleZh }}</p>
         <ul class=" text-font-14 list-none" style="color:#7B7B7C">
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-          <li>超链地址1</li>
+          <li
+            v-for="(sub, subIndex) in item.children"
+            :key="'bottom' + index + 'sub' + subIndex"
+          >
+            {{ sub.titleZh }}
+          </li>
         </ul>
       </div>
-      <div class="split-line"></div>
-      <div class=" text-white">
-        <p class=" text-font-18 mb-4">超链模块1</p>
-        <ul class=" text-font-14 list-none" style="color:#7B7B7C">
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-        </ul>
-      </div>
-      <div class="split-line"></div>
-      <div class=" text-white">
-        <p class=" text-font-18 mb-4">超链模块1</p>
-        <ul class=" text-font-14 list-none" style="color:#7B7B7C">
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-          <li>超链地址1</li>
-        </ul>
-      </div>
-      <div class="split-line"></div>
       <div class=" text-white">
         <p class=" text-font-18 mb-4">联系我们</p>
         <div class=" text-font-14 mb-2">
@@ -67,21 +52,46 @@
 import { getCategory } from '@/api'
 
 export default {
-  created() {
-    getCategory(null, 2).then(ret => {
-      if (ret.result) {
-        console.log('====ret.result====')
-        console.log(ret.result)
-        // this.list = ret.result.map(c => {
-        //   return {
-        //     image: c.bg.md,
-        //     name: c.name,
-        //     title: c.title.zh,
-        //     desc: c.content.zh
-        //   }
-        // })
-      }
+  data() {
+    return {
+      list: []
+    }
+  },
+  async created() {
+    let oneLevel = await this.getList(null, 2)
+    console.log('====oneLevel====')
+    console.log(oneLevel)
+    let promises = oneLevel.map(c => this.getList(c.id))
+    let twoLevels = await Promise.all(promises)
+    let list = []
+    oneLevel.forEach((item, index) => {
+      list.push({
+        ...item,
+        children: twoLevels[index]
+      })
     })
+    this.list = list
+  },
+  methods: {
+    getList(id, type) {
+      return getCategory(id, type).then(ret => {
+        console.log('====ret====')
+        console.log(ret)
+        let result = []
+        if (ret.result) {
+          result = ret.result.map(c => {
+            return {
+              id: c.id,
+              titleZh: c.title.zh,
+              href: c.link.herf
+            }
+          })
+        } else {
+          result = []
+        }
+        return result
+      })
+    }
   }
 }
 </script>
