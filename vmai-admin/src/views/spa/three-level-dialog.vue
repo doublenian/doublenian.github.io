@@ -1,14 +1,14 @@
 <template>
-  <el-dialog title="添加三级菜单" :visible.sync="dialogVisible" width="50%">
+  <el-dialog title="添加作品案例子菜单" :visible.sync="dialogVisible" width="50%">
     <el-form :model="form" label-position="right" :rules="rules" label-width="80px" ref="ruleForm">
       <el-row :gutter="10">
-        <el-col :span="12">
+        <!-- <el-col :span="12">
           <el-form-item label="一级菜单" prop="oneLevel">
             <el-select v-model="form.oneLevel" placeholder="请选择一级菜单" @change="selectLevel(form.oneLevel)">
               <el-option v-for="item in oneLevelOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col :span="12">
           <el-form-item label="二级菜单" prop="twoLevel">
             <el-select v-model="form.twoLevel" placeholder="请选择二级菜单">
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { categoryList, categoryAdd } from '@/api'
+import { categoryList, categoryAdd, modifyCategory } from '@/api'
 import Enum from '../enum'
 import SelectMixin from './select-mixin'
 export default {
@@ -68,12 +68,12 @@ export default {
     return {
       dialogVisible: false,
       modalData: '',
-
+      opType: '',
       displayModes: Object.keys(Enum.displayModes).map((item, index) => ({ value: item, label: Enum.displayModes[item] })),
       resolve: null,
       reject: null,
       form: {
-        oneLevel: '',
+        id: '',
         twoLevel: '',
         name: '',
         chTitle: '',
@@ -83,8 +83,8 @@ export default {
         layout: ''
       },
       rules: {
-        oneLevel: [{ required: true, message: '请输入一级菜单', trigger: 'change' }],
-        twoLevel: [{ required: true, message: '请输入二级菜单', trigger: 'change' }],
+        // oneLevel: [{ required: true, message: '请输入一级菜单', trigger: 'change' }],
+        // twoLevel: [{ required: true, message: '请输入二级菜单', trigger: 'change' }],
         name: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
         weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
         chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }],
@@ -96,15 +96,25 @@ export default {
   },
   async mounted() {
     this.cloneData = { ...this.form }
-    this.oneLevelOptions = await this.getOneLevels()
+    this.oneLevelId = await this.getOneLevels()
+    this.selectLevel(this.oneLevelId)
   },
   methods: {
     show(data, type = 'add') {
       this.dialogVisible = true
+      this.opType = type
       if (type == 'add') {
         this.form = { ...this.cloneData }
       } else {
-        this.modalData = data
+        this.form = {
+          id: data.id,
+          twoLevel: data.parent_id,
+          name: data.name,
+          chTitle: data.title.zh,
+          enTitle: data.title.en,
+          weight: data.weight,
+          layout: data.layout
+        }
       }
       return new Promise((resolve, reject) => {
         this.resolve = resolve
@@ -118,7 +128,7 @@ export default {
     okHandler() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          categoryAdd({
+          let params = {
             layout: +this.form.layout,
             title: {
               en: this.form.enTitle,
@@ -127,10 +137,18 @@ export default {
             weight: this.form.weight,
             name: this.form.name,
             parent_id: this.form.twoLevel
-          }).then(ret => {
-            this.dialogVisible = false
-            this.resolve('确定')
-          })
+          }
+          if (this.opType === 'add') {
+            categoryAdd(params).then(ret => {
+              this.dialogVisible = false
+              this.resolve('确定')
+            })
+          } else {
+            modifyCategory(this.form.id, params).then(ret => {
+              this.dialogVisible = false
+              this.resolve(ret)
+            })
+          }
         }
       })
     }

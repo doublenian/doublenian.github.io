@@ -24,7 +24,7 @@
 
       <el-table-column label="操作" width="160px">
         <template slot-scope="{ row }">
-          <!-- <el-button size="mini" type="text" @click="edit(row)">编辑</el-button> -->
+          <el-button size="mini" type="text" @click="edit(row)">编辑</el-button>
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
           <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
         </template>
@@ -74,6 +74,14 @@ export default {
           statusText: Enum.status[c.Meta.state]
         }
       })
+    },
+    edit(row) {
+      this.$refs.confirmDialog
+        .show(row, 'edit')
+        .then(ret => {
+          this.getList()
+        })
+        .catch(ret => {})
     },
     setUpOrDown(row) {
       let state = row.Meta.state === 1 ? 5 : 1

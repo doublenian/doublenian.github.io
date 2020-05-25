@@ -57,7 +57,7 @@
 
 <script>
 import ImageUploader from '@/components/uploader/image-uploader'
-import { categoryAdd } from '@/api'
+import { categoryAdd, modifyCategory } from '@/api'
 import Enum from '../enum'
 export default {
   components: {
@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      modalData: '',
+      opType: '',
       resolve: null,
       reject: null,
       linkerType: Enum.linkerType,
@@ -81,6 +81,7 @@ export default {
         }
       ],
       form: {
+        id: '',
         mdImage: '',
         smImage: '',
         layout: '',
@@ -111,11 +112,28 @@ export default {
   },
   methods: {
     show(data, type = 'add') {
+      this.opType = type
       this.dialogVisible = true
       if (type == 'add') {
         this.form = { ...this.cloneData }
       } else {
-        this.modalData = data
+        this.form = {
+          id: data.id,
+          mdImage: data.bg.md,
+          smImage: data.bg.sm,
+          layout: data.layout,
+          weight: data.weight,
+          link: data.link.herf,
+          target: data.link.target,
+          title: {
+            en: data.title.en,
+            zh: data.title.zh
+          },
+          content: {
+            en: data.title.en,
+            zh: data.content.zh
+          }
+        }
       }
       return new Promise((resolve, reject) => {
         this.resolve = resolve
@@ -129,7 +147,7 @@ export default {
     okHandler() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          categoryAdd({
+          let params = {
             name: 'banner',
             bg: {
               md: this.form.mdImage,
@@ -150,10 +168,18 @@ export default {
               en: this.form.content.en,
               zh: this.form.content.zh
             }
-          }).then(ret => {
-            this.dialogVisible = false
-            this.resolve('确定')
-          })
+          }
+          if (this.opType === 'add') {
+            categoryAdd(params).then(ret => {
+              this.dialogVisible = false
+              this.resolve('确定')
+            })
+          } else {
+            modifyCategory(this.form.id, params).then(ret => {
+              this.dialogVisible = false
+              this.resolve(ret)
+            })
+          }
         }
       })
     }

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { categoryList, categoryAdd } from '@/api'
+import { categoryList, categoryAdd, modifyCategory } from '@/api'
 import Enum from '../enum'
 import SelectMixin from './select-mixin'
 import ImageUploader from '@/components/uploader/image-uploader'
@@ -71,10 +71,11 @@ export default {
     return {
       dialogVisible: false,
       modalData: '',
-
+      opType: '',
       resolve: null,
       reject: null,
       form: {
+        id: '',
         name: '',
         weight: '',
         chTitle: '',
@@ -104,12 +105,23 @@ export default {
   methods: {
     show(data, type = 'add') {
       this.dialogVisible = true
+      this.opType = type
       if (type == 'add') {
         this.form = { ...this.cloneData }
+        this.form.parent_id = data.parent_id
       } else {
-        this.modalData = data
+        this.form = {
+          id: data.row.id,
+          name: data.row.name,
+          weight: data.row.weight,
+          chTitle: data.row.title.zh,
+          enTitle: data.row.title.en,
+          chContent: data.row.content.zh,
+          enContent: data.row.content.en,
+          mdImage: data.row.bg.md,
+          smImage: data.row.bg.sm
+        }
       }
-      this.form.parent_id = data.parent_id
       return new Promise((resolve, reject) => {
         this.resolve = resolve
         this.reject = reject
@@ -122,7 +134,7 @@ export default {
     okHandler() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          categoryAdd({
+          let params = {
             title: {
               en: this.form.enTitle,
               zh: this.form.chTitle
@@ -136,13 +148,22 @@ export default {
               sm: this.form.smImage
             },
             weight: this.form.weight,
-            name: this.form.name,
-            parent_id: this.form.parent_id
-          }).then(ret => {
-            this.dialogVisible = false
-            this.$message.success('四级模块新增成功')
-            this.resolve('确定')
-          })
+            name: this.form.name
+            // parent_id: this.form.parent_id
+          }
+          if (this.opType === 'add') {
+            params['parent_id'] = this.form.parent_id
+            categoryAdd(params).then(ret => {
+              this.dialogVisible = false
+              this.$message.success('四级模块新增成功')
+              this.resolve('确定')
+            })
+          } else {
+            modifyCategory(this.form.id, params).then(ret => {
+              this.dialogVisible = false
+              this.resolve(ret)
+            })
+          }
         }
       })
     }

@@ -9,6 +9,8 @@
         <p class=" text-font-18 mb-4">{{ item.titleZh }}</p>
         <ul class=" text-font-14 list-none" style="color:#7B7B7C">
           <li
+            @click="gotoLink(sub)"
+            class=" cursor-pointer"
             v-for="(sub, subIndex) in item.children"
             :key="'bottom' + index + 'sub' + subIndex"
           >
@@ -91,6 +93,9 @@ export default {
         }
         return result
       })
+    },
+    gotoLink(sub) {
+      location.href = sub.href
     }
   }
 }

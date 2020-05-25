@@ -3,31 +3,26 @@ import { categoryList } from '@/api'
 export default {
   data() {
     return {
-      oneLevelOptions: [],
       twoLevelOptions: []
     }
   },
 
   methods: {
-    async getOneLevels() {
-      let { result } = await categoryList({
+    getOneLevels() {
+      return categoryList({
+        types: [1],
         parent_id: '',
         states: [1, 5]
+      }).then(ret => {
+        let result = ret.result
+        return result.find(c => c.title.zh === '作品案例').id
       })
-      return result
-        .map(c => {
-          return {
-            label: c.name,
-            value: c.id
-          }
-        })
-        .filter(c => c.label !== 'banner')
     },
     selectLevel(parent_id) {
       if (!parent_id) return
-      categoryList({
+      return categoryList({
         parent_id: parent_id,
-        states: [1, 5]
+        states: [1]
       }).then(ret => {
         let { result } = ret
         if (result) {

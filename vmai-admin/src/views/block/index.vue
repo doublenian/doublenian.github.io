@@ -14,17 +14,21 @@
       </el-table-column>
       <el-table-column label="操作" width="260px">
         <template slot-scope="{ row }">
-          <el-button size="mini" type="text" @click="addChild(row)" v-if="!row.child">添加子菜单</el-button>
-          <el-button size="mini" type="text" @click="editParent(row)">编辑</el-button>
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
           <template v-if="row.child">
             <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
-          </template>
-          <template v-else-if="row.children.length === 0">
             <el-button size="mini" type="text" @click="editChild(row)">编辑</el-button>
             <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
           </template>
-          <template v-else></template>
+          <template v-else-if="row.children.length === 0">
+            <el-button size="mini" type="text" @click="addChild(row)">添加子菜单</el-button>
+            <el-button size="mini" type="text" @click="editParent(row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
+          </template>
+          <template v-else>
+            <el-button size="mini" type="text" @click="addChild(row)">添加子菜单</el-button>
+            <el-button size="mini" type="text" @click="editParent(row)">编辑</el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -166,9 +170,6 @@ export default {
         .catch(ret => {
           console.log(ret)
         })
-    },
-    edit(row) {
-      this.$message.error('暂未实现')
     }
   }
 }

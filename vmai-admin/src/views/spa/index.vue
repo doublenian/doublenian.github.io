@@ -1,7 +1,7 @@
 <template>
   <div class="w-full px-10 pt-10">
-    <el-form :inline="true" :model="formInline">
-      <el-form-item label="活动区域">
+    <el-form>
+      <!-- <el-form-item label="活动区域">
         <el-select v-model="formInline.oneLevel" placeholder="一级菜单" @change="selectLevel(formInline.oneLevel)">
           <el-option :label="item.label" :value="item.value" v-for="item in oneLevelOptions" :key="item.label"></el-option>
         </el-select>
@@ -10,11 +10,12 @@
         <el-select v-model="formInline.twoLevel" placeholder="二级菜单">
           <el-option :label="item.label" :value="item.value" v-for="item in twoLevelOptions" :key="item.label"></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-button type="primary" @click="addMenu" class=" float-right"> 添加三级菜单</el-button>
     </el-form>
     <el-table :data="list" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
       <el-table-column prop="name" label="模块名称"> </el-table-column>
+      <el-table-column prop="parent" label="父菜单"> </el-table-column>
       <el-table-column label="图片">
         <template slot-scope="{ row }" v-if="row.bg.md">
           <el-image class=" w-20 h-20 object-contain" :src="row.bg.md" :preview-src-list="[row.bg.md]"> </el-image>
@@ -32,12 +33,21 @@
       <el-table-column prop="weight" label="排序"></el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="{ row }">
-          <el-button size="mini" type="text" @click="addChild(row)" v-if="!row.child">添加子菜单</el-button>
-          <!-- <el-button size="mini" type="text">编辑</el-button> -->
+          <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
+
           <template v-if="row.child">
             <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
+            <el-button size="mini" type="text" @click="editFour(row)">编辑</el-button>
           </template>
-          <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
+          <template v-else-if="row.children.length === 0">
+            <el-button size="mini" type="text" @click="editThree(row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="addChild(row)">添加子菜单</el-button>
+            <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
+          </template>
+          <template v-else>
+            <el-button size="mini" type="text" @click="editThree(row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="addChild(row)">添加子菜单</el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -65,41 +75,31 @@ export default {
         oneLevel: '',
         twoLevel: ''
       },
+      oneLevelId: '',
       twoLevelIdsMap: {},
       list: []
     }
   },
   async mounted() {
-    this.oneLevelOptions = await this.getOneLevels()
+    // this.oneLevelOptions = await this.getOneLevels()
+    this.oneLevelId = await this.getOneLevels()
     await this.getList()
   },
   methods: {
     async getList() {
       let { result } = await categoryList({
-        parent_id: '',
-        states: [1, 5]
+        parent_id: this.oneLevelId,
+        states: [1]
       })
       //获得一级菜单 ids
-      let oneLevelIds = result.map(c => c.id)
-      let promiseArr = oneLevelIds.map(c =>
-        categoryList({
-          parent_id: c,
-          states: [1, 5]
-        })
-      )
-      let twoLevels = await Promise.all(promiseArr)
+      let twoLevels = result
       let twoLevelIds = {}
-      twoLevels.forEach(c => {
-        if (c.result) {
-          c.result.forEach(m => {
-            twoLevelIds[m.id] = m.name
-          })
-        }
+      twoLevels.forEach(m => {
+        twoLevelIds[m.id] = m.name
       })
       //获取二级菜单ids
       this.twoLevelIdsMap = twoLevelIds
       let ids = Object.keys(twoLevelIds)
-      console.log(ids)
       let threeLevels = ids.map(c =>
         categoryList({
           parent_id: c,
@@ -112,15 +112,6 @@ export default {
         if (items) {
           items.forEach(m => {
             threeLevelData.push(m)
-            // threeLevelData.push({
-            //   ...m,
-            //   chTitle: m.title.zh,
-            //   enTitle: m.title.en,
-            //   subChTitle: m.content.zh,
-            //   subEnTitle: m.content.en,
-            //   statusText: Enum.status[m.Meta.state],
-            //   children: []
-            // })
           })
         }
       })
@@ -137,7 +128,8 @@ export default {
           enTitle: c.title.en,
           subChTitle: c.content.zh,
           subEnTitle: c.content.en,
-          statusText: Enum.status[c.Meta.state]
+          statusText: Enum.status[c.Meta.state],
+          parent: twoLevelIds[c.parent_id]
         }
         if (!children) {
           obj.children = []
@@ -155,7 +147,7 @@ export default {
                 child: true
               }
             })
-            .sort((a, b) => a.weight - b.weight < 0)
+            .sort((a, b) => b.weight - a.weight)
         }
 
         tableData.push(obj)
@@ -170,6 +162,7 @@ export default {
           console.log(ret)
         })
         .catch(ret => {
+          this.getList()
           console.log(ret)
         })
     },
@@ -196,6 +189,37 @@ export default {
           'add'
         )
         .then(ret => {
+          this.getList()
+          console.log(ret)
+        })
+        .catch(ret => {
+          console.log(ret)
+        })
+    },
+    editThree(row) {
+      console.log('====edit Three==')
+      this.$refs.threeLevelDialog
+        .show(row, 'edit')
+        .then(ret => {
+          console.log(ret)
+          this.getList()
+        })
+        .catch(ret => {
+          console.log(ret)
+        })
+    },
+    editFour(row) {
+      console.log('===edit Four====')
+      this.$refs.fourLevelDialog
+        .show(
+          {
+            parent_id: row.id,
+            row: row
+          },
+          'edit'
+        )
+        .then(ret => {
+          this.getList()
           console.log(ret)
         })
         .catch(ret => {
