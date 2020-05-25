@@ -152,7 +152,7 @@ export default {
 
         tableData.push(obj)
       })
-
+      console.log('===tableData==')
       this.list = tableData
     },
     addMenu() {
