@@ -103,9 +103,10 @@ export default {
 
 <style lang="less">
 .layout-footer {
-  // height: 26vh;
+  background-color: #000001;
   .footer-info {
-    background-color: #000001;
+    min-width: 1200px;
+    margin: auto;
     padding: 30px 67px;
     .split-line {
       height: 90px;

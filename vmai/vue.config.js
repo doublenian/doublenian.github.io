@@ -4,7 +4,7 @@ function resolve(dir) {
   return path.join(__dirname, './', dir)
 }
 module.exports = {
-  publicPath: '/vmai/dist/',
+  publicPath: '/',
   configureWebpack: {
     module: {
       rules: [

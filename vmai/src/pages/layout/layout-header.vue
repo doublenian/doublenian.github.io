@@ -145,14 +145,8 @@ li {
   min-width: 320px;
 }
 header {
-  // display: flex;
-  // z-index: 1;
-  // padding: 10px 0;
-  // width: 100%;
-  // top: 0;
-  // justify-content: center;
-  // box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  // transition: 0.33s;
+  min-width: 1200px;
+  margin: auto;
 }
 header .wrap {
   padding: 0 2%;

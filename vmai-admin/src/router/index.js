@@ -48,7 +48,7 @@ export const constantRoutes = [
         path: '',
         name: 'block',
         component: () => import('@/views/block/index'),
-        meta: { title: '顶部和底部导航栏', icon: 'block' }
+        meta: { title: '菜单配置', icon: 'block' }
       }
     ]
   },

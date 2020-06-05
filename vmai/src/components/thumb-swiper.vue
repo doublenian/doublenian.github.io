@@ -41,7 +41,6 @@
         }}</span>
         <div class="direction flex">
           <div
-            v-show="currentIndex > 0"
             class=" bg-white w-10 h-10 flex justify-center items-center cursor-pointer"
             @click="goPre"
           >
@@ -49,7 +48,6 @@
           </div>
           <div
             @click="goNext"
-            v-show="currentIndex < swiperList.length - 1"
             class=" bg-black w-10 h-10 flex justify-center items-center cursor-pointer"
           >
             <i class="el-icon-arrow-right text-white text-font-24"></i>
@@ -131,6 +129,7 @@ export default {
       parentIndex: 0,
       childParentMap: {},
       swiperOption: {
+        loop: true,
         pagination: {
           el: '.swiper-pagination'
         }

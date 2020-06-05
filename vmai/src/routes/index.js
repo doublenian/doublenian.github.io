@@ -44,6 +44,12 @@ const routes = [
     path: '/dynamics',
     component: () => import('@/pages/dynamics/index.vue')
   },
+  //联系我们
+  {
+    name: 'contact-us',
+    path: '/contact-us',
+    component: () => import('@/pages/contact-us/index.vue')
+  },
   {
     path: '*',
     redirect: '/home'

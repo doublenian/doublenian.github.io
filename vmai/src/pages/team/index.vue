@@ -20,10 +20,15 @@
               </div>
 
               <div class="flex  items-end justify-center" style="height:60px">
-                <p class=" text-font-18 text-white font-bold mr-3">
+                <p
+                  class=" text-font-18 text-white font-bold mr-3 "
+                  style="width:70px"
+                >
                   {{ item.name }}
                 </p>
-                <p class=" text-font-14  text-brighter">{{ item.title }}</p>
+                <p class=" text-font-14  text-brighter">
+                  {{ item.title }}
+                </p>
               </div>
               <div class="py-4 text-white px-6 profile-desc">
                 <p class=" text-center">
@@ -71,7 +76,7 @@ export default {
         spaceBetween: 0,
         loop: true,
         autoplay: {
-          delay: 3000,
+          delay: 8000,
           stopOnLastSlide: false,
           disableOnInteraction: true
         }
