@@ -38,7 +38,7 @@
 
 <script>
 import ImageUploader from '@/components/uploader/image-uploader'
-import { categoryAdd } from '@/api'
+import { categoryAdd, modifyCategory } from '@/api'
 export default {
   components: {
     ImageUploader
@@ -48,6 +48,7 @@ export default {
       dialogVisible: false,
       resolve: null,
       reject: null,
+      opType: '',
       form: {
         name: '',
         mdImage: '',
@@ -71,8 +72,18 @@ export default {
   methods: {
     show(data, type = 'add') {
       this.dialogVisible = true
+      this.opType = type
       if (type == 'add') {
         this.form = { ...this.cloneData }
+      } else {
+        this.form = {
+          id: data.id,
+          name: data.name,
+          mdImage: data.bg.md,
+          titleZh: data.title.zh,
+          contentZh: data.content.zh,
+          weight: data.weight
+        }
       }
       return new Promise((resolve, reject) => {
         this.resolve = resolve
@@ -100,7 +111,7 @@ export default {
               zh: this.form.contentZh
             }
           })
-          categoryAdd({
+          let params = {
             name: this.form.name,
             type: 3,
             bg: {
@@ -113,10 +124,18 @@ export default {
             content: {
               zh: this.form.contentZh
             }
-          }).then(ret => {
-            this.dialogVisible = false
-            this.resolve('确定')
-          })
+          }
+          if (this.opType == 'add') {
+            categoryAdd().then(ret => {
+              this.dialogVisible = false
+              this.resolve('确定')
+            })
+          } else {
+            modifyCategory(this.form.id, params).then(ret => {
+              this.dialogVisible = false
+              this.resolve(ret)
+            })
+          }
         }
       })
     }

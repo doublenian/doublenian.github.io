@@ -21,6 +21,7 @@
         <template slot-scope="{ row }">
           <!-- <el-button size="mini" type="text" @click="edit(row)">编辑</el-button> -->
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
+          <el-button size="mini" type="text" @click="editMenu(row)">编辑</el-button>
           <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
         </template>
       </el-table-column>
@@ -50,6 +51,14 @@ export default {
     addBanner() {
       this.$refs.confirmDialog
         .show()
+        .then(ret => {
+          this.getList()
+        })
+        .catch(ret => {})
+    },
+    editMenu(row) {
+      this.$refs.confirmDialog
+        .show(row, 'edit')
         .then(ret => {
           this.getList()
         })
