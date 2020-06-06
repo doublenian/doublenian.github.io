@@ -46,15 +46,15 @@ export default {
       this.imageUrl = 'https://' + res.url
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg'
-      const isLt50M = file.size / 1024 / 1024 < 50
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
-      }
+      // const isJPG = file.type === 'image/jpeg'
+      const isLt50M = file.size / 1024 / 1024 < 10
+      // if (!isJPG) {
+      //   this.$message.error('上传头像图片只能是 JPG 格式!')
+      // }
       if (!isLt50M) {
-        this.$message.error('上传头像图片大小不能超过 50MB!')
+        this.$message.error('上传图片大小不能超过 10MB!')
       }
-      return isJPG && isLt50M
+      return isLt50M
     }
   }
 }

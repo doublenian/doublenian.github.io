@@ -7,7 +7,10 @@
     <swiper-slide v-for="(item, index) in bannerData" :key="'swiper' + index"
       ><div
         class="banner-wrapper flex items-center"
-        :style="{ backgroundImage: 'url(' + item.imageUrl + ')' }"
+        :style="{
+          backgroundImage:
+            'url(' + item.imageUrl + '?x-oss-process=image/resize,h_1080' + ')'
+        }"
       >
         <div class=" text-white pl-20" style="width:350px">
           <p
@@ -58,7 +61,9 @@ export default {
           el: '.swiper-pagination',
           clickable: true,
           renderBullet: (index, className) => {
-            let image = this.bannerData[index].imageUrl
+            let image =
+              this.bannerData[index].imageUrl +
+              '?x-oss-process=image/resize,h_400'
             return `<div class="${className} swiper-pagination-bullet-custom">
               <div class="inner-block" style="background-image:url('${image}')" ></div>
               <div class="trige-wrapper"><img class="trige" src="${arrowDown}"/></div>

@@ -156,7 +156,7 @@ export default {
         })
     },
     editChild(row) {
-      console.log('====row====')
+      console.log('====edit child row====')
       console.log(row)
       this.$refs.blockDialog
         .show(2, {
@@ -164,7 +164,8 @@ export default {
           data: row
         })
         .then(ret => {
-          console.log(ret)
+          console.log('====edit child====')
+          console.log(row)
           this.getList()
         })
         .catch(ret => {

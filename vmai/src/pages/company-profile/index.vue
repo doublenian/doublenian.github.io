@@ -20,7 +20,7 @@
               <p>及大宅别墅家居软装设计与施工等配套服务</p>
             </div>
           </div>
-          <div class="left-bottom text-left text-font-14">
+          <div class="left-bottom text-left text-font-16">
             <p>十多年来</p>
             <p>维迈凭借着丰富的多元化行业资源库和成熟的本土化执行运维力</p>
             <p>实现了汇聚设计创意、定制制作、执行服务</p>

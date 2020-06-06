@@ -11,7 +11,7 @@
           class="flex items-center"
         >
           <div
-            class=" bg-image w-full bg-no-repeat bg-cover bg-center"
+            class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top"
             :style="{ backgroundImage: 'url(' + item.image + ')' }"
           >
             <div class="profile ">
@@ -19,11 +19,8 @@
                 <img src="../../assets/images/team/arrow-up.png" alt="" />
               </div>
 
-              <div class="flex  items-end justify-center" style="height:60px">
-                <p
-                  class=" text-font-18 text-white font-bold mr-3 "
-                  style="width:70px"
-                >
+              <div class="flex  items-end justify-center pt-6">
+                <p class=" text-font-18 text-white font-bold mr-3 ">
                   {{ item.name }}
                 </p>
                 <p class=" text-font-14  text-brighter">
@@ -59,7 +56,7 @@ export default {
       if (ret.result) {
         this.list = ret.result.map(c => {
           return {
-            image: c.bg.md,
+            image: c.bg.md + '?x-oss-process=image/resize,h_550',
             name: c.name,
             title: c.title.zh,
             desc: c.content.zh
@@ -78,7 +75,7 @@ export default {
         autoplay: {
           delay: 8000,
           stopOnLastSlide: false,
-          disableOnInteraction: true
+          disableOnInteraction: false
         }
       }
     }
@@ -87,25 +84,27 @@ export default {
 </script>
 
 <style lang="less">
+@slideHeight: 60vh;
 .team {
-  background: white;
+  background-color: rgb(48, 49, 50);
   .header {
     width: 100%;
-    height: 260px;
+    height: 200px;
     background: url('../../assets/images/company-profile/顶部图片.jpg');
     background-size: cover;
     background-position: center;
   }
   .body {
-    width: 960px;
-    min-height: 60vh;
+    width: 100%;
+    padding: 40px 20px 40px;
+    // min-height: 60vh;
     .swiper {
-      height: 480px;
+      height: @slideHeight;
       width: 100%;
       .swiper-slide {
         .bg-image {
-          width: 240px;
-          height: 420px;
+          // width: 25vw;
+          height: 100%;
           transition: all ease 0.3s;
           position: relative;
           &:hover {
@@ -113,9 +112,9 @@ export default {
               transform: rotate(180deg);
             }
             .profile > .profile-desc {
-              transform: scaleY(1);
+              // transform: scaleY(1);
               opacity: 1;
-              height: auto;
+              min-height: 20vh;
             }
           }
           .profile {
@@ -135,19 +134,19 @@ export default {
               transition: all ease 0.3s;
 
               padding: 4px;
-              border: 4px solid rgba(255, 255, 255, 0.58);
+              border: 4px solid rgba(255, 255, 255, 0.1);
               border-radius: 100%;
             }
             .profile-desc {
               transition: all ease 0.3s;
               transform-origin: bottom;
-              transform: scaleY(0);
+              // transform: scaleY(0);
               opacity: 0;
               height: 0;
             }
           }
           &:hover {
-            height: 94%;
+            height: 72vh;
             box-shadow: -2px -1px 12px -2px rgba(0, 0, 0, 0.58);
           }
         }

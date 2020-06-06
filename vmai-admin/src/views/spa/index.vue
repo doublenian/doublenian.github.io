@@ -13,7 +13,7 @@
       </el-form-item> -->
       <el-button type="primary" @click="addMenu" class=" float-right"> 添加三级菜单</el-button>
     </el-form>
-    <el-table :data="list" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+    <el-table :data="list" row-key="id" border :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
       <el-table-column prop="name" label="模块名称"> </el-table-column>
       <el-table-column prop="parent" label="父菜单"> </el-table-column>
       <el-table-column label="图片">
@@ -159,10 +159,10 @@ export default {
       this.$refs.threeLevelDialog
         .show('这是一段文字', 'add')
         .then(ret => {
+          this.getList()
           console.log(ret)
         })
         .catch(ret => {
-          this.getList()
           console.log(ret)
         })
     },

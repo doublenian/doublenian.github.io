@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { categoryList, categoryAdd, modifyCategory } from '@/api'
+import { categoryList, categoryAdd, modifyCategory, setState } from '@/api'
 import Enum from '../enum'
 import SelectMixin from './select-mixin'
 import ImageUploader from '@/components/uploader/image-uploader'
@@ -110,6 +110,8 @@ export default {
         this.form = { ...this.cloneData }
         this.form.parent_id = data.parent_id
       } else {
+        console.log('====edit four====')
+        console.log(data.row.id)
         this.form = {
           id: data.row.id,
           name: data.row.name,
@@ -156,11 +158,17 @@ export default {
             categoryAdd(params).then(ret => {
               this.dialogVisible = false
               this.$message.success('四级模块新增成功')
-              this.resolve('确定')
+              console.log('=====ret=add==')
+              console.log(ret)
+              setState(ret.id, 1).then(ret => {
+                this.resolve('确定')
+              })
             })
           } else {
             modifyCategory(this.form.id, params).then(ret => {
               this.dialogVisible = false
+              console.log('=====ret==edit==')
+              console.log(ret)
               this.resolve(ret)
             })
           }

@@ -117,7 +117,7 @@ export default {
       this.form.level = level
       this.dialogVisible = true
       if (this.form.level == 2) {
-        this.form.parent_id = obj.row.id
+        this.form.parent_id = obj.data.id
       }
       return new Promise((resolve, reject) => {
         this.resolve = resolve

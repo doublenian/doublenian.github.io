@@ -5,7 +5,8 @@
         ><div
           class="banner-wrapper"
           :style="{
-            backgroundImage: 'url(' + item.bg.md + ')'
+            backgroundImage:
+              'url(' + item.bg.md + '?x-oss-process=image/resize,h_1080' + ')'
           }"
         ></div>
         <div class="swiper-pagination" slot="pagination"></div>

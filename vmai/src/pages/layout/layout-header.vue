@@ -16,7 +16,8 @@
     <div class="wrap">
       <img
         class="logo cursor-pointer"
-        src="@/assets/images/v-mai.png"
+        style="width:50px;height:60px"
+        src="@/assets/images/logo-vcan.png"
         alt="logo"
         @click="$router.push({ path: '/' })"
       />
@@ -84,7 +85,13 @@ export default {
   mounted() {},
   methods: {
     clickMenu(item) {
-      if (item.link.herf) {
+      console.log('======item=======')
+      console.log(item)
+      if (
+        item.link.herf &&
+        item.link.herf !== '/works' &&
+        item.link.herf !== '/about'
+      ) {
         item.showActive = true
         this.$router.push({
           path: item.link.herf
