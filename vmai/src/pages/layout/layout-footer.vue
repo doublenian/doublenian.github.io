@@ -44,7 +44,7 @@
       class=" text-white text-font-12 text-center py-2 w-full"
       style="background-color:#303132;color:lightgrey"
     >
-      @ 2017 V-CAN All Right Reservered 维迈装饰集团 版权所有 沪ICP备
+      @ 2020 V-CAN All Right Reservered 维迈装饰集团 版权所有 沪ICP备
       160322530号-1
     </div>
   </div>

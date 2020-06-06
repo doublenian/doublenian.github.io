@@ -29,6 +29,7 @@
           <a
             @mouseenter="item.showActive = true"
             @mouseleave="item.showActive = false"
+            @click="clickMenu(item)"
             :class="[
               item.showActive ? 'menuActive' : '',
               item.link.herf && currentPage.indexOf(item.link.herf) > -1
@@ -82,36 +83,19 @@ export default {
   },
   mounted() {},
   methods: {
+    clickMenu(item) {
+      if (item.link.herf) {
+        item.showActive = true
+        this.$router.push({
+          path: item.link.herf
+        })
+      }
+    },
     clickSubMenu(item, sub) {
       item.showActive = true
       this.$router.push({
         path: sub.link.herf
       })
-      // if (item.title.zh === '作品案例') {
-      //   this.$router.push({
-      //     path: `/works/${sub.id}`
-      //     // query: {
-      //     //   id: sub.id
-      //     // }
-      //   })
-      // }
-      // if (item.title.zh === '关于维迈') {
-      //   if (sub.title.zh === '集团简介') {
-      //     this.$router.push({
-      //       path: '/about/company-profile'
-      //     })
-      //   }
-      //   if (sub.title.zh === '企业宣传片') {
-      //     this.$router.push({
-      //       path: '/about/company-promotion'
-      //     })
-      //   }
-      //   if (sub.title.zh === '荣誉资质') {
-      //     this.$router.push({
-      //       path: '/about/certfication'
-      //     })
-      //   }
-      // }
     },
     display_menu: function() {
       var body = document.getElementsByTagName('body')[0]
