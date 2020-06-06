@@ -1,107 +1,82 @@
 <template>
-  <div class="promotion-content">
-    <div class="header flex justify-center items-center mb-8">
-      <p class=" text-white text-font-32 font-weight-bold mt-20">企业宣传片</p>
-    </div>
-    <div class=" flex justify-center pb-8">
-      <video-player
-        ref="videoPlayer"
-        class="video-wrapper-box"
-        :options="playerOptions"
-        :playsinline="true"
-        customEventName="customstatechangedeventname"
-        @ready="playerReadied"
+  <div class="company-promotion">
+    <div class="w-full h-32"></div>
+    <!-- <div class="header flex justify-center items-center">
+      <p class=" text-white text-font-32 font-weight-bold mt-20">集团简介</p>
+    </div> -->
+
+    <div class="video-wrapper">
+      <video
+        loop
+        class="myVideo"
+        ref="myVideo"
+        controls
+        style="object-fit: cover"
+        poster="../../assets/images/promotion/背景.jpg"
       >
-      </video-player>
+        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+      <img
+        src="../../assets/images/promotion/bofang-2.png"
+        alt=""
+        class=" cursor-pointer"
+        @click="playVideo"
+        v-if="showPlayBtn"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import 'video.js/dist/video-js.css'
-import { videoPlayer } from 'vue-video-player'
-import poster from '../../assets/images/promotion/背景.jpg'
 export default {
-  components: {
-    videoPlayer
-  },
   data() {
     return {
-      playerOptions: {
-        // videojs options
-        muted: true,
-        language: 'en',
-        playbackRates: [0.7, 1.0, 1.5, 2.0],
-        sources: [
-          {
-            type: 'video/mp4',
-            src: 'http://vjs.zencdn.net/v/oceans.mp4'
-          }
-        ],
-        poster: poster
-      }
+      showPlayBtn: true
     }
   },
-  mounted() {
-    console.log('this is current player instance object', this.player)
-  },
-  computed: {
-    player() {
-      return this.$refs.videoPlayer.player
-    }
-  },
+  mounted() {},
   methods: {
-    // listen event
-    onPlayerPlay(player) {
-      // console.log('player play!', player)
-    },
-    onPlayerPause(player) {
-      // console.log('player pause!', player)
-    },
-    // ...player event
-
-    // or listen state event
-    playerStateChanged(playerCurrentState) {
-      // console.log('player current update state', playerCurrentState)
-    },
-
-    // player is ready
-    playerReadied(player) {
-      console.log('the player is readied', player)
-      // you can use it to do something...
-      // player.[methods]
+    playVideo() {
+      this.$refs.myVideo.play()
+      this.showPlayBtn = false
     }
   }
 }
 </script>
 
 <style lang="less">
-.promotion-content {
-  video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  background-color: white;
-  .video-js .vjs-big-play-button {
-    top: 50% !important;
-    left: 50% !important;
+.company-promotion {
+  min-width: 1200px;
+  margin: auto;
+  .video-wrapper {
+    position: absolute;
+    top: 55%;
+    left: 50%;
     transform: translate(-50%, -50%);
-  }
-  .vjs-poster {
-    background-size: cover;
-  }
-  .header {
     width: 100%;
-    height: 260px;
-    background: url('../../assets/images/company-profile/顶部图片.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-
-  .video-wrapper-box {
-    width: 500px;
-    transform: translateX(-250px);
+    .poster {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background: url('../../assets/images/promotion/背景.jpg') no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+    }
+    .myVideo {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

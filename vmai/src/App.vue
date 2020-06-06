@@ -29,7 +29,8 @@ export default {
         val.name === 'works' ||
         val.name === 'contact-us' ||
         val.name === 'dynamics' ||
-        val.name === 'team'
+        val.name === 'team' ||
+        val.name === 'company-promotion'
       ) {
         this.showFoot = false
       } else {
