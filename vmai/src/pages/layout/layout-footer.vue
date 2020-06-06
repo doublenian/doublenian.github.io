@@ -95,7 +95,7 @@ export default {
       })
     },
     gotoLink(sub) {
-      location.href = sub.href
+      window.open(sub.href, '_blank')
     }
   }
 }

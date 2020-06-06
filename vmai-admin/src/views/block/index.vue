@@ -6,7 +6,7 @@
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>
       <el-table-column prop="enTitle" label="英文标题"> </el-table-column>
       <el-table-column prop="position" label="所在版块"></el-table-column>
-      <el-table-column prop="weight" label="排序"></el-table-column>
+      <el-table-column prop="weight" label="权重"></el-table-column>
       <el-table-column label="状态">
         <template slot-scope="{ row }">
           <el-tag :type="row.Meta.state === 1 ? 'success' : 'danger'">{{ row.statusText }}</el-tag>

@@ -18,7 +18,13 @@
       <el-table-column prop="parent" label="父菜单"> </el-table-column>
       <el-table-column label="图片">
         <template slot-scope="{ row }" v-if="row.bg.md">
-          <el-image class=" w-20 h-20 object-contain" :src="row.bg.md" :preview-src-list="[row.bg.md]"> </el-image>
+          <el-image
+            class=" w-20 h-20 object-contain"
+            :src="row.bg.md + '?x-oss-process=image/resize,w_100,h_100'"
+            fit="contain"
+            :preview-src-list="[row.bg.md]"
+          >
+          </el-image>
         </template>
       </el-table-column>
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>
@@ -30,7 +36,7 @@
           <el-tag :type="row.Meta.state === 1 ? 'success' : 'danger'">{{ row.statusText }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="weight" label="排序"></el-table-column>
+      <el-table-column prop="weight" label="权重"></el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="{ row }">
           <el-button size="mini" type="text" @click="setUpOrDown(row)">{{ row.Meta.state == 1 ? '下架' : '上架' }}</el-button>
@@ -135,19 +141,17 @@ export default {
           obj.children = []
         } else {
           obj.children = []
-          obj.children = children
-            .map(d => {
-              return {
-                ...d,
-                chTitle: d.title.zh,
-                enTitle: d.title.en,
-                subChTitle: d.content.zh,
-                subEnTitle: d.content.en,
-                statusText: Enum.status[d.Meta.state],
-                child: true
-              }
-            })
-            .sort((a, b) => b.weight - a.weight)
+          obj.children = children.map(d => {
+            return {
+              ...d,
+              chTitle: d.title.zh,
+              enTitle: d.title.en,
+              subChTitle: d.content.zh,
+              subEnTitle: d.content.en,
+              statusText: Enum.status[d.Meta.state],
+              child: true
+            }
+          })
         }
 
         tableData.push(obj)

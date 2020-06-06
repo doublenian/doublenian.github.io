@@ -35,7 +35,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="跳转模式" prop="target">
+          <el-form-item label="跳转模式" prop="target" v-if="form.layout !== 1">
             <el-select v-model="form.target" placeholder="请选择跳转模式">
               <el-option v-for="item in jumpModeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
             </el-select>
@@ -101,8 +101,7 @@ export default {
         mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }],
         layout: [{ required: true, message: '请输入交互方式', trigger: 'blur' }],
         link: [{ required: true, message: '请输入链接地址', trigger: 'blur' }],
-        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
-        target: [{ required: true, message: '请选择跳转模式', trigger: 'blur' }]
+        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }]
       },
       cloneData: {}
     }

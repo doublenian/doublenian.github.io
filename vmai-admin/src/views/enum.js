@@ -17,8 +17,7 @@ export default {
     2: '底部导航栏'
   },
   displayModes: {
-    1: '横版海报',
-    2: '竖版富文本'
+    1: '横版海报'
   },
   //Banner 跳转外链方式
   linkerType: [
