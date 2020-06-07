@@ -126,7 +126,7 @@ export default {
             }
           }
           if (this.opType == 'add') {
-            categoryAdd().then(ret => {
+            categoryAdd(params).then(ret => {
               this.dialogVisible = false
               this.resolve('确定')
             })

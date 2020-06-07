@@ -1,12 +1,12 @@
 <template>
   <header class=" absolute z-10 w-full pt-2">
     <div class=" w-full flex justify-end mb-4 header-tool px-6">
-      <div class=" w-16 h-6 flex justify-center items-center">中文</div>
+      <!-- <div class=" w-16 h-6 flex justify-center items-center">中文</div>
       <div
         class="w-16 h-6 mx-2 flex justify-center items-center bg-black text-primary"
       >
         英文
-      </div>
+      </div> -->
       <div
         class="w-16 h-6 border flex justify-center items-center rounded border border-black"
       >

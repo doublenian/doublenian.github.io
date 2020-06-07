@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="添加一级菜单" :visible.sync="dialogVisible" width="50%">
+  <el-dialog :title="form.level == 1 ? '添加一级菜单' : '子菜单'" :visible.sync="dialogVisible" width="50%">
     <el-form :model="form" :rules="rules" label-type="right" label-width="80px" ref="ruleForm">
       <el-row :gutter="10">
         <el-col :span="24">
@@ -95,11 +95,12 @@ export default {
   },
   methods: {
     show(level, obj) {
-      console.log('====level====')
-      console.log(this.form.level)
       this.opType = obj.type
+
       if (obj.type === 'add') {
         this.form = { ...this.cloneData }
+        console.log('=====this.form=====')
+        console.log(this.form)
       }
       if (obj.type === 'edit') {
         this.form = {
@@ -114,11 +115,12 @@ export default {
         }
       }
 
-      this.form.level = level
       this.dialogVisible = true
-      if (this.form.level == 2) {
+      this.form.level = level
+      if (level == 2) {
         this.form.parent_id = obj.data.id
       }
+
       return new Promise((resolve, reject) => {
         this.resolve = resolve
         this.reject = reject

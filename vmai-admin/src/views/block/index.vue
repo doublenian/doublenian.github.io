@@ -1,7 +1,7 @@
 <template>
   <div class=" w-full px-10 pt-10">
     <el-button type="primary" class=" mb-5" @click="addParentMenu">添加菜单</el-button>
-    <el-table :data="tableData" row-key="id" border default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+    <el-table :data="tableData" row-key="id" border :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
       <el-table-column prop="name" label="一级菜单"> </el-table-column>
       <el-table-column prop="chTitle" label="中文标题"> </el-table-column>
       <el-table-column prop="enTitle" label="英文标题"> </el-table-column>
@@ -145,7 +145,7 @@ export default {
       this.$refs.blockDialog
         .show(2, {
           type: 'add',
-          row: row
+          data: row
         })
         .then(ret => {
           this.getList()

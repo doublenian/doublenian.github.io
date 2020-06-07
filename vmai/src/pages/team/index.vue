@@ -87,6 +87,7 @@ export default {
 @slideHeight: 60vh;
 .team {
   background-color: rgb(48, 49, 50);
+  min-width: 1200px;
   .header {
     width: 100%;
     height: 200px;
