@@ -14,12 +14,12 @@
             class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top"
             :style="{ backgroundImage: 'url(' + item.image + ')' }"
           >
-            <div class="profile ">
+            <div class="profile py-6">
               <div class="icon-image flex justify-center items-center">
                 <img src="../../assets/images/team/arrow-up.png" alt="" />
               </div>
 
-              <div class="flex  items-end justify-center pt-6">
+              <div class="flex  items-end justify-center">
                 <p class=" text-font-18 text-white font-bold mr-3 ">
                   {{ item.name }}
                 </p>
@@ -27,10 +27,14 @@
                   {{ item.title }}
                 </p>
               </div>
-              <div class="py-4 text-white px-6 profile-desc">
-                <p class=" text-center">
-                  {{ item.desc }}
-                </p>
+              <div
+                class="pt-4 text-white px-6 profile-desc"
+                style="padding-bottom:6vh"
+              >
+                <p
+                  class=" text-center"
+                  v-html="item.desc.replace(/(\;|\；)/g, '<br>')"
+                ></p>
               </div>
             </div>
           </div>
@@ -113,9 +117,9 @@ export default {
               transform: rotate(180deg);
             }
             .profile > .profile-desc {
-              // transform: scaleY(1);
-              opacity: 1;
-              min-height: 20vh;
+              // transform: translateY(0);
+              display: block;
+              // opacity: 1;
             }
           }
           .profile {
@@ -142,8 +146,9 @@ export default {
               transition: all ease 0.3s;
               transform-origin: bottom;
               // transform: scaleY(0);
-              opacity: 0;
-              height: 0;
+              // transform: translateY(100%);
+              // opacity: 0;
+              display: none;
             }
           }
           &:hover {

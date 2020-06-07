@@ -24,12 +24,10 @@
             class="text-left"
             style="font-size:14px;line-height:1.5"
             data-swiper-parallax="-400"
-          >
-            {{ item.contentZh }}
-          </p>
-        </div>
-      </div></swiper-slide
-    >
+            v-html="item.contentZh.replace(/(\;|\；)/g, '<br>')"
+          ></p>
+        </div></div
+    ></swiper-slide>
     <div
       class="swiper-pagination swiper-pagination-bullets"
       slot="pagination"
