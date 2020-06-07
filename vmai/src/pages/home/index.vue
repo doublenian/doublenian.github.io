@@ -12,7 +12,7 @@
             'url(' + item.imageUrl + '?x-oss-process=image/resize,h_1080' + ')'
         }"
       >
-        <div class=" text-white pl-20" style="width:350px">
+        <div class=" text-white pl-20">
           <p
             class="mb-4 text-left"
             style="font-size:30px"

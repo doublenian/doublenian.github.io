@@ -24,12 +24,12 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="中文副标题" prop="chContent">
-            <el-input v-model="form.chContent" class=" w-full"></el-input>
+            <el-input v-model="form.chContent" class=" w-full" type="textarea"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="英文副标题" prop="enContent">
-            <el-input v-model="form.enContent" class=" w-full"></el-input>
+            <el-input v-model="form.enContent" class=" w-full" type="textarea"></el-input>
           </el-form-item>
         </el-col>
         <!-- <el-col :span="12">

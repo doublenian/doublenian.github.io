@@ -3,12 +3,28 @@
     <swiper class=" h-full relative" :options="swiperOption" ref="mySwiper">
       <swiper-slide v-for="(item, index) in swiperList" :key="'swiper' + index"
         ><div
-          class="banner-wrapper"
+          class="banner-wrapper flex items-center"
           :style="{
             backgroundImage:
               'url(' + item.bg.md + '?x-oss-process=image/resize,h_1080' + ')'
           }"
-        ></div>
+        >
+          <div class=" text-white pl-20">
+            <p
+              class="mb-4 text-left"
+              style="font-size:30px"
+              data-swiper-parallax="-240"
+            >
+              {{ item.title.zh }}
+            </p>
+            <p
+              class="text-left"
+              style="font-size:14px;line-height:1.5"
+              data-swiper-parallax="-400"
+              v-html="item.content.zh.replace(/(\;|\；)/g, '<br>')"
+            ></p>
+          </div>
+        </div>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper-slide>
     </swiper>
