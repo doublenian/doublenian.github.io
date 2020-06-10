@@ -30,7 +30,8 @@ export default {
         val.name === 'contact-us' ||
         val.name === 'dynamics' ||
         val.name === 'team' ||
-        val.name === 'company-promotion'
+        val.name === 'company-promotion' ||
+        val.name === 'welfare'
       ) {
         this.showFoot = false
       } else {
