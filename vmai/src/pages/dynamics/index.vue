@@ -19,7 +19,7 @@ export default {
 <style lang="less">
 .dynamics-content-wrapper {
   background-color: white;
-  padding-top: 160px;
+  padding-top: 130px;
   padding-bottom: 30px;
   min-height: 100vh;
   .title-wrapper {

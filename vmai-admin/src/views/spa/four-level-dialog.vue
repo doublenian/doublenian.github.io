@@ -77,7 +77,7 @@ export default {
       form: {
         id: '',
         name: '',
-        weight: '',
+        weight: 0,
         chTitle: '',
         enTitle: '',
         chContent: '',
@@ -87,13 +87,7 @@ export default {
         parent_id: ''
       },
       rules: {
-        mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }],
-        name: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
-        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
-        chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }],
-        enTitle: [{ required: true, message: '请输入英文标题', trigger: 'blur' }],
-        chContent: [{ required: true, message: '请输入中文副标题', trigger: 'blur' }],
-        enContent: [{ required: true, message: '请输入英文副标题', trigger: 'blur' }]
+        mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }]
       },
       cloneData: {}
     }

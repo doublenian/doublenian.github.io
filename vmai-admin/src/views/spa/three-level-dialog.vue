@@ -78,18 +78,15 @@ export default {
         name: '',
         chTitle: '',
         enTitle: '',
-        weight: '',
+        weight: 0,
         // date: '',
         layout: ''
       },
       rules: {
         // oneLevel: [{ required: true, message: '请输入一级菜单', trigger: 'change' }],
         // twoLevel: [{ required: true, message: '请输入二级菜单', trigger: 'change' }],
-        name: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
-        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
-        chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }],
-        enTitle: [{ required: true, message: '请输入英文标题', trigger: 'blur' }],
-        layout: [{ required: true, message: '请输入呈现模式', trigger: 'blur' }]
+
+        chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }]
       },
       cloneData: {}
     }

@@ -14,7 +14,7 @@
           <div class="ml-4">
             <p class=" text-font-16 font-extrabold mb-2">关于维迈集团：</p>
             <p class=" text-font-14 font-normal">
-              上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端办公空间设计、软装为一体的EPC总包国家高新技术企业及上海市专精特新企业。
+              上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端
             </p>
           </div>
         </div>
@@ -32,8 +32,8 @@ export default {}
 .dynamic1-wrapper {
   width: 1200px;
   margin: auto;
-  margin-top: 43px;
-  height: 564px;
+  margin-top: 30px;
+  height: 530px;
   .left {
     width: 550px;
     height: 100%;
@@ -49,10 +49,10 @@ export default {}
     }
     .items-list {
       .item {
-        margin-top: 16px;
+        margin-top: 14px;
         img {
           width: 199px;
-          height: 112px;
+          height: 100px;
         }
       }
     }

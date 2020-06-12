@@ -85,7 +85,7 @@ export default {
         mdImage: '',
         smImage: '',
         layout: '',
-        weight: '',
+        weight: 0,
         link: '',
         target: '',
         title: {
@@ -100,8 +100,7 @@ export default {
       rules: {
         mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }],
         layout: [{ required: true, message: '请输入交互方式', trigger: 'blur' }],
-        link: [{ required: true, message: '请输入链接地址', trigger: 'blur' }],
-        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }]
+        link: [{ required: true, message: '请输入链接地址', trigger: 'blur' }]
       },
       cloneData: {}
     }

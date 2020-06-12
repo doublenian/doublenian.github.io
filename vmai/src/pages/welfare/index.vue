@@ -82,7 +82,7 @@ export default {
 <style lang="less">
 .welfare-content-wrapper {
   background-color: white;
-  padding-top: 160px;
+  padding-top: 140px;
   padding-bottom: 30px;
   min-height: 100vh;
   .title-wrapper {
@@ -102,7 +102,7 @@ export default {
   .welfare-body {
     width: 1200px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 30px;
     .body-title {
       color: rgba(236, 108, 31, 1);
       font-size: 30px;

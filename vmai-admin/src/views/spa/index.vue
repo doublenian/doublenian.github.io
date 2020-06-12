@@ -48,10 +48,12 @@
           <template v-else-if="row.children.length === 0">
             <el-button size="mini" type="text" @click="editThree(row)">编辑</el-button>
             <el-button size="mini" type="text" @click="addChild(row)">添加子菜单</el-button>
+            <el-button size="mini" type="text" @click="addMulti(row)">批量添加</el-button>
             <el-button size="mini" type="text" @click="deleteMenu(row)">删除</el-button>
           </template>
           <template v-else>
             <el-button size="mini" type="text" @click="editThree(row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="addMulti(row)">批量添加</el-button>
             <el-button size="mini" type="text" @click="addChild(row)">添加子菜单</el-button>
           </template>
         </template>
@@ -59,6 +61,7 @@
     </el-table>
     <three-level-dialog ref="threeLevelDialog"></three-level-dialog>
     <four-level-dialog ref="fourLevelDialog"></four-level-dialog>
+    <multi-upload ref="multiUpload"></multi-upload>
   </div>
 </template>
 
@@ -67,13 +70,15 @@ import { categoryList, setState } from '@/api'
 import ThreeLevelDialog from './three-level-dialog'
 import FourLevelDialog from './four-level-dialog'
 import selectMixin from './select-mixin'
+import MultiUpload from './multi-upload'
 import Enum from '../enum'
 
 export default {
   mixins: [selectMixin],
   components: {
     ThreeLevelDialog,
-    FourLevelDialog
+    FourLevelDialog,
+    MultiUpload
   },
   data() {
     return {
@@ -229,6 +234,11 @@ export default {
         .catch(ret => {
           console.log(ret)
         })
+    },
+    addMulti(row) {
+      this.$refs.multiUpload.show(row.id).then(ret => {
+        this.getList()
+      })
     }
   }
 }

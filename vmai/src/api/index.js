@@ -10,6 +10,7 @@ status: {
 }
 type = 1 获取顶部导航栏
 type = 2 获取底部导航栏
+type = 3 精英人物
  */
 export function getCategory(parent_id, type) {
   let params = {
