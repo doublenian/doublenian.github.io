@@ -1,17 +1,53 @@
 <template>
   <div class="dynamics-content-wrapper">
     <div class="title-wrapper">集团动态</div>
-    <dynamic1></dynamic1>
+    <swiper class="swiper" ref="mySwiper" :options="swiperOption">
+      <swiper-slide><dynamic1></dynamic1></swiper-slide>
+      <swiper-slide><dynamic2></dynamic2></swiper-slide>
+    </swiper>
+    <div class="bottom-swiper flex justify-center">
+      <img
+        src="../../assets/images/arrow-left.jpg"
+        alt=""
+        style="margin-right:309px"
+        @click="goPrev"
+      />
+      <img src="../../assets/images/arrow-right.jpg" alt="" @click="goNext" />
+    </div>
   </div>
 </template>
 
 <script>
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 import dynamic1 from './dynamic1'
 import dynamic2 from './dynamic2'
 export default {
   components: {
-    dynamic1
-    // dynamic2
+    swiper,
+    swiperSlide,
+    dynamic1,
+    dynamic2
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper
+    }
+  },
+  data() {
+    return {
+      swiperOption: {
+        loop: true
+      }
+    }
+  },
+  methods: {
+    goNext() {
+      this.swiper.slideNext()
+    },
+    goPrev() {
+      this.swiper.slidePrev()
+    }
   }
 }
 </script>
@@ -36,7 +72,14 @@ export default {
     background-origin: center;
     background-position: center;
   }
-  .dynamics-body {
+  .bottom-swiper {
+    width: 1200px;
+    margin: auto;
+    padding: 10px;
+    img {
+      width: 40px;
+      height: 40px;
+    }
   }
 }
 </style>
