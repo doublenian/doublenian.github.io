@@ -1,25 +1,30 @@
 <template>
   <div id="app">
     <vue-progress-bar></vue-progress-bar>
-    <layout-header> </layout-header>
+
+    <layout-header @showSearch="ev => (showSearch = ev)"> </layout-header>
     <router-view :key="keyPath"></router-view>
     <layout-footer v-if="showFoot"></layout-footer>
+    <search v-if="showSearch"></search>
   </div>
 </template>
 
 <script>
 import LayoutHeader from './pages/layout/layout-header'
 import LayoutFooter from './pages/layout/layout-footer'
+import Search from './search'
 export default {
   name: 'app',
   components: {
     LayoutFooter,
-    LayoutHeader
+    LayoutHeader,
+    Search
   },
   data() {
     return {
       showFoot: true,
-      keyPath: ''
+      keyPath: '',
+      showSearch: false
     }
   },
   watch: {

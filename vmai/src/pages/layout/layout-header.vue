@@ -8,7 +8,8 @@
         英文
       </div> -->
       <div
-        class="w-16 h-6 border flex justify-center items-center rounded border border-black"
+        @click="showSearch"
+        class="w-16 h-6 border flex justify-center items-center rounded border border-black cursor-pointer"
       >
         搜索
       </div>
@@ -84,6 +85,9 @@ export default {
   },
   mounted() {},
   methods: {
+    showSearch() {
+      this.$emit('showSearch', true)
+    },
     clickMenu(item) {
       console.log('======item=======')
       console.log(item)
