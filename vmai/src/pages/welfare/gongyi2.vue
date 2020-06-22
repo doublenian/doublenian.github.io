@@ -83,41 +83,38 @@ export default {
 
 <style lang="less">
 .coronavirus-body {
-  width: 1200px;
+  width: 80vw;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 5vh;
   .left-swiper {
-    width: 532px;
-    height: 496px;
+    width: 40vw;
+    height: 68vh;
     .swiper {
       height: 100%;
       .swiper-slide {
         height: 100%;
-        background-color: lightgray;
         position: relative;
         .block1 {
-          width: 532px;
-          height: 229px;
-          background-color: red;
+          width: 40vw;
+          height: 35vh;
         }
         .block-wrapper {
-          width: 532px;
-          height: 260px;
+          width: 40vw;
+          height: 32vh;
           .block {
-            width: 263px;
+            width: 19.8vw;
             height: 100%;
-            background-color: gray;
           }
         }
         .swiper-title {
           position: absolute;
           bottom: 0;
           width: 100%;
-          height: 51px;
+          height: 4vh;
           color: white;
-          line-height: 51px;
+          line-height: 4vh;
           text-align: center;
-          font-size: 22px;
+          font-size: 1.1vw;
           background: rgba(237, 109, 40, 0.7);
         }
       }
@@ -127,8 +124,8 @@ export default {
   .right-container {
     margin-left: 8px;
     .image-rongrong {
-      width: 221px;
-      height: 496px;
+      width: 16vw;
+      height: 100%;
       background: url('../../assets/images/coronavirus/tupian14.jpg') no-repeat;
       background-size: cover;
       background-origin: center;
@@ -136,18 +133,18 @@ export default {
       margin-right: 8px;
     }
     .right-desc {
-      width: 420px;
+      width: 24vw;
       color: white;
-      height: 496px;
+      height: 100%;
       background-color: #ed6d28;
-      padding: 38px 36px 0px;
-
+      padding: 4vh 2vw 0px;
+      font-size: 0.9vw;
       .title1 {
         font-weight: bold;
-        font-size: 30px;
+        font-size: 1.5vw;
       }
       .title2 {
-        font-size: 21px;
+        font-size: 1.1vw;
       }
     }
   }

@@ -5,7 +5,7 @@
     <layout-header @showSearch="ev => (showSearch = ev)"> </layout-header>
     <router-view :key="keyPath"></router-view>
     <layout-footer v-if="showFoot"></layout-footer>
-    <search v-if="showSearch"></search>
+    <search v-if="showSearch" @close="showSearch = false"></search>
   </div>
 </template>
 
@@ -77,4 +77,10 @@ export default {
 <style lang="postcss">
 @import 'assets/styles/tailwind.css';
 @import './index.css';
+#app {
+  min-width: 1200px;
+  margin: auto;
+  overflow: scroll;
+  min-height: 766px;
+}
 </style>

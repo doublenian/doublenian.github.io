@@ -52,6 +52,18 @@ export const constantRoutes = [
       }
     ]
   },
+  // {
+  //   path: '/introduce',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'introduce',
+  //       component: () => import('@/views/introduce/index'),
+  //       meta: { title: '集团简介', icon: 'nested' }
+  //     }
+  //   ]
+  // },
   {
     path: '/banner',
     component: Layout,
@@ -76,18 +88,7 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/account',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'account',
-        component: () => import('@/views/account/index'),
-        meta: { title: '账号管理', icon: 'account' }
-      }
-    ]
-  },
+
   {
     path: '/team',
     component: Layout,
@@ -100,18 +101,55 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/dynamics',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'dynamics',
-  //       component: () => import('@/views/dynamics/index'),
-  //       meta: { title: '集团动态', icon: 'nested' }
-  //     }
-  //   ]
-  // },
+
+  {
+    path: '/news',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'news',
+        component: () => import('@/views/news/index'),
+        meta: { title: '新闻动态', icon: 'example' }
+      }
+    ]
+  },
+  {
+    path: '/welfare',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'welfare',
+        component: () => import('@/views/welfare/index'),
+        meta: { title: '维迈公益', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/corv-19',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'corv-19',
+        component: () => import('@/views/corv-19/index'),
+        meta: { title: '抗击疫情', icon: 'nested' }
+      }
+    ]
+  },
+  {
+    path: '/account',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'account',
+        component: () => import('@/views/account/index'),
+        meta: { title: '账号管理', icon: 'account' }
+      }
+    ]
+  },
   {
     path: '/system',
     component: Layout,

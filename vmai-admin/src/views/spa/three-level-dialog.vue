@@ -80,7 +80,7 @@ export default {
         enTitle: '',
         weight: 0,
         // date: '',
-        layout: ''
+        layout: '1'
       },
       rules: {
         // oneLevel: [{ required: true, message: '请输入一级菜单', trigger: 'change' }],
@@ -110,7 +110,7 @@ export default {
           chTitle: data.title.zh,
           enTitle: data.title.en,
           weight: data.weight,
-          layout: data.layout
+          layout: '' + data.layout
         }
       }
       return new Promise((resolve, reject) => {

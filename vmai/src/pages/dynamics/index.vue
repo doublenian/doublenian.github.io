@@ -19,6 +19,8 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { getCategory } from '@/api'
+
 import 'swiper/css/swiper.css'
 import dynamic1 from './dynamic1'
 import dynamic2 from './dynamic2'
@@ -38,8 +40,29 @@ export default {
     return {
       swiperOption: {
         loop: true
-      }
+      },
+      list: []
     }
+  },
+  created() {
+    getCategory(null, 5).then(ret => {
+      if (ret.result) {
+        this.list = ret.result.map(c => {
+          return {
+            image: c.bg.md + '?x-oss-process=image/resize,h_550',
+            title: c.title.zh,
+            desc: c.content.zh
+          }
+        })
+        let listLen = this.list.length
+        // if(listLen < 9) {
+        //   if(listLen < 4 ) {
+
+        //   }
+        // }
+        console.log(this.list)
+      }
+    })
   },
   methods: {
     goNext() {
@@ -55,17 +78,16 @@ export default {
 <style lang="less">
 .dynamics-content-wrapper {
   background-color: white;
-  padding-top: 130px;
-  padding-bottom: 30px;
+  padding-top: 12vh;
   min-height: 100vh;
   .title-wrapper {
     font-size: 28px;
     font-weight: bold;
-    width: 180px;
+    width: 18vw;
     color: white;
-    height: 50px;
+    height: 7vh;
     margin: auto;
-    line-height: 50px;
+    line-height: 7vh;
     text-align: center;
     background: url('../../assets/images/木牌.png') no-repeat;
     background-size: cover;
@@ -73,12 +95,13 @@ export default {
     background-position: center;
   }
   .bottom-swiper {
-    width: 1200px;
+    width: 80vw;
     margin: auto;
-    padding: 10px;
+    margin-top: 1vh;
+    // padding: 0.2vw;
     img {
-      width: 40px;
-      height: 40px;
+      width: 3vw;
+      height: 3vw;
     }
   }
 }

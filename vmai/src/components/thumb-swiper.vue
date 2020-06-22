@@ -29,33 +29,44 @@
       </swiper-slide>
     </swiper>
     <div class="thumb-pagination flex  z-10">
-      <div
-        class="image-wrapper cursor-pointer"
-        v-if="nextInfo"
-        @click="goNextThree"
-      >
-        <img
-          :src="nextInfo.bg.md + '?x-oss-process=image/resize,h_100'"
-          alt=""
-        />
-        <div class="mask flex items-center text-font-16 p-8 text-brighter">
-          {{ nextInfo.parent_name }}
+      <div class="image-wrapper cursor-pointer" @click="goNextThree(nextIndex)">
+        <div class="allThreeLevel">
+          <p
+            v-for="(item, index) in parentArr"
+            :key="'ronghe' + index"
+            :class="[parentIndex == index ? 'active' : '']"
+            @click="threeMenuClicked(index)"
+          >
+            {{ item.name }}
+          </p>
         </div>
+        <template v-if="nextInfo">
+          <img
+            :src="nextInfo.bg.md + '?x-oss-process=image/resize,h_100'"
+            alt=""
+          />
+          <div class="mask flex items-center text-font-16 p-8 text-brighter">
+            {{ nextInfo.parent_name }}
+          </div>
+        </template>
+        <template v-else>
+          <img
+            :src="swiperList[0].bg.md + '?x-oss-process=image/resize,h_100'"
+            alt=""
+          />
+          <div class="mask flex items-center text-font-16 p-8 text-brighter">
+            {{ swiperList[0].parent_name }}
+          </div>
+        </template>
       </div>
-      <div class="image-wrapper cursor-pointer" v-else @click="goFirst">
-        <img
-          :src="this.swiperList[0].bg.md + '?x-oss-process=image/resize,h_100'"
-          alt=""
-        />
-        <div class="mask flex items-center text-font-16 p-8 text-brighter">
-          {{ this.swiperList[0].parent_name }}
-        </div>
-      </div>
+      <!-- <div class="image-wrapper cursor-pointer" v-else @click="goFirst">
+       
+      </div> -->
 
       <div class="flex items-center relative bg-brighter control-wrapper ">
-        <span class=" text-white  text-font-26 ml-4">{{
+        <!-- <span class=" text-white  text-font-26 ml-4">{{
           currentIndex + 1 >= 10 ? currentIndex + 1 : '0' + (currentIndex + 1)
-        }}</span>
+        }}</span> -->
         <div class="direction flex">
           <div
             class=" bg-white w-10 h-10 flex justify-center items-center cursor-pointer"
@@ -113,8 +124,8 @@ export default {
       })
     })
     this.childParentMap = childParentMap
-    console.log('=====childParentMap=======')
-    console.log(childParentMap)
+    console.log('=====parentArr=======')
+    console.log(this.parentArr)
     this.$nextTick(() => {
       this.watcher = this.$watch('swiper.realIndex', function(val) {
         console.log('======relal index===')
@@ -167,9 +178,17 @@ export default {
     gotoIndex(index) {
       this.swiper.slideTo(index)
     },
-    goNextThree() {
-      let nextIndex = this.childParentMap[this.nextIndex][0]
-      this.swiper.slideTo(nextIndex)
+    threeMenuClicked(index) {
+      this.parentIndex = index
+      this.goNextThree(index)
+    },
+    goNextThree(nIndex) {
+      if (this.nextInfo) {
+        let nextIndex = this.childParentMap[nIndex][0]
+        this.swiper.slideTo(nextIndex)
+      } else {
+        this.goFirst()
+      }
     }
   }
 }
@@ -197,6 +216,32 @@ export default {
       width: 190px;
       height: 94px;
       position: relative;
+      &:hover {
+        .allThreeLevel {
+          display: block;
+        }
+      }
+      .allThreeLevel {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        left: 0;
+        z-index: 999;
+        display: none;
+        background-color: rgba(0, 0, 0, 0.68);
+        p {
+          width: 100%;
+          height: 44px;
+          line-height: 44px;
+          text-align: center;
+          color: #fdb732;
+          font-size: 16px;
+          &.active {
+            color: white;
+            background-color: #fdb732;
+          }
+        }
+      }
       .mask {
         position: absolute;
         left: 0;
@@ -204,6 +249,13 @@ export default {
         top: 0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.3);
+        color: #fdb732;
+        font-size: 16px;
+        li {
+          text-align: center;
+          width: 100%;
+          height: 44px;
+        }
       }
       img {
         width: 100%;

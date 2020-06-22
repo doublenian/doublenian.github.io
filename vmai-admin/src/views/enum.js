@@ -4,6 +4,9 @@
  * type =2 底部导航栏
  * type =3 精英人物
  * type = 4 Banner
+ * type = 5 新闻动态
+ * type = 6 维迈公益
+ * type = 7 抗击疫情
  */
 
 export default {

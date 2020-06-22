@@ -64,7 +64,8 @@ export default {
           bg: {
             md: c
           },
-          parent_id: this.parent_id
+          parent_id: this.parent_id,
+          weight: 100
         }).then(ret => ret.id)
       })
       let ids = await Promise.all(promiseArr)

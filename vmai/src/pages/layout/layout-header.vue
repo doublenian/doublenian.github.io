@@ -17,8 +17,8 @@
     <div class="wrap">
       <img
         class="logo cursor-pointer"
-        style="width:50px;height:60px"
-        src="@/assets/images/logo-vcan.png"
+        style="width:273px;height:62px"
+        src="@/assets/images/logo-new.png"
         alt="logo"
         @click="$router.push({ path: '/' })"
       />
@@ -157,11 +157,13 @@ header img {
 header #menu {
   display: flex;
   flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.55);
 }
 header #menu li {
   position: relative;
   user-select: none;
-  margin-left: 20px;
+  margin-left: 0px;
+  color: #fdb732;
   .parent-active {
     border-bottom-color: @cblue;
     background-color: #000001;
@@ -177,12 +179,13 @@ header #menu li {
       bottom: -30%;
     }
     i {
-      display: none;
+      color: @cblue;
     }
   }
   i {
     width: 12px;
     height: 12px;
+    color: @cblue;
     // background-color: @cgrey;
   }
   .submenu {
@@ -190,7 +193,7 @@ header #menu li {
     font-size: 14px;
   }
   a {
-    color: @cgrey;
+    color: #fdb732;
     cursor: pointer;
     font-size: 1.15em;
     display: block;
@@ -204,7 +207,7 @@ header #menu li {
     background: none;
     position: relative;
     i {
-      color: transparent;
+      color: @cblue;
     }
     &.menuActive {
       border-bottom-color: @cblue;

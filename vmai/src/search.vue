@@ -1,11 +1,16 @@
 <template>
-  <div class="search-wrapper">
+  <div class="search-wrapper" @click.stop="$emit('close')">
     <div>
       <div class="search-header flex justify-center items-center">
         <div class="search-box flex">
-          <img src="./assets/images/search.png" alt="" class="search-icon" />
+          <div class="search-icon flex items-center justify-center">
+            <img src="./assets/images/search/search.png" alt="" />
+          </div>
+
           <input class="appearance-none " type="text" placeholder="搜索" />
-          <img src="./assets/images/search-btn.png" alt="" class="search-btn" />
+          <div class="search-btn flex items-center justify-center">
+            <img src="./assets/images/search/jiantou.png" alt="" />
+          </div>
         </div>
       </div>
       <div class="search-body mx-auto">
@@ -78,31 +83,40 @@ export default {
   bottom: 0;
   z-index: 999;
   overflow: hidden;
-  background: url('./assets/images/dynamics/BG1.jpg') no-repeat;
-  background-size: cover;
-  background-position: center;
+  backdrop-filter: blur(5px);
+
+  background-color: rgba(48, 54, 60, 0.8);
   padding-top: 45px;
   .search-header {
     margin: auto;
-    width: 727px;
+    width: 900px;
     height: 67px;
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.6);
     .search-box {
-      width: 344px;
+      width: 464px;
       height: 35px;
 
       .search-icon {
         left: 0;
         top: 0;
-        width: 42px;
+        width: 30px;
+        background-color: white;
         height: 35px;
+        img {
+          width: 15px;
+          height: 15px;
+        }
       }
       .search-btn {
         right: 0;
         bottom: 0;
         width: 42px;
         height: 35px;
+        img {
+          width: 20px;
+        }
+        background-color: #fdb732;
       }
       input {
         width: 100%;
@@ -112,7 +126,7 @@ export default {
     }
   }
   .search-body {
-    width: 727px;
+    width: 900px;
     margin-top: 13px;
     max-height: 507px;
     overflow-y: scroll;

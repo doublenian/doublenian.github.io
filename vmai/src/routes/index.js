@@ -50,11 +50,7 @@ const routes = [
     path: '/contact-us',
     component: () => import('@/pages/contact-us/index.vue')
   },
-  {
-    name: 'coronavirus',
-    path: '/coronavirus',
-    component: () => import('@/pages/coronavirus/index.vue')
-  },
+
   {
     name: 'welfare',
     path: '/welfare',

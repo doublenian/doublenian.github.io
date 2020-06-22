@@ -18,8 +18,18 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
+          <el-form-item label="英文职位">
+            <el-input v-model="form.titleEn" class=" w-11/12"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
           <el-form-item label="描述" prop="contentZh">
             <el-input v-model="form.contentZh" class=" w-11/12" type="textarea"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="英文描述">
+            <el-input v-model="form.contentEn" class=" w-11/12" type="textarea"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -54,7 +64,9 @@ export default {
         mdImage: '',
         weight: '',
         titleZh: '',
-        contentZh: ''
+        titleEn: '',
+        contentZh: '',
+        contentEn: ''
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
@@ -81,7 +93,9 @@ export default {
           name: data.name,
           mdImage: data.bg.md,
           titleZh: data.title.zh,
+          titleEn: data.title.en,
           contentZh: data.content.zh,
+          contentEn: data.content.en,
           weight: data.weight
         }
       }
@@ -105,10 +119,12 @@ export default {
             },
             weight: this.form.weight,
             title: {
-              zh: this.form.titleZh
+              zh: this.form.titleZh,
+              en: this.form.titleEn
             },
             content: {
-              zh: this.form.contentZh
+              zh: this.form.contentZh,
+              en: this.form.contentEn
             }
           })
           let params = {
@@ -119,10 +135,12 @@ export default {
             },
             weight: this.form.weight,
             title: {
-              zh: this.form.titleZh
+              zh: this.form.titleZh,
+              en: this.form.titleEn
             },
             content: {
-              zh: this.form.contentZh
+              zh: this.form.contentZh,
+              en: this.form.contentEn
             }
           }
           if (this.opType == 'add') {

@@ -18,8 +18,18 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
+          <el-form-item label="英文主标题">
+            <el-input v-model="form.title.en" class=" w-11/12"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
           <el-form-item label="副标题">
             <el-input v-model="form.content.zh" class=" w-11/12" type="textarea"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="英文副标题">
+            <el-input v-model="form.content.en" class=" w-11/12"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">

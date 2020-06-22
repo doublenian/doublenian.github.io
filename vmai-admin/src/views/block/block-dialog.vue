@@ -71,7 +71,6 @@ export default {
       rules: {
         name: [{ required: true, message: '请输入模块名称', trigger: 'blur' }],
         chTitle: [{ required: true, message: '请输入中文标题', trigger: 'blur' }],
-        enTitle: [{ required: true, message: '请输入英文标题', trigger: 'blur' }],
         weight: [{ required: true, message: '请输入权重', trigger: 'blur' }],
         type: [{ required: true, message: '请输入菜单位置', trigger: 'change' }],
         link: [{ required: true, message: '请输入链接', trigger: 'change' }]

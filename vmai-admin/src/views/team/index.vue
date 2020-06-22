@@ -3,8 +3,10 @@
     <el-button type="primary" class=" mb-5" @click="addBanner">添加人物</el-button>
     <el-table :data="list" border>
       <el-table-column prop="name" label="名字"></el-table-column>
-      <el-table-column prop="titleZh" label="职位"></el-table-column>
-      <el-table-column prop="contentZh" label="描述"></el-table-column>
+      <el-table-column prop="title.zh" label="职位"></el-table-column>
+      <el-table-column prop="title.en" label="英文职位"></el-table-column>
+      <el-table-column prop="content.zh" label="描述"></el-table-column>
+      <el-table-column prop="content.en" label="英文描述"></el-table-column>
       <el-table-column label="图片" width="120px">
         <template slot-scope="{ row }">
           <el-image
@@ -79,9 +81,7 @@ export default {
       this.list = result.map(c => {
         return {
           ...c,
-          statusText: Enum.status[c.Meta.state],
-          titleZh: c.title.zh,
-          contentZh: c.content.zh
+          statusText: Enum.status[c.Meta.state]
         }
       })
     },
