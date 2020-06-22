@@ -23,12 +23,12 @@
     </div>
 
     <div class="welfare-swiper mx-auto py-4">
-      <swiper class="swiper" :options="swiperOption">
+      <swiper class="swiper" :options="swiperOption" v-if="list.length > 0">
         <swiper-slide
           v-for="(item, index) in list"
           :key="'swipe' + index"
           class=" bg-no-repeat bg-cover bg-center "
-          :style="{ backgroundImage: 'url(' + item.imageUrl + ')' }"
+          :style="{ backgroundImage: 'url(' + item.image + ')' }"
         >
           <div class="swiper-title">{{ item.title }}</div>
         </swiper-slide>
@@ -38,8 +38,12 @@
 </template>
 
 <script>
+// * type = 6 维迈公益
+//  * type = 7 抗击疫情
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import { getCategory } from '@/api'
+
 export default {
   components: {
     swiper,
@@ -47,35 +51,34 @@ export default {
   },
   data() {
     return {
-      list: [
-        {
-          imageUrl: require('../../assets/images/welfare/tupian15.jpg'),
-          title: '爱心抗疫活动'
-        },
-        {
-          imageUrl: require('../../assets/images/welfare/tupian16.jpg'),
-          title: '疫情就是命令'
-        },
-        {
-          imageUrl: require('../../assets/images/welfare/tupian17.jpg'),
-          title: '爱心接力行动'
-        },
-        {
-          imageUrl: require('../../assets/images/welfare/tupian18.jpg'),
-          title: '爱心接力活动'
-        }
-      ],
+      list: [],
       swiperOption: {
         slidesPerView: 4,
         spaceBetween: 14,
         loop: true,
         autoplay: {
-          delay: 8000,
+          delay: 3000,
           stopOnLastSlide: false,
           disableOnInteraction: false
         }
       }
     }
+  },
+  created() {
+    getCategory(null, 7).then(ret => {
+      if (ret.result) {
+        let list = ret.result.map(c => {
+          return {
+            image: c.bg.md,
+            // image: c.bg.md + '?x-oss-process=image/resize,h_550',
+            title: c.title.zh,
+            desc: c.content.zh,
+            href: c.link.herf
+          }
+        })
+        this.list = list
+      }
+    })
   }
 }
 </script>

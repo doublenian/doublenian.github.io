@@ -17,12 +17,12 @@
           :key="'d1' + index"
         >
           <img :src="item.image" alt="" />
-          <div class="ml-4">
-            <p class="text-title  font-extrabold mb-2" v-if="item[index].title">
-              {{ item[index].title }}
+          <div class="ml-4 flex-1 mr-1">
+            <p class="text-title  font-extrabold mb-2" v-if="item.title">
+              {{ item.title }}
             </p>
-            <p class=" text-desc font-normal" v-if="item[index].desc">
-              {{ item[index].desc }}
+            <p class=" text-desc font-normal" v-if="item.desc">
+              {{ item.desc }}
             </p>
           </div>
         </div>
@@ -59,8 +59,7 @@ export default {
 
     .title-image {
       width: 2.6vw;
-      height: 6vh;
-      display: block;
+      display: inline-block;
       margin: auto;
     }
     .desc {
@@ -69,6 +68,7 @@ export default {
     .items-list {
       .item {
         margin-top: 1.5vh;
+
         img {
           width: 15vw;
           height: 13.5vh;

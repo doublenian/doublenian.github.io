@@ -1,15 +1,15 @@
 <template>
   <div class="coronavirus-body flex">
     <div class="left-swiper">
-      <swiper class="swiper" :options="swiperOption">
+      <swiper class="swiper" :options="swiperOption" v-if="list.length > 0">
         <swiper-slide
           class="flex flex-col justify-between"
           v-for="(item, index) in list"
           :key="'swiper' + index"
         >
           <div
-            class="block1 bg-cover bg-center relative"
-            :style="{ backgroundImage: 'url(' + item[0].imageUrl + ')' }"
+            class="block1 bg-cover bg-top relative"
+            :style="{ backgroundImage: 'url(' + item[0].image + ')' }"
           >
             <div class="swiper-title" v-if="item[0].title">
               {{ item[0].title }}
@@ -18,7 +18,7 @@
           <div class="block-wrapper flex justify-between">
             <div
               class="block bg-cover bg-center relative"
-              :style="{ backgroundImage: 'url(' + item[1].imageUrl + ')' }"
+              :style="{ backgroundImage: 'url(' + item[1].image + ')' }"
             >
               <div class="swiper-title" v-if="item[1].title">
                 {{ item[1].title }}
@@ -26,7 +26,7 @@
             </div>
             <div
               class="block bg-cover bg-center relative"
-              :style="{ backgroundImage: 'url(' + item[2].imageUrl + ')' }"
+              :style="{ backgroundImage: 'url(' + item[2].image + ')' }"
             >
               <div class="swiper-title" v-if="item[2].title">
                 {{ item[2].title }}
@@ -51,8 +51,12 @@
 </template>
 
 <script>
+// * type = 6 维迈公益
+//  * type = 7 抗击疫情
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import { getCategory } from '@/api'
+
 export default {
   components: {
     swiper,
@@ -60,22 +64,75 @@ export default {
   },
   data() {
     return {
-      list: [
-        [
-          {
-            imageUrl: require('../../assets/images/coronavirus/tupian11.jpg'),
-            title: '腾讯公益活动'
-          },
-          {
-            imageUrl: require('../../assets/images/coronavirus/tupian12.jpg'),
-            title: '乡村支教活动'
-          },
-          {
-            imageUrl: require('../../assets/images/coronavirus/tupian13.jpg'),
-            title: '爱心接力行动'
+      swiperOption: {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        }
+      },
+      list: []
+    }
+  },
+  created() {
+    getCategory(null, 6).then(ret => {
+      if (ret.result) {
+        let list = ret.result.map(c => {
+          return {
+            image: c.bg.md,
+            // image: c.bg.md + '?x-oss-process=image/resize,h_550',
+            title: c.title.zh,
+            desc: c.content.zh,
+            href: c.link.herf
           }
-        ]
-      ]
+        })
+        let listLen = list.length
+        let multiple = parseInt(listLen / 3)
+        let remainder = listLen % 3
+        let arr = this.computeArr(
+          list.slice(multiple * 3),
+          list,
+          multiple,
+          remainder
+        )
+        let listMulti = list.slice(0, multiple * 3)
+        let groupList = []
+        for (let i = 0; i < multiple; i++) {
+          groupList.push([...listMulti.slice(i * 3, 3 * (i + 1))])
+        }
+        if (arr.length > 0) {
+          groupList.push(arr)
+        }
+        this.list = groupList
+      }
+    })
+  },
+  methods: {
+    computeArr(list, fullList, multiple, remainder) {
+      let arr = []
+      switch (remainder) {
+        case 0: {
+          arr = []
+          break
+        }
+        case 1: {
+          if (multiple == 0) {
+            arr = [list[0], list[0], list[0]]
+          } else {
+            arr = [list[0], fullList[0], fullList[1]]
+          }
+          break
+        }
+        case 2: {
+          if (multiple == 0) {
+            arr = [list[0], list[1], list[0]]
+          } else {
+            arr = [list[0], list[1], fullList[0]]
+          }
+        }
+      }
+      return arr
     }
   }
 }

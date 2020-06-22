@@ -2,8 +2,8 @@
   <div class="welfare-content-wrapper">
     <div class="title-wrapper">维迈公益</div>
     <swiper class="swiper" ref="mySwiper" :options="swiperOption">
-      <swiper-slide><gongyi1></gongyi1></swiper-slide>
-      <swiper-slide><gongyi2></gongyi2></swiper-slide>
+      <swiper-slide class="stop-swiping"><gongyi1></gongyi1></swiper-slide>
+      <swiper-slide class="stop-swiping"><gongyi2></gongyi2></swiper-slide>
     </swiper>
     <div class="bottom-swiper flex justify-center">
       <img
@@ -38,7 +38,9 @@ export default {
   data() {
     return {
       swiperOption: {
-        loop: true
+        loop: true,
+        noSwipingClass: 'stop-swiping',
+        noSwiping: true
       }
     }
   },

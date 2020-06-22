@@ -8,7 +8,7 @@
       </swiper-slide>
       <!-- <swiper-slide><dynamic2></dynamic2></swiper-slide> -->
     </swiper>
-    <div class="bottom-swiper flex justify-center">
+    <div class="bottom-swiper flex justify-center" v-if="showFoot">
       <img
         src="../../assets/images/arrow-left.jpg"
         alt=""
@@ -45,7 +45,8 @@ export default {
         loop: true
       },
       templateName: '',
-      list: []
+      list: [],
+      showFoot: true
     }
   },
   created() {
@@ -53,7 +54,8 @@ export default {
       if (ret.result) {
         let list = ret.result.map(c => {
           return {
-            image: c.bg.md + '?x-oss-process=image/resize,h_550',
+            image: c.bg.md,
+            // image: c.bg.md + '?x-oss-process=image/resize,h_550',
             title: c.title.zh,
             desc: c.content.zh,
             href: c.link.herf
@@ -117,6 +119,7 @@ export default {
                 data: []
               }
             ]
+            this.showFoot = false
           } else {
             arr = [
               {
@@ -144,6 +147,7 @@ export default {
                 data: []
               }
             ]
+            this.showFoot = false
           } else {
             arr = [
               {
@@ -171,6 +175,7 @@ export default {
                 data: []
               }
             ]
+            this.showFoot = false
           } else {
             arr = [
               {
@@ -187,6 +192,9 @@ export default {
           break
         }
         case 4: {
+          if (multiple === 0) {
+            this.showFoot = false
+          }
           arr = [
             {
               type: 0,
@@ -197,6 +205,7 @@ export default {
               data: []
             }
           ]
+
           break
         }
         case 5: {
@@ -210,6 +219,9 @@ export default {
               data: list
             }
           ]
+          if (multiple === 0) {
+            this.showFoot = false
+          }
           break
         }
         case 6: {

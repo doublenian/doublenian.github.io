@@ -107,7 +107,7 @@ export default {
     }
   }
   .left2 {
-    width: 27vw;
+    width: 26.5vw;
     height: 100%;
     position: relative;
     .left2-desc {
