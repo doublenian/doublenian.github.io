@@ -3,29 +3,42 @@
     <div class="left flex flex-col justify-between">
       <img src="@/assets/images/logo-vcan.png" alt="" class="title-image" />
       <div class="desc">
-        <p class=" text-title font-extrabold mb-4">关于维迈集团：</p>
-        <p class="  text-desc">
-          上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端办公空间设计、软装为一体的EPC总包国家高新技术企业及上海市专精特新企业。
+        <p class=" text-title font-extrabold mb-4" v-if="data[0].title">
+          {{ data[0].title }}
+        </p>
+        <p class="text-desc" v-if="data[0].desc">
+          {{ data[0].desc }}
         </p>
       </div>
       <div class="items-list mt-4">
-        <div class="item flex justify-between" v-for="i in 3" :key="i">
-          <img src="../../assets/images/dynamics/d1.png" alt="" />
+        <div
+          class="item flex justify-between"
+          v-for="(item, index) in data.slice(1)"
+          :key="'d1' + index"
+        >
+          <img :src="item.image" alt="" />
           <div class="ml-4">
-            <p class="text-title  font-extrabold mb-2">关于维迈集团：</p>
-            <p class=" text-desc font-normal">
-              上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端发
+            <p class="text-title  font-extrabold mb-2" v-if="item[index].title">
+              {{ item[index].title }}
+            </p>
+            <p class=" text-desc font-normal" v-if="item[index].desc">
+              {{ item[index].desc }}
             </p>
           </div>
         </div>
       </div>
     </div>
-    <div class="right"></div>
+    <div
+      class="right"
+      :style="{ backgroundImage: 'url(' + data[0].image + ')' }"
+    ></div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['data']
+}
 </script>
 
 <style lang="less">
@@ -66,7 +79,6 @@ export default {}
   .right {
     width: 52vw;
     height: 100%;
-    background: url('../../assets/images/dynamics/d1.png') no-repeat;
     background-size: cover;
     background-origin: center;
     background-position: center;

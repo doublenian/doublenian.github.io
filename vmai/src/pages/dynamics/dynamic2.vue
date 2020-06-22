@@ -3,35 +3,37 @@
     <div class="left1 flex flex-col justify-between ">
       <img src="../../assets/images/logo-vcan.png" alt="" class="mx-auto" />
       <p class="p1 text-title">上海维迈科建集团有限公司</p>
-      <p class="p2 text-left text-title">关于维迈集团:</p>
-      <p class="p3 text-desc">
-        上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端办公空间
+      <p class="p2 text-left text-title" v-if="data[0].title">
+        {{ data[0].title }}
+      </p>
+      <p class="p3 text-desc" v-if="data[0].desc">
+        {{ data[0].desc }}
       </p>
       <div
         class="left1-image bg-cover bg-center"
-        :style="{ backgroundImage: 'url(' + list[0][0].imageUrl + ')' }"
+        :style="{ backgroundImage: 'url(' + data[0].image + ')' }"
       ></div>
     </div>
     <div
       class="left2 bg-cover bg-center"
-      :style="{ backgroundImage: 'url(' + list[0][1].imageUrl + ')' }"
+      :style="{ backgroundImage: 'url(' + data[1].image + ')' }"
     >
       <div class="left2-desc">
-        <p class="text-title">关于维迈集团:</p>
-        <p class="text-desc">
-          上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端办公空间设计、软装为一体的EPC总包国家高新技术企业及上海市专精特新企业。
+        <p class="text-title" v-if="data[1].title">{{ data[1].title }}</p>
+        <p class="text-desc" v-if="data[1].desc">
+          {{ data[1].desc }}
         </p>
       </div>
     </div>
     <div class="right-wrapper ">
       <div
         class="item1 bg-cover bg-center"
-        :style="{ backgroundImage: 'url(' + list[0][2].imageUrl + ')' }"
+        :style="{ backgroundImage: 'url(' + data[2].image + ')' }"
       >
         <div class="item1-desc">
-          <p class="text-title">关于维迈集团:</p>
-          <p class="text-desc">
-            上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间
+          <p class="text-title" v-if="data[2].title">{{ data[2].title }}</p>
+          <p class="text-desc" v-if="data[2].desc">
+            {{ data[2].desc }}
           </p>
         </div>
       </div>
@@ -39,25 +41,25 @@
         <div class="item2-image">
           <div
             class="image bg-cover bg-center"
-            :style="{ backgroundImage: 'url(' + list[0][3].imageUrl + ')' }"
+            :style="{ backgroundImage: 'url(' + data[3].image + ')' }"
           ></div>
         </div>
         <div class="desc flex-1">
-          <div class="text-title">关于维迈集团:</div>
-          <div class="text-desc">
-            上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端
+          <div class="text-title" v-if="data[3].title">{{ data[3].title }}</div>
+          <div class="text-desc" v-if="data[3].desc">
+            {{ data[3].desc }}
           </div>
         </div>
       </div>
       <div class="item3 flex items-end">
         <div
           class="item3-image  bg-cover bg-center"
-          :style="{ backgroundImage: 'url(' + list[0][4].imageUrl + ')' }"
+          :style="{ backgroundImage: 'url(' + data[4].image + ')' }"
         ></div>
         <div class=" flex-1">
-          <div class="text-title">关于维迈集团:</div>
-          <div class="text-desc">
-            上海维迈建筑装饰集团是一家文旅文创、古建筑、博物馆、奢侈品商业空间、五星酒店、高端
+          <div class="text-title" v-if="data[4].title">{{ data[4].title }}</div>
+          <div class="text-desc" v-if="data[4].desc">
+            {{ data[4].desc }}
           </div>
         </div>
       </div>
@@ -67,33 +69,9 @@
 
 <script>
 export default {
+  props: ['data'],
   data() {
-    return {
-      list: [
-        [
-          {
-            imageUrl: require('../../assets/images/dynamics/tupian1.jpg'),
-            title: ''
-          },
-          {
-            imageUrl: require('../../assets/images/dynamics/tupian2.jpg'),
-            title: ''
-          },
-          {
-            imageUrl: require('../../assets/images/dynamics/tupian3.jpg'),
-            title: ''
-          },
-          {
-            imageUrl: require('../../assets/images/dynamics/tupian4.jpg'),
-            title: ''
-          },
-          {
-            imageUrl: require('../../assets/images/dynamics/tupian4.jpg'),
-            title: ''
-          }
-        ]
-      ]
-    }
+    return {}
   }
 }
 </script>
