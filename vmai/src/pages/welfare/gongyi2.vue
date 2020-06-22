@@ -7,31 +7,37 @@
           v-for="(item, index) in list"
           :key="'swiper' + index"
         >
-          <div
-            class="block1 bg-cover bg-top relative"
+          <a
+            :href="item[0].herf"
+            target="_blank"
+            class="block1 bg-cover bg-top relative block"
             :style="{ backgroundImage: 'url(' + item[0].image + ')' }"
           >
             <div class="swiper-title" v-if="item[0].title">
               {{ item[0].title }}
             </div>
-          </div>
+          </a>
           <div class="block-wrapper flex justify-between">
-            <div
-              class="block bg-cover bg-center relative"
+            <a
+              :href="item[1].herf"
+              target="_blank"
+              class="block bg-cover bg-center relative block"
               :style="{ backgroundImage: 'url(' + item[1].image + ')' }"
             >
               <div class="swiper-title" v-if="item[1].title">
                 {{ item[1].title }}
               </div>
-            </div>
-            <div
-              class="block bg-cover bg-center relative"
+            </a>
+            <a
+              :href="item[2].herf"
+              target="_blank"
+              class="block bg-cover bg-center relative block"
               :style="{ backgroundImage: 'url(' + item[2].image + ')' }"
             >
               <div class="swiper-title" v-if="item[2].title">
                 {{ item[2].title }}
               </div>
-            </div>
+            </a>
           </div>
         </swiper-slide>
       </swiper>

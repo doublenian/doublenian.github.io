@@ -11,8 +11,10 @@
         </p>
       </div>
       <div class="items-list mt-4">
-        <div
-          class="item flex justify-between"
+        <a
+          :href="item.href"
+          target="_blank"
+          class="item flex justify-between block"
           v-for="(item, index) in data.slice(1)"
           :key="'d1' + index"
         >
@@ -25,13 +27,15 @@
               {{ item.desc }}
             </p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
-    <div
-      class="right"
+    <a
+      class="right block"
+      :href="data[0].href"
+      target="_blank"
       :style="{ backgroundImage: 'url(' + data[0].image + ')' }"
-    ></div>
+    ></a>
   </div>
 </template>
 

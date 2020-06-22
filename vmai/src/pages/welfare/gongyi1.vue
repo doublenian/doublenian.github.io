@@ -24,13 +24,15 @@
 
     <div class="welfare-swiper mx-auto py-4">
       <swiper class="swiper" :options="swiperOption" v-if="list.length > 0">
-        <swiper-slide
-          v-for="(item, index) in list"
-          :key="'swipe' + index"
-          class=" bg-no-repeat bg-cover bg-center "
-          :style="{ backgroundImage: 'url(' + item.image + ')' }"
-        >
-          <div class="swiper-title">{{ item.title }}</div>
+        <swiper-slide v-for="(item, index) in list" :key="'swipe' + index">
+          <a
+            :href="item.href"
+            target="_blank"
+            class=" bg-no-repeat bg-cover bg-center w-full h-full relative block"
+            :style="{ backgroundImage: 'url(' + item.image + ')' }"
+          >
+            <div class="swiper-title">{{ item.title }}</div>
+          </a>
         </swiper-slide>
       </swiper>
     </div>

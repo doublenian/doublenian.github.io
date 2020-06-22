@@ -9,13 +9,17 @@
       <p class="p3 text-desc" v-if="data[0].desc">
         {{ data[0].desc }}
       </p>
-      <div
-        class="left1-image bg-cover bg-center"
+      <a
+        class="left1-image bg-cover bg-center block"
+        :href="data[0].href"
+        target="_blank"
         :style="{ backgroundImage: 'url(' + data[0].image + ')' }"
-      ></div>
+      ></a>
     </div>
-    <div
-      class="left2 bg-cover bg-center"
+    <a
+      class="left2 bg-cover bg-center block"
+      :href="data[1].href"
+      target="_blank"
       :style="{ backgroundImage: 'url(' + data[1].image + ')' }"
     >
       <div class="left2-desc">
@@ -24,11 +28,13 @@
           {{ data[1].desc }}
         </p>
       </div>
-    </div>
+    </a>
     <div class="right-wrapper ">
-      <div
-        class="item1 bg-cover bg-center"
+      <a
+        class="item1 bg-cover bg-center block"
         :style="{ backgroundImage: 'url(' + data[2].image + ')' }"
+        :href="data[2].href"
+        target="_blank"
       >
         <div class="item1-desc">
           <p class="text-title" v-if="data[2].title">{{ data[2].title }}</p>
@@ -36,8 +42,12 @@
             {{ data[2].desc }}
           </p>
         </div>
-      </div>
-      <div class="item2 flex items-end">
+      </a>
+      <a
+        class="item2 flex items-end block"
+        :href="data[3].href"
+        target="_blank"
+      >
         <div class="item2-image">
           <div
             class="image bg-cover bg-center"
@@ -50,8 +60,12 @@
             {{ data[3].desc }}
           </div>
         </div>
-      </div>
-      <div class="item3 flex items-end">
+      </a>
+      <a
+        class="item3 flex items-end block"
+        :href="data[4].href"
+        target="_blank"
+      >
         <div
           class="item3-image  bg-cover bg-center"
           :style="{ backgroundImage: 'url(' + data[4].image + ')' }"
@@ -62,7 +76,7 @@
             {{ data[4].desc }}
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>
