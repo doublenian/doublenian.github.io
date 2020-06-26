@@ -85,11 +85,11 @@ const actions = {
       mainNavMenu.forEach((item, index) => {
         console.log('====subMenus====' + item.title.zh)
         console.log(subMenus[index])
-        if (item.title.zh === '作品案例') {
-          subMenus[index] = subMenus[index].filter(
-            c => c.title.zh !== '集团简介'
-          )
-        }
+        // if (item.title.zh === '作品案例') {
+        //   subMenus[index] = subMenus[index].filter(
+        //     c => c.title.zh !== '集团简介'
+        //   )
+        // }
         menuList.push({
           ...item,
           children: subMenus[index]

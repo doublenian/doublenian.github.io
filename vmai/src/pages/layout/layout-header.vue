@@ -90,7 +90,14 @@ export default {
     await this.$store.dispatch('category/queryTwoLevel')
     console.log('======TOP MENU=====')
     console.log(this.twoLevelMenu)
-    this.menuList = this.twoLevelMenu
+    let twoLevelMenu = []
+    this.twoLevelMenu.forEach(item => {
+      if (item.title.zh == '作品案例') {
+        item.children = item.children.filter(c => c.title.zh !== '集团简介')
+      }
+      twoLevelMenu.push(item)
+    })
+    this.menuList = twoLevelMenu
     this.isEn = sessionStorage.getItem('x-lang') === 'en'
   },
   mounted() {},

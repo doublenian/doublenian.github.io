@@ -17,7 +17,7 @@ const routes = [
   //企业简介
   {
     name: 'company-profile',
-    path: '/about/company-profile',
+    path: '/about/company-profile/:id',
     component: () => import('@/pages/company-profile/index.vue')
   },
   //企业宣传片
@@ -31,6 +31,11 @@ const routes = [
     name: 'certfication',
     path: '/about/certfication',
     component: () => import('@/pages/certfication/index.vue')
+  },
+  {
+    name: 'cert',
+    path: '/about/cert',
+    component: () => import('@/pages/cert/index.vue')
   },
   //经营团队
   {

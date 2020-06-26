@@ -30,7 +30,7 @@
     </swiper>
     <div class="thumb-pagination flex  z-10">
       <div class="image-wrapper cursor-pointer" @click="goNextThree(nextIndex)">
-        <div class="allThreeLevel">
+        <!-- <div class="allThreeLevel">
           <p
             v-for="(item, index) in parentArr"
             :key="'ronghe' + index"
@@ -39,7 +39,7 @@
           >
             {{ item.name }}
           </p>
-        </div>
+        </div> -->
         <template v-if="nextInfo">
           <img
             :src="nextInfo.bg.md + '?x-oss-process=image/resize,h_100'"
