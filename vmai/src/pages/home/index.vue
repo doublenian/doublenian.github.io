@@ -5,8 +5,10 @@
     v-if="bannerData && bannerData.length > 0"
   >
     <swiper-slide v-for="(item, index) in bannerData" :key="'swiper' + index"
-      ><div
-        class="banner-wrapper flex items-center"
+      ><a
+        class="banner-wrapper flex items-center block"
+        :href="item.link.herf ? item.link.herf : 'javascript:void(0)'"
+        :target="item.link.herf ? '_blank' : ''"
         :style="{
           backgroundImage:
             'url(' + item.imageUrl + '?x-oss-process=image/resize,h_1080' + ')'
@@ -25,8 +27,7 @@
             style="font-size:14px;line-height:1.5"
             data-swiper-parallax="-400"
             v-html="item.contentZh.replace(/(\;|\；)/g, '<br>')"
-          ></p>
-        </div></div
+          ></p></div></a
     ></swiper-slide>
     <div
       class="swiper-pagination swiper-pagination-bullets"

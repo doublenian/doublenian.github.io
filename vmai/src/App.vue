@@ -80,7 +80,7 @@ export default {
 #app {
   min-width: 1200px;
   margin: auto;
-  overflow: scroll;
+  /* overflow: scroll; */
   min-height: 766px;
 }
 </style>

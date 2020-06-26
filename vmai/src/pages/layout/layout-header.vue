@@ -1,17 +1,25 @@
 <template>
   <header class=" absolute z-10 w-full pt-2">
     <div class=" w-full flex justify-end mb-4 header-tool px-6">
-      <!-- <div class=" w-16 h-6 flex justify-center items-center">中文</div>
       <div
-        class="w-16 h-6 mx-2 flex justify-center items-center bg-black text-primary"
+        class=" w-16 h-6 flex justify-center items-center cursor-pointer"
+        :class="[!isEn ? 'bg-black text-primary' : '']"
+        @click="changeLang('zh')"
       >
-        英文
-      </div> -->
+        中文
+      </div>
+      <div
+        :class="[isEn ? 'bg-black text-primary' : '']"
+        class="w-16 h-6 mx-2 flex justify-center items-center  cursor-pointer"
+        @click="changeLang('en')"
+      >
+        English
+      </div>
       <div
         @click="showSearch"
         class="w-16 h-6 border flex justify-center items-center rounded border border-black cursor-pointer"
       >
-        搜索
+        {{ isEn ? 'Search' : '搜索' }}
       </div>
     </div>
     <div class="wrap">
@@ -68,7 +76,8 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      menuList: []
+      menuList: [],
+      isEn: false
     }
   },
   computed: {
@@ -82,9 +91,17 @@ export default {
     console.log('======TOP MENU=====')
     console.log(this.twoLevelMenu)
     this.menuList = this.twoLevelMenu
+    this.isEn = sessionStorage.getItem('x-lang') === 'en'
   },
   mounted() {},
   methods: {
+    changeLang(lang) {
+      if (lang == 'en') {
+        this.isEn = true
+      }
+      sessionStorage.setItem('x-lang', lang)
+      location.reload()
+    },
     showSearch() {
       this.$emit('showSearch', true)
     },
@@ -197,7 +214,9 @@ header #menu li {
     cursor: pointer;
     font-size: 1.15em;
     display: block;
-    width: 120px;
+    padding: 0 20px;
+    min-width: 120px;
+    // width: 120px;
     height: 40px;
     text-align: center;
     line-height: 40px;
@@ -244,7 +263,7 @@ header .drop_menu {
   }
   top: 100%;
   transform: scaleY(0);
-  width: 120px;
+  width: 100%;
   transform-origin: top;
   background-color: #414243;
   transition: 0.25s;

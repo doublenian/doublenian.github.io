@@ -2,8 +2,12 @@
   <div class="welfare-content-wrapper">
     <div class="title-wrapper">维迈公益</div>
     <swiper class="swiper" ref="mySwiper" :options="swiperOption">
-      <swiper-slide class="stop-swiping"><gongyi1></gongyi1></swiper-slide>
-      <swiper-slide class="stop-swiping"><gongyi2></gongyi2></swiper-slide>
+      <swiper-slide class="stop-swiping"
+        ><gongyi1 :list="list1"></gongyi1
+      ></swiper-slide>
+      <swiper-slide class="stop-swiping"
+        ><gongyi2 :list="list2"></gongyi2
+      ></swiper-slide>
     </swiper>
     <div class="bottom-swiper flex justify-center">
       <img
@@ -22,6 +26,8 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 import gongyi1 from './gongyi1'
 import gongyi2 from './gongyi2'
+import { getCategory } from '@/api'
+
 export default {
   components: {
     swiper,
@@ -38,11 +44,17 @@ export default {
   data() {
     return {
       swiperOption: {
-        loop: true,
+        // loop: true,
         noSwipingClass: 'stop-swiping',
         noSwiping: true
-      }
+      },
+      list1: [],
+      list2: []
     }
+  },
+  created() {
+    this.getGonyi1()
+    this.getGongyi2()
   },
   methods: {
     goNext() {
@@ -50,6 +62,80 @@ export default {
     },
     goPrev() {
       this.swiper.slidePrev()
+    },
+    getGongyi2() {
+      getCategory(null, 6).then(ret => {
+        if (ret.result) {
+          let list = ret.result.map(c => {
+            return {
+              image: c.bg.md,
+              // image: c.bg.md + '?x-oss-process=image/resize,h_550',
+              title: c.title.zh,
+              desc: c.content.zh,
+              href: c.link.herf
+            }
+          })
+          let listLen = list.length
+          let multiple = parseInt(listLen / 3)
+          let remainder = listLen % 3
+          let arr = this.computeArr(
+            list.slice(multiple * 3),
+            list,
+            multiple,
+            remainder
+          )
+          let listMulti = list.slice(0, multiple * 3)
+          let groupList = []
+          for (let i = 0; i < multiple; i++) {
+            groupList.push([...listMulti.slice(i * 3, 3 * (i + 1))])
+          }
+          if (arr.length > 0) {
+            groupList.push(arr)
+          }
+          this.list2 = groupList
+        }
+      })
+    },
+    getGonyi1() {
+      getCategory(null, 7).then(ret => {
+        if (ret.result) {
+          let list = ret.result.map(c => {
+            return {
+              image: c.bg.md,
+              // image: c.bg.md + '?x-oss-process=image/resize,h_550',
+              title: c.title.zh,
+              desc: c.content.zh,
+              href: c.link.herf
+            }
+          })
+          this.list1 = list
+        }
+      })
+    },
+    computeArr(list, fullList, multiple, remainder) {
+      let arr = []
+      switch (remainder) {
+        case 0: {
+          arr = []
+          break
+        }
+        case 1: {
+          if (multiple == 0) {
+            arr = [list[0], list[0], list[0]]
+          } else {
+            arr = [list[0], fullList[0], fullList[1]]
+          }
+          break
+        }
+        case 2: {
+          if (multiple == 0) {
+            arr = [list[0], list[1], list[0]]
+          } else {
+            arr = [list[0], list[1], fullList[0]]
+          }
+        }
+      }
+      return arr
     }
   }
 }

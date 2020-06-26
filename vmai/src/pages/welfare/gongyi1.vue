@@ -44,16 +44,15 @@
 //  * type = 7 抗击疫情
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
-import { getCategory } from '@/api'
 
 export default {
   components: {
     swiper,
     swiperSlide
   },
+  props: ['list'],
   data() {
     return {
-      list: [],
       swiperOption: {
         slidesPerView: 4,
         spaceBetween: 14,
@@ -66,22 +65,7 @@ export default {
       }
     }
   },
-  created() {
-    getCategory(null, 7).then(ret => {
-      if (ret.result) {
-        let list = ret.result.map(c => {
-          return {
-            image: c.bg.md,
-            // image: c.bg.md + '?x-oss-process=image/resize,h_550',
-            title: c.title.zh,
-            desc: c.content.zh,
-            href: c.link.herf
-          }
-        })
-        this.list = list
-      }
-    })
-  }
+  created() {}
 }
 </script>
 

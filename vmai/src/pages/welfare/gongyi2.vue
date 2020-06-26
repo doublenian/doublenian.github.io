@@ -61,13 +61,13 @@
 //  * type = 7 抗击疫情
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
-import { getCategory } from '@/api'
 
 export default {
   components: {
     swiper,
     swiperSlide
   },
+  props: ['list'],
   data() {
     return {
       swiperOption: {
@@ -77,68 +77,7 @@ export default {
           stopOnLastSlide: false,
           disableOnInteraction: false
         }
-      },
-      list: []
-    }
-  },
-  created() {
-    getCategory(null, 6).then(ret => {
-      if (ret.result) {
-        let list = ret.result.map(c => {
-          return {
-            image: c.bg.md,
-            // image: c.bg.md + '?x-oss-process=image/resize,h_550',
-            title: c.title.zh,
-            desc: c.content.zh,
-            href: c.link.herf
-          }
-        })
-        let listLen = list.length
-        let multiple = parseInt(listLen / 3)
-        let remainder = listLen % 3
-        let arr = this.computeArr(
-          list.slice(multiple * 3),
-          list,
-          multiple,
-          remainder
-        )
-        let listMulti = list.slice(0, multiple * 3)
-        let groupList = []
-        for (let i = 0; i < multiple; i++) {
-          groupList.push([...listMulti.slice(i * 3, 3 * (i + 1))])
-        }
-        if (arr.length > 0) {
-          groupList.push(arr)
-        }
-        this.list = groupList
       }
-    })
-  },
-  methods: {
-    computeArr(list, fullList, multiple, remainder) {
-      let arr = []
-      switch (remainder) {
-        case 0: {
-          arr = []
-          break
-        }
-        case 1: {
-          if (multiple == 0) {
-            arr = [list[0], list[0], list[0]]
-          } else {
-            arr = [list[0], fullList[0], fullList[1]]
-          }
-          break
-        }
-        case 2: {
-          if (multiple == 0) {
-            arr = [list[0], list[1], list[0]]
-          } else {
-            arr = [list[0], list[1], fullList[0]]
-          }
-        }
-      }
-      return arr
     }
   }
 }

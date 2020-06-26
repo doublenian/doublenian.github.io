@@ -3,7 +3,7 @@
     <div class="header flex justify-center items-center">
       <p class=" text-white text-font-32 font-weight-bold mt-20">精英团队</p>
     </div>
-    <div class="body mx-auto py-4">
+    <div class="body mx-auto ">
       <swiper class="swiper " :options="swiperOption">
         <swiper-slide
           v-for="(item, index) in list"
@@ -92,6 +92,7 @@ export default {
 .team {
   background-color: rgb(48, 49, 50);
   min-width: 1200px;
+  margin: auto;
   .header {
     width: 100%;
     height: 200px;
@@ -101,10 +102,10 @@ export default {
   }
   .body {
     width: 100%;
-    padding: 40px 20px 40px;
+    height: calc(100vh - 200px);
     // min-height: 60vh;
     .swiper {
-      height: @slideHeight;
+      height: calc(100vh - 200px);
       width: 100%;
       .swiper-slide {
         .bg-image {
@@ -152,7 +153,7 @@ export default {
             }
           }
           &:hover {
-            height: 72vh;
+            height: calc(100vh - 150px);
             box-shadow: -2px -1px 12px -2px rgba(0, 0, 0, 0.58);
           }
         }
