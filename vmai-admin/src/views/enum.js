@@ -7,6 +7,7 @@
  * type = 5 新闻动态
  * type = 6 维迈公益
  * type = 7 抗击疫情
+ * type = 8 证书
  */
 
 export default {

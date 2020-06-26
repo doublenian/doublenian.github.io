@@ -25,3 +25,16 @@ export function getCategory(parent_id, type) {
     data: params
   })
 }
+
+export function searchCategory(keyword) {
+  let params = {
+    keyword: keyword,
+    states: [1]
+  }
+
+  return request({
+    url: '/category/search',
+    method: 'post',
+    data: params
+  })
+}

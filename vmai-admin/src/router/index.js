@@ -139,6 +139,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/cert',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'cert',
+        component: () => import('@/views/cert/index'),
+        meta: { title: '荣誉资质', icon: 'nested' }
+      }
+    ]
+  },
+  {
     path: '/account',
     component: Layout,
     children: [
