@@ -133,7 +133,8 @@ export default {
             },
             weight: this.form.weight,
             name: this.form.name,
-            parent_id: this.form.twoLevel
+            parent_id: this.form.twoLevel,
+            layer: 3
           }
           if (this.opType === 'add') {
             categoryAdd(params).then(ret => {

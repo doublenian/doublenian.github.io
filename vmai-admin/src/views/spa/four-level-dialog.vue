@@ -144,7 +144,8 @@ export default {
               sm: this.form.smImage
             },
             weight: this.form.weight,
-            name: this.form.name
+            name: this.form.name,
+            layer: 4
             // parent_id: this.form.parent_id
           }
           if (this.opType === 'add') {

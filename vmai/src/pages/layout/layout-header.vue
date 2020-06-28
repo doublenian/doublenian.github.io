@@ -58,6 +58,9 @@
           >
             <a
               class="submenu"
+              v-show="
+                !(item.title.zh === '作品案例' && sub.title.zh === '集团简介')
+              "
               :class="[currentPage === sub.link.herf ? 'menuActive' : '']"
               @click="clickSubMenu(item, sub)"
               v-for="(sub, subIndex) in item.children"
@@ -88,16 +91,8 @@ export default {
   },
   async created() {
     await this.$store.dispatch('category/queryTwoLevel')
-    console.log('======TOP MENU=====')
-    console.log(this.twoLevelMenu)
-    let twoLevelMenu = []
-    this.twoLevelMenu.forEach(item => {
-      if (item.title.zh == '作品案例') {
-        item.children = item.children.filter(c => c.title.zh !== '集团简介')
-      }
-      twoLevelMenu.push(item)
-    })
-    this.menuList = twoLevelMenu
+
+    this.menuList = [...this.twoLevelMenu]
     this.isEn = sessionStorage.getItem('x-lang') === 'en'
   },
   mounted() {},

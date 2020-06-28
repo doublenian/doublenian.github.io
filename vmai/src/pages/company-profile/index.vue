@@ -26,14 +26,11 @@ export default {
       parentArr: []
     }
   },
-  async created() {
+  async mounted() {
     await this.$store.dispatch('category/queryThreeLevel')
-
     let layoutHoriz = this.threeLevelDataMap[this.threeLevelId].filter(
       c => c.layout
     )
-    console.log('=====layoutHoriz=====')
-    console.log(layoutHoriz)
     let layoutHorizPromise = layoutHoriz
       .map(c => c.id)
       .map(id => this.getList(id))
@@ -74,7 +71,6 @@ export default {
     this.parentArr = parentArr
     this.displayArr = arr
   },
-  mounted() {},
   methods: {
     getList(id) {
       return getCategory(id).then(ret => {

@@ -37,7 +37,8 @@ export default {
         val.name === 'team' ||
         val.name === 'company-promotion' ||
         val.name === 'welfare' ||
-        val.name === 'coronavirus'
+        val.name === 'coronavirus' ||
+        val.name === 'certfication'
       ) {
         this.showFoot = false
       } else {

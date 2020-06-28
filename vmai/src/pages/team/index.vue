@@ -4,7 +4,7 @@
       <p class=" text-white text-font-32 font-weight-bold mt-20">精英团队</p>
     </div>
     <div class="body mx-auto ">
-      <swiper class="swiper " :options="swiperOption">
+      <swiper class="swiper " :options="swiperOption" v-if="list.length > 0">
         <swiper-slide
           v-for="(item, index) in list"
           :key="'swipe' + index"
@@ -74,7 +74,7 @@ export default {
       list: [],
       swiperOption: {
         slidesPerView: 4,
-        spaceBetween: 0,
+        spaceBetween: 1,
         loop: true,
         autoplay: {
           delay: 8000,
@@ -105,7 +105,7 @@ export default {
     height: calc(100vh - 200px);
     // min-height: 60vh;
     .swiper {
-      height: calc(100vh - 200px);
+      height: 100%;
       width: 100%;
       .swiper-slide {
         .bg-image {
