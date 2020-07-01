@@ -31,6 +31,8 @@ module.exports = {
   },
   variants: {},
   corePlugins: {
+    preflight: true,
+    // accessibility: false,
     gap: false,
     gridAutoFlow: false,
     gridColumn: false,

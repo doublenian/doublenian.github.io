@@ -6,8 +6,24 @@
         class="map-body"
         :center="center"
         :zoom="zoom"
-        @ready="handler"
-      ></baidu-map>
+        :scroll-wheel-zoom="true"
+      >
+        <bm-marker
+          v-for="(item, index) in list"
+          :key="'marker' + index"
+          :position="{ lng: item.lng, lat: item.lat }"
+          @click="item.showInfoWindow = true"
+          :icon="{ url: '/position.png', size: { width: 23, height: 25 } }"
+        >
+          >
+          <bm-info-window
+            :show="item.showInfoWindow"
+            @close="item.showInfoWindow = false"
+            @open="item.showInfoWindow = true"
+            >{{ item.text }}</bm-info-window
+          >
+        </bm-marker>
+      </baidu-map>
       <div class="map-info">
         <p class="title">上海维迈建筑装饰集团有限公司</p>
         <div class="item">
@@ -42,9 +58,33 @@ export default {
   data() {
     return {
       center: { lng: 108.94589, lat: 34.383027 },
-      zoom: 5
+      zoom: 5,
+      show: false,
+      list: [
+        {
+          text: 'content1',
+          lng: 116.404,
+          lat: 39.915,
+          showInfoWindow: false
+        },
+        {
+          text: 'content2',
+          lng: 118.404,
+          lat: 36.915,
+          showInfoWindow: false
+        }
+      ]
+    }
+  },
+  methods: {
+    infoWindowClose() {
+      this.show = false
+    },
+    infoWindowOpen() {
+      this.show = true
     }
   }
+
   //   mounted() {
   //     // 百度地图API功能
   //     var sContent =
@@ -126,10 +166,6 @@ export default {
 </script>
 
 <style lang="less">
-.BMap_pop > img {
-  width: 10px;
-  height: 10px;
-}
 .contact-us-wrapper {
   background-color: white;
   padding-top: 12vh;
@@ -154,6 +190,10 @@ export default {
     .map-body {
       width: 65vw;
       height: 100%;
+      .BMap_Marker > div > img {
+        max-width: 100%;
+        height: auto;
+      }
     }
     .map-info {
       padding: 4vh 2vw 0;
