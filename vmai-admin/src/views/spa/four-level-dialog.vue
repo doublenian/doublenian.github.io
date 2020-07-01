@@ -32,6 +32,11 @@
             <el-input v-model="form.enContent" class=" w-full" type="textarea"></el-input>
           </el-form-item>
         </el-col>
+        <el-col :span="24">
+          <el-form-item label="链接" prop="linker">
+            <el-input v-model="form.linker" class=" w-11/12"></el-input>
+          </el-form-item>
+        </el-col>
         <!-- <el-col :span="12">
           <el-form-item label="显示时间" prop="date">
             <el-date-picker v-model="form.date" type="datetime" placeholder="选择显示时间"> </el-date-picker>
@@ -84,7 +89,8 @@ export default {
         enContent: '',
         mdImage: '',
         smImage: '',
-        parent_id: ''
+        parent_id: '',
+        linker: ''
       },
       rules: {
         mdImage: [{ required: true, message: '请输入PC图片', trigger: 'blur' }]
@@ -115,7 +121,8 @@ export default {
           chContent: data.row.content.zh,
           enContent: data.row.content.en,
           mdImage: data.row.bg.md,
-          smImage: data.row.bg.sm
+          smImage: data.row.bg.sm,
+          linker: data.row.link.herf
         }
       }
       return new Promise((resolve, reject) => {
@@ -145,7 +152,10 @@ export default {
             },
             weight: this.form.weight,
             name: this.form.name,
-            layer: 4
+            layer: 4,
+            link: {
+              herf: this.form.linker
+            }
             // parent_id: this.form.parent_id
           }
           if (this.opType === 'add') {

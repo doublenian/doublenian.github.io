@@ -37,3 +37,10 @@ export function searchCategory(keyword) {
     data: params
   })
 }
+export function listCompany() {
+  return request({
+    url: '/company/list',
+    method: 'post',
+    data: {}
+  })
+}

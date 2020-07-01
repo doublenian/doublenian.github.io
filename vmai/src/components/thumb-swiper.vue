@@ -2,8 +2,10 @@
   <div class="thumb-swiper relative">
     <swiper class=" h-full relative" :options="swiperOption" ref="mySwiper">
       <swiper-slide v-for="(item, index) in swiperList" :key="'swiper' + index"
-        ><div
-          class="banner-wrapper flex items-center"
+        ><a
+          class="banner-wrapper flex items-center block"
+          :href="item.link.herf ? item.link.herf : 'javascript:void(0)'"
+          :target="item.link.herf ? '_blank' : ''"
           :style="{
             backgroundImage:
               'url(' + item.bg.md + '?x-oss-process=image/resize,h_1080' + ')'
@@ -24,7 +26,7 @@
               v-html="item.content.zh.replace(/(\;|\；)/g, '<br>')"
             ></p>
           </div>
-        </div>
+        </a>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper-slide>
     </swiper>

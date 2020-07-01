@@ -95,6 +95,10 @@ export default {
   background-color: rgb(48, 49, 50);
   min-width: 1200px;
   margin: auto;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
   .header {
     width: 100%;
     height: 200px;

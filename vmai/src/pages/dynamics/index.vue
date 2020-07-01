@@ -1,7 +1,12 @@
 <template>
   <div class="dynamics-content-wrapper">
     <div class="title-wrapper">集团动态</div>
-    <swiper class="swiper" ref="mySwiper" :options="swiperOption">
+    <swiper
+      class="swiper"
+      ref="mySwiper"
+      :options="swiperOption"
+      v-if="list.length > 0"
+    >
       <swiper-slide v-for="(dynamic, index) in list" :key="'dynamic' + index">
         <dynamic1 v-if="dynamic.type === 0" :data="dynamic.data"></dynamic1>
         <dynamic2 v-if="dynamic.type === 1" :data="dynamic.data"></dynamic2>
