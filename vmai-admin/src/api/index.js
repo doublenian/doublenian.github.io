@@ -124,3 +124,67 @@ export function modifyCategory(id, data) {
     data
   })
 }
+
+//分公司添加
+/**
+ * {
+  "address": {
+    "en": "string",
+    "zh": "string"
+  },
+  "contract": {
+    "en": "string",
+    "zh": "string"
+  },
+  "email": "string",
+  "id": "string",
+  "lng_lat": "string",
+  "meta": {
+    "create_at": 0,
+    "create_by": "string",
+    "state": 0,
+    "update_at": 0
+  },
+  "mobile": "string",
+  "name": {
+    "en": "string",
+    "zh": "string"
+  },
+  "weight": 0
+}
+ * @param {} params 
+ */
+export function addCompany(data) {
+  return request({
+    url: `/admin/company/add`,
+    method: 'post',
+    data
+  })
+}
+//分公司列表
+export function listCompany() {
+  return request({
+    url: `/admin/company/list`,
+    method: 'post',
+    data: {}
+  })
+}
+
+//分公司修改
+///admin/company/{id}/update
+export function updateCompany(id, data) {
+  return request({
+    url: `admin/company/${id}/update`,
+    method: 'post',
+    data
+  })
+}
+
+//分公司删除
+//state=2 表示删除
+export function deleteCompany(id, state) {
+  return request({
+    url: `/admin/company/${id}/${state}`,
+    method: 'post'
+  })
+}

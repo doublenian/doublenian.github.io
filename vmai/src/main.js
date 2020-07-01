@@ -6,6 +6,7 @@ import VueProgressBar from 'vue-progressbar'
 import store from './store'
 
 Vue.config.productionTip = false
+import BaiduMap from 'vue-baidu-map'
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 // // require styles
 // import 'swiper/dist/css/swiper.css'
@@ -26,6 +27,10 @@ const options = {
 }
 
 Vue.use(VueProgressBar, options)
+Vue.use(BaiduMap, {
+  /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
+  ak: 'v6XneiQNG5Yf2A8DPeDgzPEyuokDWqzN'
+})
 Vue.directive('click-outside', {
   bind() {
     this.event = event => this.vm.$emit(this.expression, event)

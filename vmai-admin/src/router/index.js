@@ -151,6 +151,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/company',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'company',
+        component: () => import('@/views/company/index'),
+        meta: { title: '分公司管理', icon: 'nested' }
+      }
+    ]
+  },
+  {
     path: '/account',
     component: Layout,
     children: [

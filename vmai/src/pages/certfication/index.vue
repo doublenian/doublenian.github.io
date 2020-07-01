@@ -29,11 +29,17 @@
           class="flex items-center"
         >
           <div
-            class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top"
-            :style="{ backgroundImage: 'url(' + item.image + ')' }"
+            class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top swiper-lazy"
+            :data-background="item.image + '?x-oss-process=image/resize,p_30'"
           >
             <div class="background-blur flex items-center">
-              <img alt="" :src="item.image" class="w-full" />
+              <img
+                alt=""
+                :data-src="
+                  item.image + '?x-oss-process=image/resize,w_800,limit_0'
+                "
+                class="w-full swiper-lazy"
+              />
               <div class="desc-content">
                 {{ item.title }}
               </div>
@@ -61,7 +67,7 @@ export default {
       if (ret.result) {
         this.list = ret.result.map(c => {
           return {
-            image: c.bg.md + '?x-oss-process=image/resize,h_550',
+            image: c.bg.md,
             name: c.name,
             title: c.title.zh,
             desc: c.content.zh
@@ -77,6 +83,8 @@ export default {
         slidesPerView: 4,
         spaceBetween: 10,
         loop: true,
+        lazy: true,
+        slidesPerGroup: 4,
         autoplay: {
           delay: 8000,
           stopOnLastSlide: false,

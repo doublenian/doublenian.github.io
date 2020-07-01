@@ -28,8 +28,7 @@ export function getCategory(parent_id, type) {
 
 export function searchCategory(keyword) {
   let params = {
-    keyword: keyword,
-    states: [1]
+    keyword: keyword
   }
 
   return request({

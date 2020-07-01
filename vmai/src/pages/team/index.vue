@@ -11,8 +11,8 @@
           class="flex items-center"
         >
           <div
-            class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top"
-            :style="{ backgroundImage: 'url(' + item.image + ')' }"
+            class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top swiper-lazy"
+            :data-background="item.image"
           >
             <div class="profile py-6">
               <div class="icon-image flex justify-center items-center">
@@ -60,7 +60,7 @@ export default {
       if (ret.result) {
         this.list = ret.result.map(c => {
           return {
-            image: c.bg.md + '?x-oss-process=image/resize,h_550',
+            image: c.bg.md + '?x-oss-process=image/resize,p_80',
             name: c.name,
             title: c.title.zh,
             desc: c.content.zh
@@ -76,6 +76,8 @@ export default {
         slidesPerView: 4,
         spaceBetween: 1,
         loop: true,
+        slidesPerGroup: 4,
+        lazy: true,
         autoplay: {
           delay: 8000,
           stopOnLastSlide: false,
