@@ -4,7 +4,24 @@
       <p class=" text-white text-font-32 font-weight-bold mt-20">精英团队</p>
     </div>
     <div class="body mx-auto ">
-      <swiper class="swiper " :options="swiperOption" v-if="list.length > 0">
+      <div
+        @click="goPrev"
+        class="arrow-item-left arrow-item flex justify-center items-center cursor-pointer"
+      >
+        <img src="../../assets/images/certfication/left.png" alt="" />
+      </div>
+      <div
+        @click="goNext"
+        class="arrow-item-right arrow-item flex justify-center items-center cursor-pointer"
+      >
+        <img src="../../assets/images/certfication/right.png" alt="" />
+      </div>
+      <swiper
+        class="swiper "
+        :options="swiperOption"
+        v-if="list.length > 0"
+        ref="mySwiper"
+      >
         <swiper-slide
           v-for="(item, index) in list"
           :key="'swipe' + index"
@@ -42,6 +59,7 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
+    <p class="showMore">查看更多 》》</p>
   </div>
 </template>
 
@@ -85,6 +103,19 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper
+    }
+  },
+  methods: {
+    goNext() {
+      this.swiper.slideNext()
+    },
+    goPrev() {
+      this.swiper.slidePrev()
+    }
   }
 }
 </script>
@@ -99,6 +130,13 @@ export default {
     max-width: 100%;
     height: auto;
   }
+  .showMore {
+    height: 7vh;
+    color: #fdb732;
+    line-height: 7vh;
+    text-align: center;
+    font-size: 1vw;
+  }
   .header {
     width: 100%;
     height: 200px;
@@ -108,7 +146,28 @@ export default {
   }
   .body {
     width: 100%;
-    height: calc(100vh - 200px);
+    height: calc(90vh - 200px);
+    margin-top: 3vh;
+    position: relative;
+    .arrow-item {
+      position: absolute;
+      z-index: 999;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5vw;
+      height: 19vh;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      img {
+        width: 2.5vw;
+      }
+    }
+    .arrow-item-left {
+      left: 10px;
+    }
+    .arrow-item-right {
+      right: 20px;
+    }
     // min-height: 60vh;
     .swiper {
       height: 100%;

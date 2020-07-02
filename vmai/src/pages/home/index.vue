@@ -1,39 +1,57 @@
 <template>
-  <swiper
-    class="swiper"
-    :options="swiperOption"
-    v-if="bannerData && bannerData.length > 0"
-  >
-    <swiper-slide v-for="(item, index) in bannerData" :key="'swiper' + index"
-      ><a
-        class="banner-wrapper flex items-center block"
-        :href="item.link.herf ? item.link.herf : 'javascript:void(0)'"
-        :target="item.link.herf ? '_blank' : ''"
-        :style="{
-          backgroundImage:
-            'url(' + item.imageUrl + '?x-oss-process=image/resize,h_1080' + ')'
-        }"
-      >
-        <div class=" text-white pl-20">
-          <p
-            class="mb-4 text-left"
-            style="font-size:30px"
-            data-swiper-parallax="-240"
-          >
-            {{ item.titleZh }}
-          </p>
-          <p
-            class="text-left"
-            style="font-size:14px;line-height:1.5"
-            data-swiper-parallax="-400"
-            v-html="item.contentZh.replace(/(\;|\；)/g, '<br>')"
-          ></p></div></a
-    ></swiper-slide>
+  <div class="home-wrapper">
     <div
-      class="swiper-pagination swiper-pagination-bullets"
-      slot="pagination"
-    ></div>
-  </swiper>
+      @click="goPrev"
+      class="arrow-item-left arrow-item flex justify-center items-center cursor-pointer"
+    >
+      <img src="../../assets/images/certfication/left.png" alt="" />
+    </div>
+    <div
+      @click="goNext"
+      class="arrow-item-right arrow-item flex justify-center items-center cursor-pointer"
+    >
+      <img src="../../assets/images/certfication/right.png" alt="" />
+    </div>
+    <swiper
+      class="swiper animate-swiper"
+      ref="mySwiper"
+      :options="swiperOption"
+      v-if="bannerData && bannerData.length > 0"
+    >
+      <swiper-slide v-for="(item, index) in bannerData" :key="'swiper' + index"
+        ><a
+          class="banner-wrapper flex items-center block"
+          :href="item.link.herf ? item.link.herf : 'javascript:void(0)'"
+          :target="item.link.herf ? '_blank' : ''"
+          :style="{
+            backgroundImage:
+              'url(' +
+              item.imageUrl +
+              '?x-oss-process=image/resize,h_1080' +
+              ')'
+          }"
+        >
+          <div class=" text-white pl-20">
+            <p
+              class="mb-4 text-left"
+              style="font-size:30px"
+              data-swiper-parallax="-240"
+            >
+              {{ item.titleZh }}
+            </p>
+            <p
+              class="text-left"
+              style="font-size:14px;line-height:1.5"
+              data-swiper-parallax="-400"
+              v-html="item.contentZh.replace(/(\;|\；)/g, '<br>')"
+            ></p></div></a
+      ></swiper-slide>
+      <div
+        class="swiper-pagination swiper-pagination-bullets"
+        slot="pagination"
+      ></div>
+    </swiper>
+  </div>
 </template>
 
 <script>
@@ -49,13 +67,17 @@ export default {
     swiperSlide
   },
   computed: {
-    ...mapGetters(['bannerData'])
+    ...mapGetters(['bannerData']),
+    swiper() {
+      return this.$refs.mySwiper.swiper
+    }
   },
   data() {
     return {
       swiperOption: {
         speed: 600,
         parallax: true,
+        loop: true,
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -75,14 +97,67 @@ export default {
   async created() {
     await this.$store.dispatch('category/getBannerData')
   },
-  methods: {}
+
+  methods: {
+    goNext() {
+      this.swiper.slideNext()
+    },
+    goPrev() {
+      this.swiper.slidePrev()
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import './base.scss';
+
+@keyframes bounceFade {
+  0% {
+    -webkit-transform: translateY(1200px) scale(0.7);
+    transform: translateY(1200px) scale(0.7);
+    opacity: 0;
+  }
+
+  80% {
+    -webkit-transform: translateY(0px) scale(0.7);
+    transform: translateY(0px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.home-wrapper {
+  .arrow-item {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5vw;
+    height: 19vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    img {
+      width: 2.5vw;
+    }
+  }
+  .arrow-item-left {
+    left: 10px;
+  }
+  .arrow-item-right {
+    right: 10px;
+  }
+}
+
 .swiper {
   height: 100vh;
+  &.animate-swiper {
+    animation: bounceFade 1.5s;
+  }
   // height: (9/16) * 100vw;
   .banner-wrapper {
     width: 100%;

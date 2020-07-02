@@ -16,7 +16,6 @@
           @click="showWindow(item)"
           :icon="{ url: '/position.png', size: { width: 23, height: 25 } }"
         >
-          >
           <bm-info-window
             :show="item.showInfoWindow"
             @close="item.showInfoWindow = false"
