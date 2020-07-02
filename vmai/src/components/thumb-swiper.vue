@@ -159,7 +159,9 @@ export default {
       parentIndex: 0,
       childParentMap: {},
       swiperOption: {
+        speed: 1000,
         loop: true,
+        effect: 'fade',
         pagination: {
           el: '.swiper-pagination'
         }

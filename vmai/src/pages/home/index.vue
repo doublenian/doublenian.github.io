@@ -75,9 +75,10 @@ export default {
   data() {
     return {
       swiperOption: {
-        speed: 600,
-        parallax: true,
+        speed: 1000,
+        // parallax: true,
         loop: true,
+        effect: 'fade',
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -155,9 +156,9 @@ export default {
 
 .swiper {
   height: 100vh;
-  &.animate-swiper {
-    animation: bounceFade 1.5s;
-  }
+  // &.animate-swiper {
+  //   animation: bounceFade 1.5s;
+  // }
   // height: (9/16) * 100vw;
   .banner-wrapper {
     width: 100%;

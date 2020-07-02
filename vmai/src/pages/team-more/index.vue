@@ -4,7 +4,7 @@
       <p class=" text-white text-font-32 font-weight-bold mt-20">精英团队</p>
     </div>
     <div class="body mx-auto ">
-      <!-- <div
+      <div
         @click="goPrev"
         class="arrow-item-left arrow-item flex justify-center items-center cursor-pointer"
       >
@@ -15,7 +15,7 @@
         class="arrow-item-right arrow-item flex justify-center items-center cursor-pointer"
       >
         <img src="../../assets/images/certfication/right.png" alt="" />
-      </div> -->
+      </div>
       <swiper
         class="swiper "
         :options="swiperOption"
@@ -59,7 +59,7 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
-    <p class="showMore" @click="$router.push('/team-more')">查看更多 》》</p>
+    <p class="showMore">查看更多 》》</p>
   </div>
 </template>
 
@@ -76,7 +76,7 @@ export default {
   created() {
     getCategory(null, 3).then(ret => {
       if (ret.result) {
-        this.list = ret.result
+        let list = ret.result
           .map(c => {
             return {
               image: c.bg.md + '?x-oss-process=image/resize,p_80',
@@ -85,20 +85,25 @@ export default {
               desc: c.content.zh
             }
           })
-          .slice(0, 4)
+          .slice(4)
       }
     })
   },
   data() {
     return {
-      list: [],
+      list1: [],
+      list2: [],
       swiperOption: {
         slidesPerView: 4,
         spaceBetween: 1,
-        loop: false,
+        loop: true,
         slidesPerGroup: 4,
         lazy: true,
-        autoplay: false
+        autoplay: {
+          delay: 8000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        }
       }
     }
   },

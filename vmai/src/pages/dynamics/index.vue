@@ -13,7 +13,10 @@
       </swiper-slide>
       <!-- <swiper-slide><dynamic2></dynamic2></swiper-slide> -->
     </swiper>
-    <div class="bottom-swiper flex justify-center" v-if="showFoot">
+    <div
+      class="bottom-swiper flex justify-center"
+      v-if="showFoot && list.length > 0"
+    >
       <img
         src="../../assets/images/arrow-left.jpg"
         alt=""

@@ -43,6 +43,12 @@ const routes = [
     path: '/about/team',
     component: () => import('@/pages/team/index.vue')
   },
+  //经营团队
+  {
+    name: 'team-more',
+    path: '/about/team-more',
+    component: () => import('@/pages/team-more/index.vue')
+  },
   //集团动态
   {
     name: 'dynamics',
@@ -69,7 +75,7 @@ const routes = [
 
 Vue.use(VueRouter)
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   routes
 })
 export default router
