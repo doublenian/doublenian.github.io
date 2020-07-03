@@ -184,7 +184,8 @@ export default {
     background-position: center;
   }
   .body {
-    width: 100%;
+    width: 80vw;
+    margin: auto;
     height: calc(100vh - 200px);
     position: relative;
     .arrow-item {
@@ -201,10 +202,10 @@ export default {
       }
     }
     .arrow-item-left {
-      left: 10px;
+      left: -7vw;
     }
     .arrow-item-right {
-      right: 20px;
+      right: -7vw;
     }
     // min-height: 60vh;
     .swiper {

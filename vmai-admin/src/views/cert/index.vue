@@ -6,13 +6,7 @@
       <el-table-column prop="title.en" label="荣誉资质英文标题"></el-table-column>
       <el-table-column label="图片" width="120px">
         <template slot-scope="{ row }">
-          <el-image
-            class=" w-20 h-20 object-contain"
-            :src="row.bg.md + '?x-oss-process=image/resize,w_100'"
-            fit="contain"
-            :preview-src-list="[row.bg.md]"
-          >
-          </el-image>
+          <el-image class=" w-20 h-20 object-contain" :src="row.bg.md" fit="contain" :preview-src-list="[row.bg.md]"> </el-image>
           <!-- <img :src="row.bg.md" alt="" class=" w-20 h-20 object-contain" /> -->
         </template>
       </el-table-column>

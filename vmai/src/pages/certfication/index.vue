@@ -30,7 +30,9 @@
         >
           <div
             class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top swiper-lazy"
-            :data-background="item.image + '?x-oss-process=image/resize,p_30'"
+            :data-background="
+              item.image + '?x-oss-process=image/resize,p_10/blur,r_50,s_3'
+            "
           >
             <div class="background-blur flex items-center">
               <img
@@ -160,13 +162,13 @@ export default {
           width: 22vw;
           height: 100%;
           position: relative;
+          background-size: 6000px;
           .background-blur {
             position: absolute;
             left: 0;
             right: 0;
             top: 0;
             bottom: 0;
-            backdrop-filter: blur(8px);
             .desc-content {
               position: absolute;
               bottom: 0;
