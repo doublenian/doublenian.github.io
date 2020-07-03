@@ -9,6 +9,14 @@ Vue.config.productionTip = false
 import BaiduMap from 'vue-baidu-map'
 import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer'
+Vue.use(Viewer, {
+  defaultOptions: {
+    title: false,
+    tooltip: false,
+    navbar: false,
+    zIndex: 9999
+  }
+})
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 // // require styles
 // import 'swiper/dist/css/swiper.css'

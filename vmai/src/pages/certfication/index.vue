@@ -22,6 +22,7 @@
         ref="mySwiper"
         :options="swiperOption"
         v-if="list.length > 0"
+        v-viewer="ViewerOptions"
       >
         <swiper-slide
           v-for="(item, index) in list"
@@ -80,6 +81,7 @@ export default {
     })
   },
   data() {
+    let self = this
     return {
       list: [],
       swiperOption: {
@@ -92,6 +94,14 @@ export default {
           delay: 8000,
           stopOnLastSlide: false,
           disableOnInteraction: false
+        }
+      },
+      ViewerOptions: {
+        viewed(e) {
+          this.swiper.autoplay.stop()
+        },
+        hide() {
+          this.swiper.autoplay.start()
         }
       }
     }
