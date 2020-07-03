@@ -8,22 +8,26 @@
     <div class="video-wrapper">
       <video
         loop
+        autoplay
+        controls
         class="myVideo"
         ref="myVideo"
-        controls
         style="object-fit: cover"
         poster="../../assets/images/promotion/背景.jpg"
       >
-        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
+        <source
+          src="https://fhc-web-1301696124.cos.ap-shanghai.myqcloud.com/xuanchuan.mp4"
+          type="video/mp4"
+        />
         Your browser does not support HTML5 video.
       </video>
-      <img
+      <!-- <img
         src="../../assets/images/promotion/bofang-2.png"
         alt=""
         class=" cursor-pointer"
         @click="playVideo"
         v-if="showPlayBtn"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -51,9 +55,9 @@ export default {
   margin: auto;
   .video-wrapper {
     position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 100%;
     .poster {
       position: absolute;

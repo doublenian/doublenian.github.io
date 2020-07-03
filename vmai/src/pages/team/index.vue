@@ -59,7 +59,9 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
-    <p class="showMore" @click="$router.push('/team-more')">查看更多 》》</p>
+    <a class="showMore block" href="/about/team-more" target="_blank"
+      >查看更多 》》</a
+    >
   </div>
 </template>
 

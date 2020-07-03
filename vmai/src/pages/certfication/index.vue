@@ -56,7 +56,8 @@
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 import { getCategory } from '@/api'
-
+// import 'viewerjs/dist/viewer.css'
+// import Viewer from 'v-viewer'
 export default {
   components: {
     swiper,
@@ -112,6 +113,10 @@ export default {
 <style lang="less">
 @slideHeight: 60vh;
 .certification {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
   background-color: rgb(48, 49, 50);
   min-width: 1200px;
   margin: auto;

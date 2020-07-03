@@ -53,7 +53,9 @@
         </template>
         <template v-else>
           <img
-            :src="swiperList[0].bg.md + '?x-oss-process=image/resize,h_100'"
+            :src="
+              swiperList[0].bg.md + '?x-oss-process=image/resize,h_100,p_10'
+            "
             alt=""
           />
           <div class="mask flex items-center text-font-16 p-8 text-brighter">
@@ -164,6 +166,11 @@ export default {
         effect: 'fade',
         pagination: {
           el: '.swiper-pagination'
+        },
+        autoplay: {
+          delay: 5000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
         }
       },
       watcher: null

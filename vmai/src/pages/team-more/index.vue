@@ -1,9 +1,9 @@
 <template>
-  <div class="team">
+  <div class="team-more">
     <div class="header flex justify-center items-center">
       <p class=" text-white text-font-32 font-weight-bold mt-20">精英团队</p>
     </div>
-    <div class="body mx-auto ">
+    <div class="body mx-auto " v-if="list1.length > 0 && list2.length > 0">
       <div
         @click="goPrev"
         class="arrow-item-left arrow-item flex justify-center items-center cursor-pointer"
@@ -16,50 +16,83 @@
       >
         <img src="../../assets/images/certfication/right.png" alt="" />
       </div>
-      <swiper
-        class="swiper "
-        :options="swiperOption"
-        v-if="list.length > 0"
-        ref="mySwiper"
-      >
-        <swiper-slide
-          v-for="(item, index) in list"
-          :key="'swipe' + index"
-          class="flex items-center"
-        >
-          <div
-            class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top swiper-lazy"
-            :data-background="item.image"
+      <div class="swiper-area">
+        <swiper class="swiper " :options="swiperOption" ref="mySwiper1">
+          <swiper-slide
+            v-for="(item, index) in list1"
+            :key="'swipe' + index"
+            class="flex items-center"
           >
-            <div class="profile py-6">
-              <div class="icon-image flex justify-center items-center">
-                <img src="../../assets/images/team/arrow-up.png" alt="" />
-              </div>
+            <div
+              class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top swiper-lazy"
+              :data-background="item.image"
+            >
+              <div class="profile py-6">
+                <div class="icon-image flex justify-center items-center">
+                  <img src="../../assets/images/team/arrow-up.png" alt="" />
+                </div>
 
-              <div class="flex  items-end justify-center">
-                <p class=" text-font-18 text-white font-bold mr-3 ">
-                  {{ item.name }}
-                </p>
-                <p class=" text-font-14  text-brighter">
-                  {{ item.title }}
-                </p>
-              </div>
-              <div
-                class="pt-4 text-white px-6 profile-desc"
-                style="padding-bottom:6vh"
-              >
-                <p
-                  class=" text-center"
-                  v-html="item.desc.replace(/(\;|\；)/g, '<br>')"
-                ></p>
+                <div class="flex  items-end justify-center">
+                  <p class=" text-font-18 text-white font-bold mr-3 ">
+                    {{ item.name }}
+                  </p>
+                  <p class=" text-font-14  text-brighter">
+                    {{ item.title }}
+                  </p>
+                </div>
+                <div
+                  class="pt-4 text-white px-6 profile-desc"
+                  style="padding-bottom:6vh"
+                >
+                  <p
+                    class=" text-center"
+                    v-html="item.desc.replace(/(\;|\；)/g, '<br>')"
+                  ></p>
+                </div>
               </div>
             </div>
-          </div>
-        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
-      </swiper>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+        <swiper class="swiper " :options="swiperOption" ref="mySwiper2">
+          <swiper-slide
+            v-for="(item, index) in list2"
+            :key="'swipe' + index"
+            class="flex items-center"
+          >
+            <div
+              class=" bg-image w-full bg-no-repeat bg-cover bg-center bg-top swiper-lazy"
+              :data-background="item.image"
+            >
+              <div class="profile py-6">
+                <div class="icon-image flex justify-center items-center">
+                  <img src="../../assets/images/team/arrow-up.png" alt="" />
+                </div>
+
+                <div class="flex  items-end justify-center">
+                  <p class=" text-font-18 text-white font-bold mr-3 ">
+                    {{ item.name }}
+                  </p>
+                  <p class=" text-font-14  text-brighter">
+                    {{ item.title }}
+                  </p>
+                </div>
+                <div
+                  class="pt-4 text-white px-6 profile-desc"
+                  style="padding-bottom:6vh"
+                >
+                  <p
+                    class=" text-center"
+                    v-html="item.desc.replace(/(\;|\；)/g, '<br>')"
+                  ></p>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </div>
     </div>
-    <p class="showMore">查看更多 》》</p>
   </div>
 </template>
 
@@ -79,13 +112,16 @@ export default {
         let list = ret.result
           .map(c => {
             return {
-              image: c.bg.md + '?x-oss-process=image/resize,p_80',
+              image: c.bg.md + '?x-oss-process=image/resize,p_30',
               name: c.name,
               title: c.title.zh,
               desc: c.content.zh
             }
           })
           .slice(4)
+        let listLen = parseInt(list.length / 2)
+        this.list1 = list.slice(0, listLen)
+        this.list2 = list.slice(listLen)
       }
     })
   },
@@ -99,6 +135,7 @@ export default {
         loop: true,
         slidesPerGroup: 4,
         lazy: true,
+
         autoplay: {
           delay: 8000,
           stopOnLastSlide: false,
@@ -108,16 +145,21 @@ export default {
     }
   },
   computed: {
-    swiper() {
-      return this.$refs.mySwiper.swiper
+    swiper1() {
+      return this.$refs.mySwiper1.swiper
+    },
+    swiper2() {
+      return this.$refs.mySwiper2.swiper
     }
   },
   methods: {
     goNext() {
-      this.swiper.slideNext()
+      this.swiper1.slideNext()
+      this.swiper2.slideNext()
     },
     goPrev() {
-      this.swiper.slidePrev()
+      this.swiper1.slidePrev()
+      this.swiper2.slidePrev()
     }
   }
 }
@@ -125,7 +167,7 @@ export default {
 
 <style lang="less">
 @slideHeight: 60vh;
-.team {
+.team-more {
   background-color: rgb(48, 49, 50);
   min-width: 1200px;
   margin: auto;
@@ -133,13 +175,7 @@ export default {
     max-width: 100%;
     height: auto;
   }
-  .showMore {
-    height: 7vh;
-    color: #fdb732;
-    line-height: 7vh;
-    text-align: center;
-    font-size: 1vw;
-  }
+
   .header {
     width: 100%;
     height: 200px;
@@ -149,8 +185,7 @@ export default {
   }
   .body {
     width: 100%;
-    height: calc(90vh - 200px);
-    margin-top: 3vh;
+    height: calc(100vh - 200px);
     position: relative;
     .arrow-item {
       position: absolute;
@@ -173,9 +208,10 @@ export default {
     }
     // min-height: 60vh;
     .swiper {
-      height: 100%;
+      height: calc(50vh - 100px);
       width: 100%;
       .swiper-slide {
+        height: calc(50vh - 100px);
         .bg-image {
           // width: 25vw;
           height: 100%;
@@ -221,7 +257,7 @@ export default {
             }
           }
           &:hover {
-            height: calc(100vh - 150px);
+            height: calc(50vh - 60px);
             box-shadow: -2px -1px 12px -2px rgba(0, 0, 0, 0.58);
           }
         }

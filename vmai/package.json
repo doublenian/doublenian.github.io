@@ -19,6 +19,7 @@
     "scrollbooster": "^1.1.0",
     "tailwindcss-transitions": "^2.1.0",
     "v-click-outside": "^2.1.4",
+    "v-viewer": "^1.5.1",
     "vue": "^2.6.10",
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.1.3",

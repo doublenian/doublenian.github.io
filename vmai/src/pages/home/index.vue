@@ -75,10 +75,15 @@ export default {
   data() {
     return {
       swiperOption: {
-        speed: 1000,
+        speed: 2000,
         // parallax: true,
         loop: true,
         effect: 'fade',
+        autoplay: {
+          delay: 5000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        },
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -164,7 +169,7 @@ export default {
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: bottom;
+    background-position: center;
     background-repeat: no-repeat;
   }
   /deep/ .swiper-pagination-bullet-custom {

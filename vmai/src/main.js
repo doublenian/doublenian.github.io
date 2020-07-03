@@ -7,6 +7,8 @@ import store from './store'
 
 Vue.config.productionTip = false
 import BaiduMap from 'vue-baidu-map'
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 // // require styles
 // import 'swiper/dist/css/swiper.css'
@@ -25,7 +27,7 @@ const options = {
   location: 'top',
   inverse: false
 }
-
+Vue.use(Viewer, { name: 'viewer' })
 Vue.use(VueProgressBar, options)
 Vue.use(BaiduMap, {
   /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
