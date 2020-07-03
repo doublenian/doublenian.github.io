@@ -68,8 +68,8 @@ export default {
         if (ret.result) {
           let list = ret.result.map(c => {
             return {
-              image: c.bg.md,
-              // image: c.bg.md + '?x-oss-process=image/resize,h_550',
+              // image: c.bg.md,
+              image: c.bg.md + '?x-oss-process=image/resize,h_550',
               title: c.title.zh,
               desc: c.content.zh,
               href: c.link.herf
