@@ -26,7 +26,7 @@
         </div>
         <div class=" text-font-14">
           <p>公司地址:</p>
-          <p>上海市徐汇区田林路418号B栋200233</p>
+          <p>中国上海普陀区真北路2167号鸿海大厦17层至22层</p>
         </div>
       </div>
       <div class=" text-white">
@@ -44,7 +44,7 @@
       class=" text-white text-font-12 text-center py-2 w-full"
       style="background-color:#303132;color:lightgrey"
     >
-      @ 2020 V-CAN All Right Reservered 维迈装饰集团 版权所有 沪ICP备
+      @ 2020 V-CAN All Right Reservered 维迈科建集团有限公司 版权所有 沪ICP备
       160322530号-1
     </div>
   </div>
