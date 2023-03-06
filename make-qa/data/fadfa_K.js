@@ -1,1 +1,0 @@
-{"id":"K","type":"multi-choice","title":{"zh":"fad","en":"fad"},"answer":[{"id":"K1","title":{"en":"fadf","zh":"fda"}}]}
